@@ -1,0 +1,12 @@
+BasedOnStyle: Microsoft
+
+NamespaceIndentation: All
+
+AllowShortBlocksOnASingleLine: Always
+AllowShortLambdasOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortCaseExpressionOnASingleLine: true
+AllowShortCompoundRequirementOnASingleLine: true
+
+PackConstructorInitializers: Never
