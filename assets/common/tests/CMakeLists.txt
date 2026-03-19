@@ -11,9 +11,9 @@ function(myproject_add_test TARGET_NAME)
     target_link_libraries(${TARGET_NAME} PRIVATE Catch2::Catch2WithMain)
     catch_discover_tests(${TARGET_NAME})
 
-    set_target_properties(${TARGET_NAME} PROPERTIES
-        FOLDER "tests"
-        SKIP_LINTING ON) #clang-tidy hates catch's macros
+    #clang-tidy hates catch's macros
+    set_source_files_properties(${TARGET_NAME}.cpp PROPERTIES SKIP_LINTING ON)
+    set_target_properties(${TARGET_NAME} PROPERTIES FOLDER "tests")
 
 endfunction()
 
