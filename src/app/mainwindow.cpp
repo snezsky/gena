@@ -10,7 +10,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow()),
-      nameValidator_(QRegularExpression("^[A-Za-z][A-Za-z0-9]*(?:[_-][A-Za-z0-9]+)*$"))
+      nameValidator_(QRegularExpression("^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"))
 {
     ui->setupUi(this);
     ui->lineEdit_name->setValidator(&nameValidator_);
