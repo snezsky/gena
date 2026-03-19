@@ -1,6 +1,6 @@
 project(myproject-tests)
 
-include("${myproject_SOURCE_DIR}/deps/catch2/extras/Catch.cmake")
+include("${myproject_SOURCE_DIR}/deps/Catch2/extras/Catch.cmake")
 
 function(myproject_add_test TARGET_NAME)
 
