@@ -51,7 +51,7 @@ namespace gena
         if (dependencies.testFlag(Dependency::json)) { add_dependency("json"); }
         if (dependencies.testFlag(Dependency::CLI11)) { add_dependency("CLI11"); }
         if (dependencies.testFlag(Dependency::spdlog)) { add_dependency("spdlog"); }
-        if (dependencies.testFlag(Dependency::catch2)) { add_dependency("catch2"); }
+        if (dependencies.testFlag(Dependency::catch2)) { add_dependency("Catch2"); }
     }
 
     void Generator::embed_project_name(const path &projectDir, std::string_view projectName)
