@@ -8,7 +8,7 @@ namespace myproject
     std::string trim(const std::string &str)
     {
         auto not_space = [](unsigned char symbol) {
-            return !std::isspace(symbol);
+            return std::isspace(symbol) == 0;
         };
 
         auto begin = std::ranges::find_if(str, not_space);
