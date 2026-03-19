@@ -13,6 +13,7 @@ Checks: "*,
         -cppcoreguidelines-non-private-member-variables-in-classes,
         -misc-non-private-member-variables-in-classes,
         -misc-no-recursion,
+        -misc-include-cleaner,
         -misc-use-internal-linkage
 "
 WarningsAsErrors: ''
@@ -22,8 +23,6 @@ FormatStyle:     none
 CheckOptions:
   - key: bugprone-easily-swappable-parameters.MinimumLength
     value: 3
-  - key: misc-include-cleaner.MissingIncludes
-    value: false
   - key: readability-identifier-length.IgnoredVariableNames
     value: 'x|y|z'
   - key: readability-identifier-length.IgnoredParameterNames
