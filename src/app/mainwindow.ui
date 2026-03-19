@@ -107,9 +107,9 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QCheckBox" name="checkBox_CL11">
+        <widget class="QCheckBox" name="checkBox_CLI11">
          <property name="text">
-          <string>CL11</string>
+          <string>CLI11</string>
          </property>
         </widget>
        </item>

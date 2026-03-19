@@ -49,7 +49,7 @@ namespace gena
         fs::copy_file(source / "CMakeLists.txt", destination / "CMakeLists.txt");
 
         if (dependencies.testFlag(Dependency::json)) { add_dependency("json"); }
-        if (dependencies.testFlag(Dependency::CL11)) { add_dependency("CL11"); }
+        if (dependencies.testFlag(Dependency::CLI11)) { add_dependency("CLI11"); }
         if (dependencies.testFlag(Dependency::spdlog)) { add_dependency("spdlog"); }
         if (dependencies.testFlag(Dependency::catch2)) { add_dependency("catch2"); }
     }

@@ -96,7 +96,7 @@ gena::Dependencies MainWindow::compute_dependencies() const
     gena::Dependencies deps;
 
     if (ui->checkBox_json->isChecked()) { deps |= gena::Dependency::json; }
-    if (ui->checkBox_CL11->isChecked()) { deps |= gena::Dependency::CL11; }
+    if (ui->checkBox_CLI11->isChecked()) { deps |= gena::Dependency::CLI11; }
     if (ui->checkBox_spdlog->isChecked()) { deps |= gena::Dependency::spdlog; }
     if (ui->checkBox_catch2->isChecked()) { deps |= gena::Dependency::catch2; }
 

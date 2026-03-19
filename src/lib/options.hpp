@@ -24,7 +24,7 @@ namespace gena
     {
         none = 0,
         json = 1 << 0,
-        CL11 = 1 << 1,
+        CLI11 = 1 << 1,
         spdlog = 1 << 2,
         catch2 = 1 << 4,
     };
