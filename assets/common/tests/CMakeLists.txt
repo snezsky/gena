@@ -7,7 +7,6 @@ include("${myproject_SOURCE_DIR}/deps/Catch2/extras/Catch.cmake")
 function(myproject_add_test TARGET_NAME)
 
     add_executable(${TARGET_NAME} "${TARGET_NAME}.cpp")
-    add_test(${TARGET_NAME} ${TARGET_NAME})
     myproject_setup_target(${TARGET_NAME})
 
     target_link_libraries(${TARGET_NAME} PRIVATE Catch2::Catch2WithMain)
