@@ -24,6 +24,9 @@ test-job:
   script:
     - LLVM_PROFILE_FILE="coverage-%p.profraw"
     - ctest --preset test-$PRESET
+  artifacts:
+    paths:
+      - $TEST_DIR
     
 coverage-job:
   stage: coverage
