@@ -23,7 +23,7 @@ test-job:
     - build-job
   script:
     - LLVM_PROFILE_FILE="coverage-%p.profraw"
-    - ctest --test-dir $TEST_DIR
+    - ctest --preset $PRESET
     
 coverage-job:
   stage: coverage
