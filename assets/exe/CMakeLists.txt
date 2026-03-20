@@ -11,5 +11,6 @@ add_subdirectory("src/app")
 add_subdirectory("src/lib")
 
 if (MYPROJECT_BUILD_TESTS)
+    enable_testing()
     add_subdirectory("tests")
 endif()
