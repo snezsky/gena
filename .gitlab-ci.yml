@@ -1,19 +1,22 @@
 stages:
   - build
   - test
+
+variabled:
+  PRESET: "clang-debug-dev"
   
 build-job:
   stage: build
   script:
-    - cmake --preset clang-debug-dev
-    - cmake --build build/clang-debug-dev
+    - cmake --preset $PRESET
+    - cmake --build build/$PRESET
   artifacts:
     paths:
-      - build/clang-debug-dev
+      - build/$PRESET
 
 test-job:
   stage: test
   dependencies:
     - build-job
   script:
-    - ctest --test-dir build/clang-debug-dev
+    - ctest --preset test-$PRESET
