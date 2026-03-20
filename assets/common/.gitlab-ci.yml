@@ -36,5 +36,6 @@ coverage-job:
     - chmod +x scripts/coverage.sh
     - scripts/coverage.sh $TEST_DIR src
   artifacts:
+    when: always
     paths:
       - $TEST_DIR/coverage-html
