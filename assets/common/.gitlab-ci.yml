@@ -30,7 +30,7 @@ coverage-job:
   dependencies:
     - test-job
   script:
-    - scrpits/coverage.sh $TEST_DIR
+    - scripts/coverage.sh $TEST_DIR
   artifacts:
     paths:
       - $TEST_DIR/coverage-html
