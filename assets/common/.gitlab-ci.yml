@@ -22,8 +22,7 @@ test-job:
   dependencies:
     - build-job
   script:
-    - LLVM_PROFILE_FILE="coverage-%p.profraw"
-    - ctest --preset test-$PRESET
+    - LLVM_PROFILE_FILE="coverage-%p.profraw" ctest --preset test-$PRESET
   artifacts:
     paths:
       - $TEST_DIR
