@@ -1,16 +1,15 @@
 # myproject
 
-## build
+## Build
 
-You can build using your IDE of choice or
-```
+You can build the project using your IDE of choice, or:
+```cmake
 cmake --list-presets
-cmake preset <preset-name>
+cmake --preset <preset-name>
 cmake --build build/<preset-name> 
 ```
 
-## dependencies
-
-You need to install this tools to be able to build in developer mode
-- clang-tidy
-- cppcheck
+## Dependencies
+- ccache (recommended)
+- cppcheck (developer mode only)
+- clang-tidy (developer mode only)
