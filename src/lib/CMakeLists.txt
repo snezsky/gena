@@ -8,5 +8,5 @@ add_library(generator
     "generator.cpp")
 gena_setup_target(generator)
 
-target_link_libraries(generator PUBLIC Qt6::Core Qt6::Gui)
+target_link_libraries(generator PUBLIC Qt6::Core)
 target_include_directories(generator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
