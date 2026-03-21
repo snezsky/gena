@@ -1,7 +1,5 @@
 # myproject
 
-Shame on me for not writing readme!
-
 ## build
 
 You can build using your IDE of choice or
@@ -13,7 +11,6 @@ cmake --build build/<preset-name>
 
 ## dependencies
 
-You will have to install this things to be able to build in developer mode
+You need to install this tools to be able to build in developer mode
 - clang-tidy
-- clang-format
 - cppcheck
