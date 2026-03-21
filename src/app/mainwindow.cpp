@@ -45,12 +45,11 @@ void MainWindow::on_pushButton_generate_clicked()
 
     try
     {
-        const gena::Options options{.name = ui->lineEdit_name->text().toStdString(),
-                                    .type = compute_project_type(),
-                                    .standard = compute_cpp_standard(),
-                                    .dependencies = compute_dependencies(),
-                                    .location = location.toStdString()};
-        gena::Generator::generate(options);
+        gena::Generator::generate(gena::Options{.name = ui->lineEdit_name->text().toStdString(),
+                                                .type = compute_project_type(),
+                                                .standard = compute_cpp_standard(),
+                                                .dependencies = compute_dependencies(),
+                                                .location = location.toStdString()});
     }
     catch (std::exception &e)
     {
