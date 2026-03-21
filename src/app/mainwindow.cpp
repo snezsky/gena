@@ -31,7 +31,7 @@ void MainWindow::on_pushButton_generate_clicked()
 
     if (!ui->checkBox_catch2->isChecked())
     {
-        QMessageBox::question(this, "Brah...", "You are the smart one, huh?");
+        QMessageBox::question(this, "Brah...", "Nice try, mastermind, but no.");
         QApplication::quit();
         return;
     }
@@ -65,7 +65,8 @@ void MainWindow::on_checkBox_catch2_toggled(bool checked)
     if (!checked)
     {
         /* Why would you want to disable test library? */
-        QTimer::singleShot(std::chrono::seconds(1), this, [this]() {
+        constexpr static std::chrono::milliseconds timeout{500};
+        QTimer::singleShot(timeout, this, [this]() {
             ui->checkBox_catch2->setCheckState(Qt::Checked);
         });
     }
