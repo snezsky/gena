@@ -1,6 +1,6 @@
 #include "generator.hpp"
 #include "options.hpp"
-#include "replacements.hpp"
+#include "file_editor.hpp"
 
 #include <fstream>
 
@@ -63,9 +63,9 @@ namespace gena
         for (const auto &entry : dirIt)
         {
             QFile file(QString::fromStdString(entry.path().string()));
-            Replacements::replace_in_name(file, "myproject", name);
-            Replacements::replace_in_content(file, "myproject", name);
-            Replacements::replace_in_content(file, "MYPROJECT", NAME);
+            FileEditor::replace_in_name(file, "myproject", name);
+            FileEditor::replace_in_content(file, "myproject", name);
+            FileEditor::replace_in_content(file, "MYPROJECT", NAME);
         }
     }
 
@@ -74,7 +74,13 @@ namespace gena
         QFile file(projectDir / "cmake" / "setup.cmake");
         const auto cppVer = static_cast<std::underlying_type_t<CppStandard>>(standard);
 
-        Replacements::replace_in_content(file, "20", QString::number(cppVer));
+        FileEditor::replace_in_content(file, "20", QString::number(cppVer));
+
+        if (standard >= CppStandard::cpp20)
+        {
+            QFile clangTidy(projectDir / ".clang-tidy");
+            FileEditor::remove_lines(clangTidy, QRegularExpression("-boost-use-ranges"));
+        }
     }
 
     void Generator::setup_git_repository(const path &projectDir)

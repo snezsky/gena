@@ -1,10 +1,10 @@
-#include "replacements.hpp"
+#include "file_editor.hpp"
 
 #include <QFileInfo>
 
 namespace gena
 {
-    void Replacements::replace_in_name(QFile &file, const QString &before, const QString &after)
+    void FileEditor::replace_in_name(QFile &file, const QString &before, const QString &after)
     {
         QString name = file.fileName();
         if (!name.contains(before)) { return; }
@@ -17,7 +17,7 @@ namespace gena
         }
     }
 
-    void Replacements::replace_in_content(QFile &file, const QString &before, const QString &after)
+    void FileEditor::replace_in_content(QFile &file, const QString &before, const QString &after)
     {
         static const QList extensions{"txt", "cmake", "json", "md", "rc", "hpp", "cpp"};
 
@@ -32,6 +32,29 @@ namespace gena
 
         QString content = file.readAll();
         content.replace(before, after);
+
+        file.resize(0);
+        file.seek(0);
+        file.write(content.toUtf8());
+        file.close();
+    }
+
+    void FileEditor::remove_lines(QFile &file, const QRegularExpression &regexp)
+    {
+        if (!QFileInfo{file}.isFile()) { return; }
+
+        if (!file.open(QIODevice::ReadWrite))
+        {
+            throw std::filesystem::filesystem_error("Can't open " + file.fileName().toStdString(),
+                                                    std::make_error_code(std::errc::io_error));
+        }
+
+        QString content = file.readAll();
+        QStringList lines = content.split('\n');
+        lines.removeIf([regexp](const QString &line) {
+            return regexp.matchView(line).hasMatch();
+        });
+        content = lines.join('\n');
 
         file.resize(0);
         file.seek(0);

@@ -2,8 +2,8 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui)
 
 add_library(generator
     "options.hpp"
-    "replacements.hpp"
-    "replacements.cpp"
+    "file_editor.hpp"
+    "file_editor.cpp"
     "generator.hpp"
     "generator.cpp")
 gena_setup_target(generator)
