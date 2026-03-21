@@ -1,7 +1,6 @@
 #include "replacements.hpp"
 
 #include <QFileInfo>
-#include <QRegularExpression>
 
 namespace gena
 {

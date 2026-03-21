@@ -2,8 +2,8 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QTimer>
-#include <QWidget>
 
+#include "generator.hpp"
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 

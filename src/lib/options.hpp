@@ -1,9 +1,7 @@
 #pragma once
 
-#include <QIcon>
-#include <QString>
-
 #include <filesystem>
+#include <QFlags>
 
 namespace gena
 {

@@ -1,11 +1,9 @@
 #pragma once
 
-#include <filesystem>
-
 #include <QMainWindow>
 #include <QRegularExpressionValidator>
 
-#include "generator.hpp"
+#include "options.hpp"
 
 
 namespace Ui
