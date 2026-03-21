@@ -1,4 +1,5 @@
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
+qt_standard_project_setup()
 
 add_executable(gena WIN32
     "main.cpp"
