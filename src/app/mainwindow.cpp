@@ -1,5 +1,4 @@
 #include <QFileDialog>
-#include <QMainWindow>
 #include <QMessageBox>
 #include <QTimer>
 
