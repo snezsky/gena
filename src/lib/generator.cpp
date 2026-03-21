@@ -72,12 +72,10 @@ namespace gena
 
     void Generator::embed_cpp_standard(const path &projectDir, CppStandard standard)
     {
-        const auto cppVer = static_cast<std::underlying_type_t<CppStandard>>(standard);
-        const QString before = R"((CXX_STANDARD\s+)(\d+))";
-        const QString after = QString("\\1%1").arg(cppVer);
         QFile file(projectDir / "cmake" / "setup.cmake");
+        const auto cppVer = static_cast<std::underlying_type_t<CppStandard>>(standard);
 
-        Replacements::replace_in_content(file, before, after);
+        Replacements::replace_in_content(file, "20", QString::number(cppVer));
     }
 
     void Generator::setup_git_repository(const path &projectDir)
