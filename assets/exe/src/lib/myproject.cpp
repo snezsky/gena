@@ -1,6 +1,5 @@
 #include "myproject.hpp"
 
-#include <ranges>
 #include <sstream>
 
 namespace myproject
@@ -11,8 +10,8 @@ namespace myproject
             return std::isspace(symbol) == 0;
         };
 
-        auto begin = std::ranges::find_if(str, not_space);
-        auto end = std::ranges::find_if(str | std::views::reverse, not_space).base();
+        auto begin = std::find_if(str.begin(), str.end(), not_space);
+        auto end = std::find_if(str.rbegin(), str.rend(), not_space).base();
 
         return begin >= end ? "" : std::string(begin, end);
     }
