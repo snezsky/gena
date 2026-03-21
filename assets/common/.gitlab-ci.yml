@@ -32,7 +32,6 @@ coverage-job:
   dependencies:
     - test-job
   script:
-    - chmod +x scripts/coverage.sh
     - scripts/coverage.sh $TEST_DIR src
   artifacts:
     when: always
