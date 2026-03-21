@@ -23,7 +23,3 @@ FormatStyle:     none
 CheckOptions:
   - key: bugprone-easily-swappable-parameters.MinimumLength
     value: 3
-  - key: readability-identifier-length.IgnoredVariableNames
-    value: 'x|y|z'
-  - key: readability-identifier-length.IgnoredParameterNames
-    value: 'x|y|z'
