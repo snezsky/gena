@@ -14,7 +14,6 @@ namespace gena
         const fs::path destination = options.location / options.name;
 
         copy_content(source / "common", destination);
-
         switch (options.type)
         {
         case ProjectType::exe: copy_content(source / "exe", destination); break;
