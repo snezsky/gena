@@ -23,6 +23,7 @@ namespace gena
         embed_project_name(destination, options.name);
         embed_cpp_standard(destination, options.standard);
         copy_dependencies(source / "deps", destination / "deps", options.dependencies);
+        setup_git_repository(destination);
     }
 
     void Generator::copy_content(const fs::path &source, const fs::path &destination)
@@ -77,5 +78,21 @@ namespace gena
         QFile file(projectDir / "cmake" / "setup.cmake");
 
         Replacements::replace_in_content(file, before, after);
+    }
+
+    void Generator::setup_git_repository(const path &projectDir)
+    {
+        if (std::system("git --version") != 0) { return; }
+
+        auto git = [&](const std::string &cmd) {
+            const std::string full = "git -C \"" + projectDir.string() + "\" " + cmd;
+            const int result = std::system(full.c_str());
+            if (result != 0) { throw std::runtime_error("Failed to execute git command \"" + cmd + "\""); }
+        };
+
+        git("init");
+        git("add .");
+        git("update-index --chmod=+x scripts/coverage.sh");
+        git("commit -m \"create initial project structure\"");
     }
 } // namespace gena

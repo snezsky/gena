@@ -17,5 +17,6 @@ namespace gena
         static void copy_dependencies(const path &source, const path &destination, Dependencies dependencies);
         static void embed_project_name(const path &projectDir, std::string_view projectName);
         static void embed_cpp_standard(const path &projectDir, CppStandard standard);
+        static void setup_git_repository(const path &projectDir);
     };
 } // namespace gena
