@@ -1,6 +1,6 @@
 #include "generator.hpp"
-#include "options.hpp"
 #include "file_editor.hpp"
+#include "options.hpp"
 
 #include <fstream>
 
@@ -75,12 +75,6 @@ namespace gena
         const auto cppVer = static_cast<std::underlying_type_t<CppStandard>>(standard);
 
         FileEditor::replace_in_content(file, "20", QString::number(cppVer));
-
-        if (standard >= CppStandard::cpp20)
-        {
-            QFile clangTidy(projectDir / ".clang-tidy");
-            FileEditor::remove_lines(clangTidy, QRegularExpression("-boost-use-ranges"));
-        }
     }
 
     void Generator::setup_git_repository(const path &projectDir)
