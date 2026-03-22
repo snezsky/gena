@@ -6,14 +6,23 @@ namespace myproject
 {
     std::string trim(const std::string &str)
     {
-        auto not_space = [](unsigned char symbol) {
-            return std::isspace(symbol) == 0;
+        auto isSpace = [](unsigned char symbol) {
+            return std::isspace(symbol) != 0;
         };
 
-        auto begin = std::find_if(str.begin(), str.end(), not_space);
-        auto end = std::find_if(str.rbegin(), str.rend(), not_space).base();
+        size_t start = 0;
+        while (start < str.size() && isSpace(str[start]))
+        {
+            ++start;
+        }
 
-        return begin >= end ? "" : std::string(begin, end);
+        size_t end = str.size();
+        while (end > start && isSpace(str[end - 1]))
+        {
+            --end;
+        }
+
+        return str.substr(start, end - start);
     }
 
     std::vector<std::string> split(const std::string &str, char delimiter)
