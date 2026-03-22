@@ -7,7 +7,7 @@ include("cmake/setup.cmake")
 option(MYPROJECT_BUILD_TESTS     "build tests"     ${MYPROJECT_ENABLE_DEVELOPER_MODE})
 option(MYPROJECT_BUILD_EXAMPLES  "build examples"  ${MYPROJECT_ENABLE_DEVELOPER_MODE})
 
-add_subdirectory("deps")
+add_subdirectory("deps" EXCLUDE_FROM_ALL)
 add_subdirectory("src")
 
 if (MYPROJECT_BUILD_EXAMPLES)
