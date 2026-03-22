@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 
 project(myproject)
 
-include("cmake/setup.cmake")
+include("cmake/Setup.cmake")
 
 option(MYPROJECT_BUILD_TESTS     "build tests"     ${MYPROJECT_ENABLE_DEVELOPER_MODE})
 option(MYPROJECT_BUILD_EXAMPLES  "build examples"  ${MYPROJECT_ENABLE_DEVELOPER_MODE})
