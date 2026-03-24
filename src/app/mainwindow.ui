@@ -57,7 +57,7 @@
     <item row="0" column="0">
      <widget class="QLabel" name="label_name">
       <property name="text">
-       <string>poject name</string>
+       <string>project name</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
@@ -83,7 +83,7 @@
     <item row="3" column="0">
      <widget class="QLabel" name="label_type">
       <property name="text">
-       <string>poject type</string>
+       <string>project type</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
