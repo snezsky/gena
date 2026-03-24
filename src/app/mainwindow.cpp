@@ -76,7 +76,7 @@ gena::ProjectType MainWindow::compute_project_type() const
     if (ui->radioButton_exe->isChecked()) { return gena::ProjectType::exe; }
     if (ui->radioButton_lib->isChecked()) { return gena::ProjectType::lib; }
 
-    [[unlikely]] throw std::invalid_argument("unknown project type");
+    throw std::invalid_argument("unknown project type");
 }
 
 gena::CppStandard MainWindow::compute_cpp_standard() const
@@ -87,7 +87,7 @@ gena::CppStandard MainWindow::compute_cpp_standard() const
     if (standard == "c++20") { return gena::CppStandard::cpp20; }
     if (standard == "c++23") { return gena::CppStandard::cpp23; }
 
-    [[unlikely]] throw std::invalid_argument("unknown cpp standard");
+    throw std::invalid_argument("unknown cpp standard");
 }
 
 gena::Dependencies MainWindow::compute_dependencies() const
