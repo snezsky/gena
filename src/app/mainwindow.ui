@@ -153,6 +153,17 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEdit_name</tabstop>
+  <tabstop>comboBox_cpp_standard</tabstop>
+  <tabstop>radioButton_lib</tabstop>
+  <tabstop>radioButton_exe</tabstop>
+  <tabstop>checkBox_CLI11</tabstop>
+  <tabstop>checkBox_catch2</tabstop>
+  <tabstop>checkBox_spdlog</tabstop>
+  <tabstop>checkBox_json</tabstop>
+  <tabstop>pushButton_generate</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
