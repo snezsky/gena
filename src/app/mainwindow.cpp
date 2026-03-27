@@ -1,3 +1,4 @@
+#include <QtConcurrentRun>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTimer>
@@ -9,15 +10,37 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow()),
+      progressDialog_("Generation...", QString(), 0, 0, this),
       nameValidator_(QRegularExpression("^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"))
 {
     ui->setupUi(this);
     ui->lineEdit_name->setValidator(&nameValidator_);
+
+    progressDialog_.cancel();
+    progressDialog_.setCancelButton(nullptr);
+    progressDialog_.setWindowModality(Qt::WindowModal);
+    progressDialog_.setWindowFlag(Qt::WindowCloseButtonHint, false);
+    progressDialog_.setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint);
+
+    connect(this, &MainWindow::generation_failed, this, &MainWindow::unblock_gui_with_error_message);
+    connect(this, &MainWindow::generation_finished, this, &MainWindow::unblock_gui_with_success_message);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_checkBox_catch2_toggled(bool checked)
+{
+    if (!checked)
+    {
+        /* Why would you want to disable test library? */
+        constexpr static std::chrono::milliseconds timeout{500};
+        QTimer::singleShot(timeout, this, [this]() {
+            ui->checkBox_catch2->setCheckState(Qt::Checked);
+        });
+    }
 }
 
 void MainWindow::on_pushButton_generate_clicked()
@@ -42,33 +65,39 @@ void MainWindow::on_pushButton_generate_clicked()
         return;
     }
 
+    const gena::Options options{.name = ui->lineEdit_name->text().toStdString(),
+                          .type = compute_project_type(),
+                          .standard = compute_cpp_standard(),
+                          .dependencies = compute_dependencies(),
+                          .location = location.toStdString()};
+    progressDialog_.show();
+    std::ignore = QtConcurrent::run(&MainWindow::generate, this, options);
+}
+
+void MainWindow::generate(const gena::Options &options)
+{
     try
     {
-        gena::Generator::generate(gena::Options{.name = ui->lineEdit_name->text().toStdString(),
-                                                .type = compute_project_type(),
-                                                .standard = compute_cpp_standard(),
-                                                .dependencies = compute_dependencies(),
-                                                .location = location.toStdString()});
+        gena::Generator::generate(options);
     }
     catch (std::exception &e)
     {
-        QMessageBox::critical(this, "Generation failed!", e.what());
+        emit generation_failed(e.what());
         return;
     }
-
-    QMessageBox::information(this, " ", "Generation successful!");
+    emit generation_finished();
 }
 
-void MainWindow::on_checkBox_catch2_toggled(bool checked)
+void MainWindow::unblock_gui_with_success_message()
 {
-    if (!checked)
-    {
-        /* Why would you want to disable test library? */
-        constexpr static std::chrono::milliseconds timeout{500};
-        QTimer::singleShot(timeout, this, [this]() {
-            ui->checkBox_catch2->setCheckState(Qt::Checked);
-        });
-    }
+    progressDialog_.hide();
+    QMessageBox::information(this, QString(), "Generation successful!");
+}
+
+void MainWindow::unblock_gui_with_error_message(const QString &message)
+{
+    progressDialog_.hide();
+    QMessageBox::critical(this, "Generation failed!", message);
 }
 
 gena::ProjectType MainWindow::compute_project_type() const

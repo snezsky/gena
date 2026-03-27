@@ -1,4 +1,4 @@
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Concurrent)
 qt_standard_project_setup()
 
 add_executable(gena WIN32
@@ -8,7 +8,7 @@ add_executable(gena WIN32
     "mainwindow.ui"
     "ico/app.rc") # windows icon
 gena_setup_target(gena)
-target_link_libraries(gena PRIVATE Qt6::Widgets generator)
+target_link_libraries(gena PRIVATE Qt6::Widgets Qt6::Concurrent generator)
 
 message(STATUS "Copying project assets...")
 file(COPY "${PROJECT_SOURCE_DIR}/assets" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
