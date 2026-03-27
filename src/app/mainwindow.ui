@@ -23,6 +23,9 @@
       <property name="text">
        <string>Generate</string>
       </property>
+      <property name="shortcut">
+       <string>Return</string>
+      </property>
      </widget>
     </item>
     <item row="2" column="1" colspan="3">
