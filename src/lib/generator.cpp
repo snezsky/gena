@@ -71,7 +71,7 @@ namespace gena
 
     void Generator::embed_cpp_standard(const path &projectDir, CppStandard standard)
     {
-        QFile file(projectDir / "cmake" / "setup.cmake");
+        QFile file(projectDir / "cmake" / "Setup.cmake");
         const auto cppVer = static_cast<std::underlying_type_t<CppStandard>>(standard);
 
         FileEditor::replace_in_content(file, "20", QString::number(cppVer));
