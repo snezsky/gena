@@ -56,24 +56,21 @@ function(__myproject_target_enable_clang_tidy TARGET_NAME)
         message(FATAL_ERROR "static analysis enabled, but clang-tidy was not found")
     endif()
 
-    get_target_property(CPP_STANDARD ${TARGET_NAME} CXX_STANDARD)
-    if(MSVC)
-        # clang does not support /Md + /fsanitize=address on Windows,
-        # but we do not need clang-tidy to run clang with sanitizer
-        set(IGNORE_SANITIZER "--removed-arg=/fsanitize=address")
-        set(CPP_STANDARD_ARG "/std:c++${CPP_STANDARD}")
-    else()
-        set(CPP_STANDARD_ARG "-std=c++${CPP_STANDARD}")
-    endif()
-
     set(CLANG_TIDY_COMMAND ${CLANG_TIDY}
         ${IGNORE_SANITIZER}
-        -extra-arg=${CPP_STANDARD_ARG}
         -extra-arg=-Wno-unknown-warning-option
         -extra-arg=-Wno-ignored-optimization-argument
         -extra-arg=-Wno-unused-command-line-argument
         -warnings-as-errors=*
         -p)
+
+    get_target_property(CPP_STANDARD ${TARGET_NAME} CXX_STANDARD)
+    if("${CMAKE_CXX_CLANG_TIDY_DRIVER_MODE}" STREQUAL "cl")
+      # clang does not support /Md + /fsanitize=address on Windows and we do not need it for sanitizer anyways
+      set(CLANG_TIDY_COMMAND ${CLANG_TIDY_COMMAND} -extra-arg=/std:c++${CPP_STANDARD} --removed-arg=/fsanitize=address)
+    else()
+      set(CLANG_TIDY_COMMAND ${CLANG_TIDY_COMMAND} -extra-arg=-std=c++${CPP_STANDARD})
+    endif()
 
     set_target_properties(
         ${TARGET_NAME} PROPERTIES
