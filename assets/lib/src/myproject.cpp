@@ -1,5 +1,6 @@
 #include "myproject.hpp"
 
+#include <locale>
 #include <sstream>
 
 namespace myproject
