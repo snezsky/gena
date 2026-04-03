@@ -14,7 +14,6 @@ Checks: "*,
         -misc-non-private-member-variables-in-classes,
         -misc-no-recursion,
         -misc-include-cleaner,
-        -misc-use-internal-linkage
 "
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
