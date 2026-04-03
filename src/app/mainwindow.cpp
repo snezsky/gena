@@ -80,7 +80,7 @@ void MainWindow::generate(const gena::Options &options)
     {
         gena::Generator::generate(options);
     }
-    catch (std::exception &e)
+    catch (const std::exception &e)
     {
         emit generation_failed(e.what());
         return;
