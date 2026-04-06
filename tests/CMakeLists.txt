@@ -1,6 +1,7 @@
 add_executable(test_generator "test_generator.cpp")
 target_link_libraries(test_generator PRIVATE generator)
 gena_setup_target(test_generator)
+gena_run_windeployqt(test_generator)
 
 foreach (STD 17 23)
     foreach (TYPE lib exe)

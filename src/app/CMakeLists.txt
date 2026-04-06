@@ -8,6 +8,7 @@ add_executable(gena WIN32
     "mainwindow.ui"
     "ico/app.rc") # windows icon
 gena_setup_target(gena)
+gena_run_windeployqt(gena)
 target_link_libraries(gena PRIVATE Qt6::Widgets Qt6::Concurrent generator)
 
 message(STATUS "Copying project assets...")
