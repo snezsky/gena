@@ -16,8 +16,9 @@ You can build the project using your IDE of choice, or:
 ```bash
 cmake --list-presets
 cmake --preset <preset-name>
-cmake --build build/<preset-name> 
+cmake --build build/<preset-name>
 ```
+Tested on Windows 10/11 and Ubuntu 24.04, but it should work on other Unix-like systems too.
 
 On Windows, keep the following in mind:
 
