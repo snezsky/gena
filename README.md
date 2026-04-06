@@ -27,7 +27,7 @@ On Windows, keep the following in mind:
 - If using a dynamic Qt build, run windeployqt on your binaries to deploy the required DLLs.
 
 ## Dependencies
-- Qt6
+- Qt6.2+
 - ccache (recommended)
 - cppcheck (developer mode only)
 - clang-tidy (developer mode only)
