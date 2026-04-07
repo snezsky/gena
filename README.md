@@ -25,7 +25,6 @@ On Windows, keep the following in mind:
 - When building from the console, use the x64 Native Tools Command Prompt  
   (or initialize the environment with vcvars64.bat) to ensure a 64-bit toolchain.
 - Set the QT6_DIR environment variable to your Qt installation path so CMake can locate it.
-- If using a dynamic Qt build, run windeployqt on your binaries to deploy the required DLLs.
 
 ## Dependencies
 - Qt6.2+
