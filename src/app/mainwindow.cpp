@@ -1,7 +1,7 @@
-#include <QtConcurrentRun>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTimer>
+#include <QtConcurrentRun>
 
 #include "generator.hpp"
 #include "mainwindow.hpp"
@@ -66,10 +66,10 @@ void MainWindow::on_pushButton_generate_clicked()
     }
 
     const gena::Options options{.name = ui->lineEdit_name->text().toStdString(),
-                          .type = compute_project_type(),
-                          .standard = compute_cpp_standard(),
-                          .dependencies = compute_dependencies(),
-                          .location = location.toStdString()};
+                                .type = compute_project_type(),
+                                .standard = compute_cpp_standard(),
+                                .dependencies = compute_dependencies(),
+                                .location = location.toStdString()};
     progressDialog_.show();
     std::ignore = QtConcurrent::run(&MainWindow::generate, this, options);
 }
