@@ -20,11 +20,11 @@ cmake --build build/<preset-name>
 ```
 Tested on Windows 10/11 and Ubuntu 24.04, but it should work on other Unix-like systems too.
 
-On Windows, keep the following in mind:
+> When building on Windows from the command line, use the x64 Native  
+  Tools Command Prompt (or run vcvars64.bat) to ensure a 64-bit toolchain.
 
-- When building from the console, use the x64 Native Tools Command Prompt  
-  (or initialize the environment with vcvars64.bat) to ensure a 64-bit toolchain.
-- Set the QT6_DIR environment variable to your Qt installation path so CMake can locate it.
+> If your Qt installation is not in the default system directory, set the `Qt6_ROOT`  
+  environment variable to your Qt installation path so CMake can locate it.
 
 ## Dependencies
 - Qt6.2+
@@ -51,12 +51,12 @@ option(MYPROJECT_ENABLE_STATIC_ANALYSIS   "clang-tidy, cppcheck"      ${MYPROJEC
 option(MYPROJECT_ENABLE_DYNAMIC_ANALYSIS  "available sanitizers"      ${MYPROJECT_ENABLE_DEVELOPER_MODE})
 ```
 
-> NOTE: You may want to adjust **.clang-tidy** and **.clang-format** to  
-better suit your project. The default configuration is quite strict.
+> You may want to adjust **.clang-tidy** and **.clang-format** to  
+  better suit your project. The default configuration is quite strict.
 
 
-> NOTE: You are expected to call `<project name>_setup_target` for every  
-target you create. This ensures all features are applied to that target.
+> You are expected to call `<project name>_setup_target` for every  
+  target you create. This ensures all features are applied to that target.
 
 ## GitLab runner
 
