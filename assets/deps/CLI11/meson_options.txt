@@ -1,2 +1,0 @@
-option('tests', type: 'feature', value: 'auto', description: 'Build CLI11 tests')
-option('mode', type: 'combo', choices: ['amalgamated', 'headeronly', 'precompiled'], value: 'headeronly')
