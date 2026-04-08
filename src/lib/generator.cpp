@@ -4,13 +4,16 @@
 
 #include <fstream>
 
+#include <QCoreApplication>
+
 namespace fs = std::filesystem;
 
 namespace gena
 {
     void Generator::generate(const Options &options)
     {
-        const fs::path source = fs::current_path() / "assets";
+        const fs::path pwd{ QCoreApplication::applicationDirPath().toStdU16String() };
+        const fs::path source = pwd / "assets";
         const fs::path destination = options.location / options.name;
 
         copy_content(source / "common", destination);
