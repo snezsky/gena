@@ -17,11 +17,7 @@ namespace gena
         const fs::path destination = options.location / options.name;
 
         copy_content(source / "common", destination);
-        switch (options.type)
-        {
-        case ProjectType::exe: copy_content(source / "exe", destination); break;
-        case ProjectType::lib: copy_content(source / "lib", destination); break;
-        }
+        copy_sources(source, destination, options.type);
         embed_project_name(destination, options.name);
         embed_cpp_standard(destination, options.standard);
         copy_dependencies(source / "deps", destination / "deps", options.dependencies);
