@@ -24,13 +24,8 @@ namespace gena
         setup_git_repository(destination);
     }
 
-    void Generator::copy_content(const fs::path &source, const fs::path &destination)
     {
-        fs::create_directories(destination);
-
-        for (const auto &entry : fs::directory_iterator(source))
         {
-            fs::copy(entry, destination / entry.path().filename(), fs::copy_options::recursive);
         }
     }
 
@@ -90,5 +85,14 @@ namespace gena
         git("add .");
         git("update-index --chmod=+x scripts/coverage.sh");
         git("commit -m \"create initial project structure\"");
+    }
+    void Generator::copy_content(const fs::path &source, const fs::path &destination)
+    {
+        fs::create_directories(destination);
+
+        for (const auto &entry : fs::directory_iterator(source))
+        {
+            fs::copy(entry, destination / entry.path().filename(), fs::copy_options::recursive);
+        }
     }
 } // namespace gena
