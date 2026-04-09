@@ -31,18 +31,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_checkBox_catch2_toggled(bool checked)
-{
-    if (!checked)
-    {
-        /* Why would you want to disable test library? */
-        constexpr static std::chrono::milliseconds timeout{500};
-        QTimer::singleShot(timeout, this, [this]() {
-            ui->checkBox_catch2->setCheckState(Qt::Checked);
-        });
-    }
-}
-
 void MainWindow::on_pushButton_generate_clicked()
 {
     if (ui->lineEdit_name->text().isEmpty())
@@ -51,12 +39,6 @@ void MainWindow::on_pushButton_generate_clicked()
         return;
     }
 
-    if (!ui->checkBox_catch2->isChecked())
-    {
-        QMessageBox::question(this, "Brah...", "Nice try, mastermind, but no.");
-        QApplication::quit();
-        return;
-    }
 
     const QString location = QFileDialog::getExistingDirectory(this, "Project destination", "");
     if (location.isEmpty())

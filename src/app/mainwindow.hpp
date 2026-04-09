@@ -24,7 +24,6 @@ class MainWindow : public QMainWindow
     void generation_failed(const QString &message);
 
   private slots:
-    void on_checkBox_catch2_toggled(bool checked);
     void on_pushButton_generate_clicked();
 
     void unblock_gui_with_success_message();
