@@ -40,7 +40,7 @@ namespace gena
 
     void Generator::copy_dependencies(const path &source, const path &destination, Dependencies dependencies)
     {
-        if (dependencies == Dependency::none) { return; }
+        if (!dependencies) { return; }
 
         auto add_dependency = [&source, &destination](std::string_view name) {
             fs::copy(source / name, destination / name, fs::copy_options::recursive);

@@ -20,7 +20,6 @@ namespace gena
 
     enum class Dependency : uint8_t
     {
-        none = 0,
         json = 1 << 0,
         CLI11 = 1 << 1,
         spdlog = 1 << 2,
