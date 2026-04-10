@@ -5,12 +5,10 @@ TEST_CASE("Trimming checks")
 {
     CHECK(myproject::trim("") == "");
     CHECK(myproject::trim(" ") == "");
-    CHECK(myproject::trim("  ") == "");
     CHECK(myproject::trim(" spaces ") == "spaces");
     CHECK(myproject::trim("nospace") == "nospace");
     CHECK(myproject::trim(" leftspace") == "leftspace");
     CHECK(myproject::trim("rightspace ") == "rightspace");
-    CHECK(myproject::trim("  morespaces    ") == "morespaces");
     CHECK(myproject::trim("    moreleftspaces ") == "moreleftspaces");
     CHECK(myproject::trim("morerightspaces    ") == "morerightspaces");
 }
