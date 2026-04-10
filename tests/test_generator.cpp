@@ -20,7 +20,6 @@ namespace
         Options options;
         options.name = projectName.toStdString();
         options.location = std::filesystem::current_path();
-        options.dependencies = Dependency::catch2;
 
         if (projectName.startsWith("lib")) { options.type = ProjectType::lib; }
         else if (projectName.startsWith("exe")) { options.type = ProjectType::exe; }
@@ -30,6 +29,11 @@ namespace
         else if (projectName.endsWith("20")) { options.standard = CppStandard::cpp20; }
         else if (projectName.endsWith("23")) { options.standard = CppStandard::cpp23; }
         else { throw std::invalid_argument("unknown std standard"); }
+
+        /* Map each C++ standard to a test framework for full coverage */
+        if (projectName.endsWith("17")) { ;options.dependencies |= Dependency::qtest; }
+        else if (projectName.endsWith("20")) { options.dependencies = Dependency::catch2; }
+        else if (projectName.endsWith("23")) { options.dependencies = Dependency::googletest; }
 
         return options;
     }
