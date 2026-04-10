@@ -1,7 +1,7 @@
 #pragma once
 
-#include <filesystem>
 #include <QFlags>
+#include <filesystem>
 
 namespace gena
 {
@@ -22,8 +22,11 @@ namespace gena
     {
         json = 1 << 0,
         CLI11 = 1 << 1,
-        spdlog = 1 << 2,
-        catch2 = 1 << 4,
+        cxxopts = 1 << 2,
+        qtest = 1 << 3,
+        googletest = 1 << 4,
+        catch2 = 1 << 5,
+        spdlog = 1 << 6,
     };
     Q_DECLARE_FLAGS(Dependencies, Dependency);
 
