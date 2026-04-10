@@ -3,7 +3,7 @@ target_link_libraries(test_generator PRIVATE generator)
 gena_setup_target(test_generator)
 gena_run_windeployqt(test_generator)
 
-foreach (STD 17 23)
+foreach (STD 17 20 23)
     foreach (TYPE lib exe)
         set(GEN_NAME ${TYPE}${STD})
 
