@@ -58,7 +58,6 @@ namespace gena
         if (dependencies.testFlag(Dependency::CLI11)) { add_dependency("CLI11"); }
         if (dependencies.testFlag(Dependency::spdlog)) { add_dependency("spdlog"); }
         if (dependencies.testFlag(Dependency::catch2)) { add_dependency("Catch2"); }
-        if (dependencies.testFlag(Dependency::cxxopts)) { add_dependency("cxxopts"); }
         if (dependencies.testFlag(Dependency::googletest)) { add_dependency("googletest"); }
     }
 
