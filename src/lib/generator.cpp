@@ -18,15 +18,27 @@ namespace gena
 
         copy_content(source / "common", destination);
         copy_sources(source, destination, options.type);
+        copy_tests(source / "tests", destination / "tests", options.dependencies);
         embed_project_name(destination, options.name);
         embed_cpp_standard(destination, options.standard);
         copy_dependencies(source / "deps", destination / "deps", options.dependencies);
         setup_git_repository(destination);
     }
 
+    void Generator::copy_sources(const path &source, const path &destination, ProjectType projectType)
     {
+        switch (projectType)
         {
+        case ProjectType::exe: copy_content(source / "exe", destination); break;
+        case ProjectType::lib: copy_content(source / "lib", destination); break;
         }
+    }
+
+    void Generator::copy_tests(const path &source, const path &destination, Dependencies dependencies)
+    {
+        if (dependencies.testFlag(Dependency::qtest)) { copy_content(source / "QtTest", destination); }
+        if (dependencies.testFlag(Dependency::catch2)) { copy_content(source / "Catch2", destination); }
+        if (dependencies.testFlag(Dependency::googletest)) { copy_content(source / "googletest", destination); }
     }
 
     void Generator::copy_dependencies(const path &source, const path &destination, Dependencies dependencies)
@@ -46,6 +58,8 @@ namespace gena
         if (dependencies.testFlag(Dependency::CLI11)) { add_dependency("CLI11"); }
         if (dependencies.testFlag(Dependency::spdlog)) { add_dependency("spdlog"); }
         if (dependencies.testFlag(Dependency::catch2)) { add_dependency("Catch2"); }
+        if (dependencies.testFlag(Dependency::cxxopts)) { add_dependency("cxxopts"); }
+        if (dependencies.testFlag(Dependency::googletest)) { add_dependency("googletest"); }
     }
 
     void Generator::embed_project_name(const path &projectDir, std::string_view projectName)
@@ -86,6 +100,7 @@ namespace gena
         git("update-index --chmod=+x scripts/coverage.sh");
         git("commit -m \"create initial project structure\"");
     }
+
     void Generator::copy_content(const fs::path &source, const fs::path &destination)
     {
         fs::create_directories(destination);
