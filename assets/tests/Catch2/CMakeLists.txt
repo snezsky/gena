@@ -15,7 +15,7 @@ function(myproject_add_test)
 
     set_target_properties(${TEST_NAME} PROPERTIES FOLDER "tests")
     
-    #clang-tidy hates Catch's macros
+    # clang-tidy hates Catch's macros
     set_source_files_properties(${TEST_SOURCES} PROPERTIES SKIP_LINTING ON)
 
 endfunction()
