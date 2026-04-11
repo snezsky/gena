@@ -1,6 +1,5 @@
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QTimer>
 #include <QtConcurrentRun>
 
 #include "generator.hpp"
