@@ -38,7 +38,6 @@ void MainWindow::on_pushButton_generate_clicked()
         return;
     }
 
-
     const QString location = QFileDialog::getExistingDirectory(this, "Project destination", "");
     if (location.isEmpty())
     {
@@ -107,7 +106,11 @@ gena::Dependencies MainWindow::compute_dependencies() const
     if (ui->checkBox_json->isChecked()) { deps |= gena::Dependency::json; }
     if (ui->checkBox_CLI11->isChecked()) { deps |= gena::Dependency::CLI11; }
     if (ui->checkBox_spdlog->isChecked()) { deps |= gena::Dependency::spdlog; }
-    if (ui->checkBox_catch2->isChecked()) { deps |= gena::Dependency::catch2; }
+
+    if (ui->comboBox_test_framework->currentText() == "QtTest") { deps |= gena::Dependency::qtest; }
+    else if (ui->comboBox_test_framework->currentText() == "Catch2") { deps |= gena::Dependency::catch2; }
+    else if (ui->comboBox_test_framework->currentText() == "GoogleTest") { deps |= gena::Dependency::googletest; }
+    else { throw std::invalid_argument("unknown test framework"); }
 
     return deps;
 }
