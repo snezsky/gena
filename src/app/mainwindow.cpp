@@ -85,7 +85,7 @@ gena::ProjectType MainWindow::compute_project_type() const
     if (ui->radioButton_exe->isChecked()) { return gena::ProjectType::exe; }
     if (ui->radioButton_lib->isChecked()) { return gena::ProjectType::lib; }
 
-    throw std::invalid_argument("unknown project type");
+    throw std::invalid_argument("Unknown project type");
 }
 
 gena::CppStandard MainWindow::compute_cpp_standard() const
@@ -96,7 +96,7 @@ gena::CppStandard MainWindow::compute_cpp_standard() const
     if (standard == "c++20") { return gena::CppStandard::cpp20; }
     if (standard == "c++23") { return gena::CppStandard::cpp23; }
 
-    throw std::invalid_argument("unknown cpp standard");
+    throw std::invalid_argument("Unknown cpp standard");
 }
 
 gena::Dependencies MainWindow::compute_dependencies() const
@@ -110,7 +110,7 @@ gena::Dependencies MainWindow::compute_dependencies() const
     if (ui->comboBox_test_framework->currentText() == "QtTest") { deps |= gena::Dependency::qtest; }
     else if (ui->comboBox_test_framework->currentText() == "Catch2") { deps |= gena::Dependency::catch2; }
     else if (ui->comboBox_test_framework->currentText() == "GoogleTest") { deps |= gena::Dependency::googletest; }
-    else { throw std::invalid_argument("unknown test framework"); }
+    else { throw std::invalid_argument("Unknown test framework"); }
 
     return deps;
 }
