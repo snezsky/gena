@@ -6,6 +6,7 @@
 #include <fstream>
 
 #include <QCoreApplication>
+#include <QProcess>
 
 namespace fs = std::filesystem;
 
@@ -87,20 +88,27 @@ namespace gena
         FileEditor::replace_in_content(file, "20", QString::number(cppVer));
     }
 
-    void Generator::setup_git_repository(const path &projectDir)
+    void Generator::setup_git_repository(const std::filesystem::path &projectDir)
     {
-        if (std::system("git --version") != 0) { return; }
+        if (QProcess::execute("git", {"--version"}) != 0) { return; }
 
-        auto git = [&](const std::string &cmd) {
-            const std::string full = "git -C \"" + projectDir.string() + "\" " + cmd;
-            const int result = std::system(full.c_str());
-            if (result != 0) { throw std::runtime_error("Failed to execute git command \"" + cmd + "\""); }
+        auto git = [&](const QStringList &args) {
+            QProcess process;
+            process.setWorkingDirectory(QString::fromStdString(projectDir.string()));
+            process.start("git", args);
+
+            if (!process.waitForFinished() || process.exitStatus() != QProcess::NormalExit ||
+                process.exitCode() != EXIT_SUCCESS)
+            {
+                const std::string command = args.join(' ').toStdString();
+                throw std::runtime_error("Failed to execute git command: " + command);
+            }
         };
 
-        git("init");
-        git("add .");
-        git("update-index --chmod=+x scripts/coverage.sh");
-        git("commit -m \"create initial project structure\"");
+        git({"init"});
+        git({"add", "."});
+        git({"update-index", "--chmod=+x", "scripts/coverage.sh"});
+        git({"commit", "-m", "create initial project structure"});
     }
 
     void Generator::copy_content(const fs::path &source, const fs::path &destination)
