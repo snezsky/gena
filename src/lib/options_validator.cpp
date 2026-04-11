@@ -46,9 +46,9 @@ void gena::OptionsValidator::validate_dependencies(Dependencies dependencies)
     const int testFrameworksCount = static_cast<int>(dependencies.testFlag(Dependency::qtest)) +
                                     static_cast<int>(dependencies.testFlag(Dependency::catch2)) +
                                     static_cast<int>(dependencies.testFlag(Dependency::googletest));
-    if (testFrameworksCount > 1)
+    if (testFrameworksCount != 1)
     {
-        throw std::invalid_argument("Invalid dependencies! You can choose only one test framework.");
+        throw std::invalid_argument("Invalid dependencies! You must choose exactly one test framework.");
     }
 }
 
