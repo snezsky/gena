@@ -71,7 +71,7 @@ void MainWindow::generate(const gena::Options &options)
 void MainWindow::unblock_gui_with_success_message()
 {
     progressDialog_.hide();
-    QMessageBox::information(this, QString(), "Generation successful!");
+    QMessageBox::information(this, " ", "Generation successful!");
 }
 
 void MainWindow::unblock_gui_with_error_message(const QString &message)
