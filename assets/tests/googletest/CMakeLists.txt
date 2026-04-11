@@ -11,7 +11,7 @@ function(myproject_add_test)
     myproject_setup_target(${TEST_NAME})
 
     target_link_libraries(${TEST_NAME} PRIVATE GTest::gtest_main)
-    gtest_discover_tests(${TEST_NAME})
+    gtest_discover_tests(${TEST_NAME} DISCOVERY_MODE PRE_TEST)
 
     set_target_properties(${TEST_NAME} PROPERTIES FOLDER "tests")
     
