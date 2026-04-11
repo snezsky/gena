@@ -12,18 +12,13 @@ function(gena_add_unit_test)
     
     add_executable(${TEST_NAME} ${TEST_SOURCES})
     gena_setup_target(${TEST_NAME})
+    gena_run_windeployqt(${TEST_NAME})
 
     target_link_libraries(${TEST_NAME} PRIVATE generator GTest::gtest_main)
     gtest_discover_tests(${TEST_NAME} DISCOVERY_MODE PRE_TEST)
 
     # clang-tidy hates googletest's macros
     set_source_files_properties(${TEST_SOURCES} PROPERTIES SKIP_LINTING ON)
-
-    if (MSVC)
-        add_custom_command(
-            TARGET ${TEST_NAME} POST_BUILD
-            COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${TEST_NAME}> --no-translations)
-    endif()
 
 endfunction()
 
