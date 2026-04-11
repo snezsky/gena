@@ -13,3 +13,4 @@ add_subdirectory("src/app")
 
 enable_testing()
 add_subdirectory("tests/integration")
+add_subdirectory("tests/unit")
