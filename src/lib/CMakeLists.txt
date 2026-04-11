@@ -2,6 +2,8 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 
 add_library(generator
     "options.hpp"
+    "options_validator.hpp"
+    "options_validator.cpp"
     "file_editor.hpp"
     "file_editor.cpp"
     "generator.hpp"

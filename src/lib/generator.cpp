@@ -1,6 +1,7 @@
 #include "generator.hpp"
 #include "file_editor.hpp"
 #include "options.hpp"
+#include "options_validator.hpp"
 
 #include <fstream>
 
@@ -12,7 +13,9 @@ namespace gena
 {
     void Generator::generate(const Options &options)
     {
-        const fs::path pwd{ QCoreApplication::applicationDirPath().toStdU16String() };
+        OptionsValidator::validate(options);
+
+        const fs::path pwd{QCoreApplication::applicationDirPath().toStdU16String()};
         const fs::path source = pwd / "assets";
         const fs::path destination = options.location / options.name;
 
