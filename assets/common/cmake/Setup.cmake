@@ -10,7 +10,6 @@ include("cmake/NiceOutput.cmake")
 include("cmake/TestCoverage.cmake")
 include("cmake/StaticAnalysis.cmake")
 include("cmake/DynamicAnalysis.cmake")
-include("cmake/InterproceduralOptimizations.cmake")
 
 function(myproject_setup_target TARGET_NAME)
 
@@ -28,6 +27,5 @@ function(myproject_setup_target TARGET_NAME)
     __myproject_target_enable_test_coverage(${TARGET_NAME})
     __myproject_target_enable_static_analysis(${TARGET_NAME})
     __myproject_target_enable_dynamic_analysis(${TARGET_NAME})
-    __myproject_target_enable_interprocedural_optimizations(${TARGET_NAME})
 
 endfunction()
