@@ -1,3 +1,5 @@
+set(CMAKE_FOLDER "tests/integration")
+
 add_executable(test_generator "test_generator.cpp")
 target_link_libraries(test_generator PRIVATE generator)
 gena_setup_target(test_generator)
