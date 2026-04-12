@@ -6,7 +6,7 @@ namespace gena
 {
     void FileEditor::replace_in_name(QFile &file, const QString &before, const QString &after)
     {
-        QString name = file.fileName();
+        QString name = QFileInfo{file}.fileName();
         if (!name.contains(before)) { return; }
 
         name.replace(before, after);
