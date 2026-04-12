@@ -4,8 +4,8 @@ project(myproject)
 
 include("cmake/Setup.cmake")
 
-option(MYPROJECT_BUILD_TESTS     "build tests"     ${MYPROJECT_ENABLE_DEVELOPER_MODE})
-option(MYPROJECT_BUILD_EXAMPLES  "build examples"  ${MYPROJECT_ENABLE_DEVELOPER_MODE})
+option(MYPROJECT_BUILD_TESTS     "build tests"     OFF)
+option(MYPROJECT_BUILD_EXAMPLES  "build examples"   ON)
 
 add_subdirectory("deps" EXCLUDE_FROM_ALL)
 add_subdirectory("src")
