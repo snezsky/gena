@@ -108,6 +108,7 @@ namespace gena
         git({"init"});
         git({"add", "."});
         git({"update-index", "--chmod=+x", "scripts/coverage.sh"});
+        git({"add", "."});
         git({"commit", "-m", "create initial project structure"});
     }
 
