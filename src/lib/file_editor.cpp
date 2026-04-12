@@ -1,18 +1,21 @@
 #include "file_editor.hpp"
 
+#include <QDir>
 #include <QFileInfo>
 
 namespace gena
 {
     void FileEditor::replace_in_name(QFile &file, const QString &before, const QString &after)
     {
-        QString name = QFileInfo{file}.fileName();
-        if (!name.contains(before)) { return; }
+        const QFileInfo info{file};
+        if (!info.fileName().contains(before)) { return; }
 
-        name.replace(before, after);
-        if (!file.rename(name))
+        const QDir path{info.absolutePath()};
+        const QString newName{info.fileName().replace(before, after)};
+
+        if (!file.rename(path.filePath(newName)))
         {
-            throw std::filesystem::filesystem_error("Failed to rename file " + name.toStdString(),
+            throw std::filesystem::filesystem_error("Failed to rename file " + newName.toStdString(),
                                                     std::make_error_code(std::errc::io_error));
         }
     }
@@ -21,8 +24,9 @@ namespace gena
     {
         static const QList extensions{"txt", "cmake", "json", "md", "rc", "hpp", "cpp"};
 
-        if (!QFileInfo{file}.isFile()) { return; }
-        if (!extensions.contains(QFileInfo{file}.suffix())) { return; }
+        const QFileInfo info{file};
+        if (!info.isFile()) { return; }
+        if (!extensions.contains(info.suffix())) { return; }
 
         if (!file.open(QIODevice::ReadWrite))
         {
