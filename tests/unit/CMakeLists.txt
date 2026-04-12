@@ -14,7 +14,7 @@ function(gena_add_unit_test)
     gena_setup_target(${TEST_NAME})
     gena_run_windeployqt(${TEST_NAME})
 
-    target_link_libraries(${TEST_NAME} PRIVATE generator GTest::gtest_main)
+    target_link_libraries(${TEST_NAME} PRIVATE generator GTest::gmock GTest::gtest_main)
     gtest_discover_tests(${TEST_NAME} DISCOVERY_MODE PRE_TEST)
 
     # clang-tidy hates googletest's macros
@@ -22,4 +22,5 @@ function(gena_add_unit_test)
 
 endfunction()
 
+gena_add_unit_test(NAME test_file_editor SOURCES "test_file_editor.cpp")
 gena_add_unit_test(NAME test_options_validator SOURCES "test_options_validator.cpp")
