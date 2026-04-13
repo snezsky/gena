@@ -24,21 +24,22 @@ void gena::OptionsValidator::validate_type(ProjectType type)
 {
     switch (type)
     {
-    case ProjectType::exe: [[fallthrough]];
-    case ProjectType::lib: break;
-    default: throw std::invalid_argument("Invalid project type!");
+    case ProjectType::library:
+    case ProjectType::executable:
+    case ProjectType::qmainwindow: return;
     }
+    throw std::invalid_argument("Invalid project type!");
 }
 
 void gena::OptionsValidator::validate_cpp_standard(CppStandard standard)
 {
     switch (standard)
     {
-    case CppStandard::cpp17: [[fallthrough]];
-    case CppStandard::cpp20: [[fallthrough]];
-    case CppStandard::cpp23: break;
-    default: throw std::invalid_argument("Invalid C++ standard!");
+    case CppStandard::cpp17:
+    case CppStandard::cpp20:
+    case CppStandard::cpp23: return;
     }
+    throw std::invalid_argument("Invalid C++ standard!");
 }
 
 void gena::OptionsValidator::validate_dependencies(Dependencies dependencies)

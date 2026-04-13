@@ -7,8 +7,9 @@ namespace gena
 {
     enum class ProjectType : uint8_t
     {
-        lib,
-        exe,
+        library,
+        executable,
+        qmainwindow,
     };
 
     enum class CppStandard : uint8_t

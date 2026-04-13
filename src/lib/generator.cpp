@@ -33,8 +33,9 @@ namespace gena
     {
         switch (projectType)
         {
-        case ProjectType::exe: copy_content(source / "exe", destination); break;
-        case ProjectType::lib: copy_content(source / "lib", destination); break;
+        case ProjectType::library: copy_content(source / "type" / "library", destination); break;
+        case ProjectType::executable: copy_content(source / "type" / "executable", destination); break;
+        case ProjectType::qmainwindow: copy_content(source / "type" / "qmainwindow", destination); break;
         }
     }
 

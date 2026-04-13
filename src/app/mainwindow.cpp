@@ -82,8 +82,11 @@ void MainWindow::unblock_gui_with_error_message(const QString &message)
 
 gena::ProjectType MainWindow::compute_project_type() const
 {
-    if (ui->radioButton_exe->isChecked()) { return gena::ProjectType::exe; }
-    if (ui->radioButton_lib->isChecked()) { return gena::ProjectType::lib; }
+    const QString projectType = ui->comboBox_project_type->currentText();
+
+    if (projectType == "Library") { return gena::ProjectType::library; }
+    if (projectType == "Executable") { return gena::ProjectType::executable; }
+    if (projectType == "QMainWindow") { return gena::ProjectType::qmainwindow; }
 
     throw std::invalid_argument("Unknown project type");
 }

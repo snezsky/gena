@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>259</width>
-    <height>325</height>
+    <width>277</width>
+    <height>316</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,16 +15,40 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <property name="horizontalSpacing">
-     <number>15</number>
-    </property>
     <property name="verticalSpacing">
-     <number>12</number>
+     <number>10</number>
     </property>
-    <item row="0" column="1" colspan="3">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_name">
+      <property name="text">
+       <string>project name</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_type">
+      <property name="text">
+       <string>project type</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_test_framework">
+      <property name="text">
+       <string>test framework</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="2">
      <widget class="QLineEdit" name="lineEdit_name"/>
     </item>
-    <item row="5" column="0" colspan="4">
+    <item row="4" column="0" colspan="3">
      <widget class="QGroupBox" name="groupBox_dependencies">
       <property name="title">
        <string>dependencies</string>
@@ -60,86 +84,7 @@
       </layout>
      </widget>
     </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_type">
-      <property name="text">
-       <string>project type</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1" colspan="3">
-     <widget class="QComboBox" name="comboBox_cpp_standard">
-      <property name="currentText">
-       <string>c++23</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>c++17</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>c++20</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>c++23</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_test_framework">
-      <property name="text">
-       <string>test framework</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_name">
-      <property name="text">
-       <string>project name</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_cpp_standard">
-      <property name="text">
-       <string>cpp standard</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QRadioButton" name="radioButton_exe">
-      <property name="text">
-       <string>exe</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1" colspan="2" alignment="Qt::AlignmentFlag::AlignHCenter">
-     <widget class="QRadioButton" name="radioButton_lib">
-      <property name="text">
-       <string>lib</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-      <property name="autoRepeat">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1" colspan="3">
+    <item row="2" column="1" colspan="2">
      <widget class="QComboBox" name="comboBox_test_framework">
       <property name="currentText">
        <string>GoogleTest</string>
@@ -161,7 +106,17 @@
       </item>
      </widget>
     </item>
-    <item row="7" column="0" colspan="4">
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_cpp_standard">
+      <property name="text">
+       <string>cpp standard</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="3">
      <widget class="QPushButton" name="pushButton_generate">
       <property name="text">
        <string>Generate</string>
@@ -171,7 +126,7 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="0" colspan="4">
+    <item row="5" column="0" colspan="3">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Orientation::Vertical</enum>
@@ -184,6 +139,47 @@
       </property>
      </spacer>
     </item>
+    <item row="1" column="1" colspan="2">
+     <widget class="QComboBox" name="comboBox_cpp_standard">
+      <property name="currentText">
+       <string>c++23</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>c++23</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>c++20</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>c++17</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="3" column="1" colspan="2">
+     <widget class="QComboBox" name="comboBox_project_type">
+      <item>
+       <property name="text">
+        <string>Library</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Executable</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>QMainWindow</string>
+       </property>
+      </item>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
@@ -191,11 +187,8 @@
  <tabstops>
   <tabstop>lineEdit_name</tabstop>
   <tabstop>comboBox_cpp_standard</tabstop>
-  <tabstop>radioButton_lib</tabstop>
-  <tabstop>radioButton_exe</tabstop>
   <tabstop>checkBox_spdlog</tabstop>
   <tabstop>checkBox_json</tabstop>
-  <tabstop>pushButton_generate</tabstop>
  </tabstops>
  <resources/>
  <connections/>
