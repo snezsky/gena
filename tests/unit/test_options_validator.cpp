@@ -8,7 +8,7 @@ namespace
     Options valid_options()
     {
         return Options{.name = "project",
-                       .type = ProjectType::lib,
+                       .type = ProjectType::library,
                        .standard = CppStandard::cpp23,
                        .dependencies = Dependency::googletest,
                        .location = std::filesystem::current_path()};

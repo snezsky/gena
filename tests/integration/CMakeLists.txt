@@ -6,7 +6,7 @@ gena_setup_target(test_generator)
 gena_run_windeployqt(test_generator)
 
 foreach (STD 17 20 23)
-    foreach (TYPE lib exe)
+    foreach (TYPE library executable qmainwindow)
         set(GEN_NAME ${TYPE}${STD})
 
         # generate test project with injected generator tests

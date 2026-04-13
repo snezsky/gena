@@ -21,8 +21,9 @@ namespace
         options.name = projectName.toStdString();
         options.location = std::filesystem::current_path();
 
-        if (projectName.startsWith("lib")) { options.type = ProjectType::lib; }
-        else if (projectName.startsWith("exe")) { options.type = ProjectType::exe; }
+        if (projectName.startsWith("library")) { options.type = ProjectType::library; }
+        else if (projectName.startsWith("executable")) { options.type = ProjectType::executable; }
+        else if (projectName.startsWith("qmainwindow")) { options.type = ProjectType::qmainwindow; }
         else { throw std::invalid_argument("unknown project type"); }
 
         if (projectName.endsWith("17")) { options.standard = CppStandard::cpp17; }
