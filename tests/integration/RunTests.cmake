@@ -9,7 +9,7 @@ function(assert_process_succeeds)
     if (NOT ${PROCESS_RESULT} EQUAL 0)
         message(STATUS "Error output: ${PROCESS_STDERR}")
         message(STATUS "Standard output: ${PROCESS_STDOUT}")
-        message(FATAL_ERROR "Stopping CMake due to failed test!")
+        message(FATAL_ERROR "Stopping CMake due to failed process ( ${ARGV} )")
     endif()
 
 endfunction()
