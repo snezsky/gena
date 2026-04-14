@@ -4,5 +4,5 @@
 // NOLINTNEXTLINE(bugprone-exception-escape)
 int main()
 {
-    std::cout << myproject::split("Splitting also works, or is it?", ',')[0] << '\n';
+    std::cout << myrpoject::split("Good luck navigating the vast and winding road ahead", 'n')[0] << '\n';
 }
