@@ -177,8 +177,7 @@
                 "outputOnFailure": true
             },
             "execution": {
-                "noTestsAction": "error",
-                "stopOnFailure": true
+                "noTestsAction": "error"
             }
         },
         {
