@@ -35,14 +35,14 @@ TEST(OptionsValidatorTest, ProjectName)
 TEST(OptionsValidatorTest, ProjectType)
 {
     Options options = valid_options();
-    options.type = static_cast<ProjectType>(0xCAFE);
+    options.type = static_cast<ProjectType>(0xCA);
     EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Type have to be a valid enum value";
 }
 
 TEST(OptionsValidatorTest, CppStandard)
 {
     Options options = valid_options();
-    options.standard = static_cast<CppStandard>(0xBEAF);
+    options.standard = static_cast<CppStandard>(0xFE);
     EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument)
         << "C++ standard have to be a valid enum value";
 }
