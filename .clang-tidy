@@ -13,8 +13,6 @@ Checks: "*,
         -concurrency-mt-unsafe,
         -readability-else-after-return,
         -cppcoreguidelines-pro-bounds-avoid-unchecked-container-access,
-        -cppcoreguidelines-non-private-member-variables-in-classes,
-        -misc-non-private-member-variables-in-classes,
         -misc-no-recursion,
         -misc-include-cleaner,
 "
