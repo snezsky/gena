@@ -34,6 +34,10 @@ Tested on Windows 10/11 and Ubuntu 24.04, but it should work on other Unix-like 
 - [cppcheck](https://cppcheck.sourceforge.io/) (developer mode only)
 - [clang-tidy](https://github.com/llvm/llvm-project/releases/) (developer mode only)
 
+> [!IMPORTANT]
+> On Windows, you will need to install clang-tidy 22.1.0  
+  or newer to use it with sanitizer-enabled builds.
+
 ## Usage
 
 After building, you will see something like this:
