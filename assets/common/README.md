@@ -10,6 +10,6 @@ cmake --build build/<preset-name>
 ```
 
 ## Dependencies
-- ccache (recommended)
-- cppcheck (developer mode only)
-- clang-tidy (developer mode only)
+- [ccache](https://ccache.dev/download.html) (recommended)
+- [cppcheck](https://cppcheck.sourceforge.io/) (developer mode only)
+- [clang-tidy](https://github.com/llvm/llvm-project/releases/) (developer mode only)
