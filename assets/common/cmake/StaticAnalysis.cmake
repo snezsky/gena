@@ -14,7 +14,7 @@ function(__myproject_target_enable_cppcheck TARGET_NAME)
 
     find_program(CPPCHECK cppcheck)
     if (NOT CPPCHECK)
-        message(FATAL_ERROR "static analysis enabled, but cppcheck was not found")
+        message(FATAL_ERROR "Static analysis is enabled, but cppcheck was not found. Please install it.")
     endif()
 
     get_target_property(CPP_STANDARD ${TARGET_NAME} CXX_STANDARD)
@@ -53,7 +53,7 @@ function(__myproject_target_enable_clang_tidy TARGET_NAME)
 
     find_program(CLANG_TIDY clang-tidy)
     if(NOT CLANG_TIDY)
-        message(FATAL_ERROR "static analysis enabled, but clang-tidy was not found")
+        message(FATAL_ERROR "Static analysis is enabled, but clang-tidy was not found. Please install it")
     endif()
 
     set(CLANG_TIDY_COMMAND ${CLANG_TIDY}
