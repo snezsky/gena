@@ -44,9 +44,8 @@ After building, you will see something like this:
 
 ![GUI image](docs/gui.png)
 
-You can generate either a library or a Qt executable with a GUI.  
-The generated project includes all features listed above and  
-works out of the box.
+You can generate a library, an empty executable, or an executable with a Qt GUI.  
+The generated project includes all the features listed above and works out of the box.
 
 It provides a set of CMake presets divided into **developer**  
 and **user** mode. Developer mode enables additional options
