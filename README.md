@@ -61,8 +61,9 @@ option(MYPROJECT_ENABLE_DYNAMIC_ANALYSIS  "available sanitizers"      ${MYPROJEC
   target you create. This ensures all features are applied to that target.
 
 > [!TIP]
-> You may want to adjust **.clang-tidy** and **.clang-format** to  
-  better suit your project. The default configuration is quite strict.
+> Don’t turn off `Developer mode` just because **clang-format** or **clang-tidy** is annoying.  
+  Fix the issues, tweak *.clang-tidy* / *.clang-format*, use [NOLINT](https://clang.llvm.org/extra/clang-tidy/#suppressing-undesired-diagnostics) / [clang-format off](https://clang.llvm.org/docs/ClangFormatStyleOptions.html#disabling-formatting-on-a-piece-of-code) where it makes sense.  
+  Developing in user mode disables most of the tooling and defeats the whole purpose.
 
 ## GitLab runner
 
