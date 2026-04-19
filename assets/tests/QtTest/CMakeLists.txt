@@ -24,9 +24,3 @@ endfunction()
 myproject_add_test(NAME test_myproject SOURCES "test_myproject.cpp")
 target_link_libraries(test_myproject PRIVATE myproject)
 
-# Run windeployqt on a single test to avoid redundant work and parallel build issues
-if (MSVC)
-    add_custom_command(
-        TARGET test_myproject POST_BUILD
-        COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:test_myproject> --no-translations)
-endif()

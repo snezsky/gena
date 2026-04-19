@@ -9,9 +9,3 @@ add_executable(myproject-app WIN32
     "ico/app.rc") # windows icon
 target_link_libraries(myproject-app PRIVATE Qt6::Widgets myproject)
 myproject_setup_target(myproject-app)
-
-if (MSVC)
-    add_custom_command(
-        TARGET myproject-app POST_BUILD
-        COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:myproject-app> --no-translations)
-endif()

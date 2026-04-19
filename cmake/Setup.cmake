@@ -30,15 +30,3 @@ function(gena_setup_target TARGET_NAME)
 
 endfunction()
 
-function(gena_run_windeployqt TARGET_NAME)
-
-    if (NOT MSVC)
-        return()
-    endif()
-
-    add_custom_command(
-        TARGET ${TARGET_NAME} POST_BUILD
-        COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${TARGET_NAME}> --no-translations
-        COMMENT "Deploying Qt runtime dependencies for ${TARGET_NAME}")
-
-endfunction()
