@@ -54,140 +54,118 @@
             }
         },
         {
+            "name": "conf-dev-common",
+            "hidden": true,
+            "cacheVariables": {
+                "GENA_BUILD_TESTS": "ON",
+                "GENA_ENABLE_DEVELOPER_MODE": "ON"
+            }
+        },
+        {
+            "name": "conf-user-common",
+            "hidden": true,
+            "cacheVariables": {
+                "GENA_BUILD_TESTS": "OFF",
+                "GENA_ENABLE_DEVELOPER_MODE": "OFF"
+            }
+        },
+        {
+            "name": "conf-debug-common",
+            "hidden": true,
+            "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+        },
+        {
+            "name": "conf-release-common",
+            "hidden": true,
+            "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+        },
+        {
+            "name": "conf-gcc-common",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++"
+            }
+        },
+        {
+            "name": "conf-clang-common",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
+            }
+        },
+        {
             "name": "msvc-debug-dev",
             "displayName": "MSVC Debug (Developer Mode)",
             "description": "Target Windows with the msvc compiler, debug build type",
-            "inherits": "conf-windows-common",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "GENA_ENABLE_DEVELOPER_MODE": "ON"
-            }
+            "inherits": [ "conf-windows-common", "conf-debug-common", "conf-dev-common" ]
         },
         {
             "name": "msvc-release-dev",
             "displayName": "MSVC Release (Developer Mode)",
             "description": "Target Windows with the msvc compiler, release build type",
-            "inherits": "conf-windows-common",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-                "GENA_ENABLE_DEVELOPER_MODE": "ON"
-            }
+            "inherits": [ "conf-windows-common", "conf-release-common", "conf-dev-common" ]
         },
         {
             "name": "msvc-debug-user",
             "displayName": "MSVC Debug (User Mode)",
             "description": "Target Windows with the msvc compiler, debug build type",
-            "inherits": "conf-windows-common",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "GENA_ENABLE_DEVELOPER_MODE": "OFF"
-            }
+            "inherits": [ "conf-windows-common", "conf-debug-common", "conf-user-common" ]
         },
         {
             "name": "msvc-release-user",
             "displayName": "MSVC Release (User Mode)",
             "description": "Target Windows with the msvc compiler, release build type",
-            "inherits": "conf-windows-common",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "GENA_ENABLE_DEVELOPER_MODE": "OFF"
-            }
+            "inherits": [ "conf-windows-common", "conf-release-common", "conf-user-common" ]
         },
         {
             "name": "gcc-debug-dev",
             "displayName": "GCC Debug (Developer Mode)",
             "description": "Target Unix-like OS with the gcc compiler, debug build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "gcc",
-                "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "GENA_ENABLE_DEVELOPER_MODE": "ON"
-            }
+            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-debug-common", "conf-dev-common" ]
         },
         {
             "name": "gcc-release-dev",
             "displayName": "GCC Release (Developer Mode)",
             "description": "Target Unix-like OS with the gcc compiler, release build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "gcc",
-                "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-                "GENA_ENABLE_DEVELOPER_MODE": "ON"
-            }
+            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-release-common", "conf-dev-common" ]
         },
         {
             "name": "gcc-debug-user",
             "displayName": "GCC Debug (User Mode)",
             "description": "Target Unix-like OS with the gcc compiler, debug build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "gcc",
-                "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "GENA_ENABLE_DEVELOPER_MODE": "OFF"
-            }
+            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-debug-common", "conf-user-common" ]
         },
         {
             "name": "gcc-release-user",
             "displayName": "GCC Release (User Mode)",
             "description": "Target Unix-like OS with the gcc compiler, release build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "gcc",
-                "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "Release",
-                "GENA_ENABLE_DEVELOPER_MODE": "OFF"
-            }
+            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-release-common", "conf-user-common" ]
         },
         {
             "name": "clang-debug-dev",
             "displayName": "Clang Debug (Developer Mode)",
             "description": "Target Unix-like OS with the clang compiler, debug build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang",
-                "CMAKE_CXX_COMPILER": "clang++",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "GENA_ENABLE_DEVELOPER_MODE": "ON"
-            }
+            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-debug-common", "conf-dev-common" ]
         },
         {
             "name": "clang-release-dev",
             "displayName": "Clang Release (Developer Mode)",
             "description": "Target Unix-like OS with the clang compiler, release build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang",
-                "CMAKE_CXX_COMPILER": "clang++",
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-                "GENA_ENABLE_DEVELOPER_MODE": "ON"
-            }
+            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-release-common", "conf-dev-common" ]
         },
         {
             "name": "clang-debug-user",
             "displayName": "Clang Debug (User Mode)",
             "description": "Target Unix-like OS with the clang compiler, debug build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang",
-                "CMAKE_CXX_COMPILER": "clang++",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "GENA_ENABLE_DEVELOPER_MODE": "OFF"
-            }
+            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-debug-common", "conf-user-common" ]
         },
         {
             "name": "clang-release-user",
             "displayName": "Clang Release (User Mode)",
             "description": "Target Unix-like OS with the clang compiler, release build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang",
-                "CMAKE_CXX_COMPILER": "clang++",
-                "CMAKE_BUILD_TYPE": "Release",
-                "GENA_ENABLE_DEVELOPER_MODE": "OFF"
-            }
+            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-release-common", "conf-user-common" ]
         }
     ],
     "testPresets": [
