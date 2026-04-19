@@ -8,9 +8,13 @@ project(
 
 include("cmake/Setup.cmake")
 
+option(GENA_BUILD_TESTS "build tests" OFF)
+
 add_subdirectory("src/lib")
 add_subdirectory("src/app")
 
-enable_testing()
-add_subdirectory("tests/unit")
-add_subdirectory("tests/integration")
+if (GENA_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory("tests/unit")
+    add_subdirectory("tests/integration")
+endif()
