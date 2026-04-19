@@ -25,8 +25,8 @@ Tested on Windows 10/11 and Ubuntu 24.04, but it should work on other Unix-like 
   Tools Command Prompt (or run vcvars64.bat) to ensure a 64-bit toolchain.
 
 > [!TIP]
-> If your Qt installation is not in the default system directory, set the `Qt6_ROOT`  
-  environment variable to your Qt installation path so CMake can locate it.
+> If your Qt installation is not in the default system directory, set the `Qt6_ROOT`   
+  environment variable to your Qt installation and add its binary directory to your **PATH**.
 
 ## Dependencies
 - [Qt 6.3+](https://www.qt.io/development/download-qt-installer-oss) 
