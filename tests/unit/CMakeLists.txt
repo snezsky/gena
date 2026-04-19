@@ -14,7 +14,7 @@ function(gena_add_unit_test)
     gena_setup_target(${TEST_NAME})
 
     target_link_libraries(${TEST_NAME} PRIVATE generator GTest::gmock GTest::gtest_main)
-    gtest_discover_tests(${TEST_NAME} DISCOVERY_MODE PRE_TEST)
+    gtest_discover_tests(${TEST_NAME})
 
     # clang-tidy hates googletest's macros
     set_source_files_properties(${TEST_SOURCES} PROPERTIES SKIP_LINTING ON)
