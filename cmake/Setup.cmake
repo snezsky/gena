@@ -15,7 +15,7 @@ function(gena_setup_target TARGET_NAME)
 
     set_target_properties(
         ${TARGET_NAME} PROPERTIES
-        CXX_STANDARD            20
+        CXX_STANDARD            23
         CXX_STANDARD_REQUIRED   ON
         EXPORT_COMPILE_COMMANDS ON
         CXX_EXTENSIONS          OFF)
