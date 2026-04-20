@@ -18,7 +18,7 @@ function(__gena_target_enable_cppcheck TARGET_NAME)
     endif()
 
     get_target_property(CPP_STANDARD ${TARGET_NAME} CXX_STANDARD)
-    set(SUPPRESS_DIR "*:${CMAKE_CURRENT_BINARY_DIR}/_deps/*.h")
+    set(SUPPRESS_DIR "*:${PROJECT_SOURCE_DIR}/deps/**/*.hpp")
     if(MSVC)
         set(CPPCHECK_TEMPLATE vs)
     else()
