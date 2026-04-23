@@ -13,6 +13,7 @@ CMakeUserPresets.json
 .vs/
 .idea/
 .vscode/
+.qtcreator/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
