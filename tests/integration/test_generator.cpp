@@ -1,5 +1,8 @@
 #include <fstream>
 #include <iostream>
+#include <span>
+
+#include <QString>
 
 #include "file_editor.hpp"
 #include "generator.hpp"
@@ -32,7 +35,7 @@ namespace
         else { throw std::invalid_argument("unknown std standard"); }
 
         /* Map each C++ standard to a test framework for full coverage */
-        if (projectName.endsWith("17")) { ;options.dependencies |= Dependency::qtest; }
+        if (projectName.endsWith("17")) { options.dependencies |= Dependency::qtest; }
         else if (projectName.endsWith("20")) { options.dependencies = Dependency::catch2; }
         else if (projectName.endsWith("23")) { options.dependencies = Dependency::googletest; }
 
@@ -40,18 +43,16 @@ namespace
     }
 
     /* The idea is to run generator tests from the generated project with ctest */
-    void inject_generator_tests(const QString &projectName, const std::filesystem::path &projectTestDir)
+    void inject_generator_tests(const Options &options, const std::filesystem::path &projectTestDir)
     {
         static const std::string folderToInject = "injected";
 
         std::filesystem::copy(std::filesystem::current_path() / folderToInject, projectTestDir / folderToInject,
                               std::filesystem::copy_options::recursive);
 
-        QFile utilities(projectTestDir / folderToInject / "Utility.cmake");
-        QFile cmakelist(projectTestDir / folderToInject / "CMakeLists.txt");
-        FileEditor::replace_in_content(utilities, "myproject", projectName);
-        FileEditor::replace_in_content(utilities, "MYPROJECT", projectName.toUpper());
-        FileEditor::replace_in_content(cmakelist, "myproject", projectName);
+        FileEditor editor{options};
+        editor.render_templates(projectTestDir / folderToInject / "Utility.cmake");
+        editor.render_templates(projectTestDir / folderToInject / "CMakeLists.txt");
 
         std::ofstream out(projectTestDir / "CMakeLists.txt", std::ios::app);
         out << "add_subdirectory(" + folderToInject + ")\n";
@@ -68,7 +69,7 @@ int main(int argc, char *argv[])
         const std::filesystem::path projectTestDir = options.location / options.name / "tests";
 
         Generator::generate(options);
-        inject_generator_tests(QString::fromStdString(options.name), projectTestDir);
+        inject_generator_tests(options, projectTestDir);
     }
     catch (const std::exception &e)
     {
