@@ -1,57 +1,71 @@
+#include "auxiliary.hpp"
 #include "file_editor.hpp"
-#include "gmock/gmock.h"
 #include "gtest/gtest.h"
-
-#include <QTemporaryFile>
 
 using namespace gena;
 
-namespace
+struct FileEditorTest : public ::testing::TestWithParam<std::pair<Options, std::filesystem::path>>
 {
-    struct FileEditorTest : testing::Test
+    FileEditorTest()
     {
-        static std::string replaced(const QString &original, const QString &from, const QString &to)
-        {
-            QTemporaryFile file("XXXXXX.txt");
-            if (!file.open()) { return "Failed to open file"; }
-            file.write(original.toUtf8());
-            file.close();
+        std::filesystem::copy(assets, created);
+    }
+    ~FileEditorTest()
+    {
+        std::filesystem::remove_all(created);
+    }
 
-            FileEditor::replace_in_content(file, from, to);
+    std::filesystem::path assets = std::filesystem::current_path() / "assets";
+    std::filesystem::path created = assets / "created";
+};
 
-            if (!file.open()) { return "Failed to open file"; }
-            return file.readAll().toStdString();
-        }
-
-        static std::string renamed(const QString &original, const QString &from, const QString &to)
-        {
-            QTemporaryFile file(original);
-            if (!file.open()) { return "Failed to open file"; }
-            FileEditor::replace_in_name(file, from, to);
-
-            if (!file.open()) { return "Failed to open file"; }
-            return file.fileName().toStdString();
-        }
-    };
-} // namespace
-
-TEST_F(FileEditorTest, ReplaceInName)
+TEST_F(FileEditorTest, ReplaceInDirectoryName)
 {
-    EXPECT_THAT(renamed("coco", "co", "do"), testing::HasSubstr("dodo"));
-    EXPECT_THAT(renamed("works", "s", "ing"), testing::HasSubstr("working"));
-    EXPECT_THAT(renamed("UpperCase", "case", "cuts"), testing::HasSubstr("UpperCase"));
-    EXPECT_THAT(renamed("lowercase", "Lower", "stair"), testing::HasSubstr("lowercase"));
+    const std::filesystem::path dir{created / "butterfly"};
 
-    QFile closed("closed_file");
-    EXPECT_THROW(FileEditor::replace_in_name(closed, "closed", "open"), std::filesystem::filesystem_error);
+    std::filesystem::create_directory(dir);
+    FileEditor::replace_in_name(dir, "butter", "dragon");
+
+    EXPECT_TRUE(std::filesystem::exists(created / "dragonfly"));
+    EXPECT_FALSE(std::filesystem::exists(created / "butterfly"));
 }
 
-TEST_F(FileEditorTest, ReplaceInContent)
+TEST_F(FileEditorTest, ReplaceInFileName)
 {
-    EXPECT_STREQ(replaced("", "", "").c_str(), "");
-    EXPECT_STREQ(replaced("coco", "co", "do").c_str(), "dodo");
-    EXPECT_STREQ(replaced("works", "s", "ing").c_str(), "working");
-    EXPECT_STREQ(replaced("UpperCase", "case", "cuts").c_str(), "UpperCase");
-    EXPECT_STREQ(replaced("lowercase", "Lower", "stair").c_str(), "lowercase");
-    EXPECT_STREQ(replaced("SpecialSymb0l&", "Symb0l&", "Symbols").c_str(), "SpecialSymbols");
+    const std::filesystem::path file{created / "sunflower.txt"};
+
+    std::ofstream out(file, std::ios::out);
+    out.close(); // editor can't rename a file while it's open
+    FileEditor::replace_in_name(file, "sun", "moon");
+
+    EXPECT_TRUE(std::filesystem::exists(created / "moonflower.txt"));
+    EXPECT_FALSE(std::filesystem::exists(created / "sunflower.txt"));
 }
+
+TEST_F(FileEditorTest, RenderTemplatesExceptions)
+{
+    EXPECT_THROW(FileEditor editor{Options{}}, std::invalid_argument);
+}
+
+TEST_P(FileEditorTest, RenderTemplates)
+{
+    auto [options, filename] = GetParam();
+    FileEditor{options}.render_templates(created / "original.txt");
+
+    const std::string actual = content_of(created / filename);
+    const std::string expected = content_of(created / "original.txt");
+
+    EXPECT_EQ(actual, expected);
+}
+
+using enum Dependency;
+using enum CppStandard;
+using enum ProjectType;
+using namespace std::filesystem;
+
+// clang-format off
+INSTANTIATE_TEST_SUITE_P(, FileEditorTest, ::testing::Values(
+    std::make_pair(Options{"first_name", library,     cpp17, googletest, current_path()}, "expected1.txt"),
+    std::make_pair(Options{"SecondName", executable,  cpp20, {catch2, CLI11}, current_path()}, "expected2.txt"),
+    std::make_pair(Options{"Third_Name", qmainwindow, cpp23, {qtest , spdlog}, current_path()}, "expected3.txt")));
+// clang-format on
