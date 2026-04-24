@@ -92,7 +92,9 @@ namespace gena
                 process.exitCode() != EXIT_SUCCESS)
             {
                 const std::string command = args.join(' ').toStdString();
-                throw std::runtime_error("Failed to execute git command: " + command);
+                const std::string error = process.readAllStandardError().toStdString();
+                throw std::runtime_error(
+                    std::format("Failed to setup git repository!\nCommand: {}\nError: {}", command, error));
             }
         };
 
