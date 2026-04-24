@@ -23,8 +23,9 @@ namespace gena
         copy_content(source / "common", destination);
         copy_sources(source, destination, options.type);
         copy_tests(source / "tests", destination / "tests", options.dependencies);
-        embed_project_name(destination, options.name);
-        embed_cpp_standard(destination, options.standard);
+
+        render_templates(destination, options);
+
         copy_dependencies(source / "deps", destination / "deps", options.dependencies);
         setup_git_repository(destination);
     }
@@ -66,27 +67,16 @@ namespace gena
         if (dependencies.testFlag(Dependency::googletest)) { add_dependency("googletest"); }
     }
 
-    void Generator::embed_project_name(const path &projectDir, std::string_view projectName)
+    void Generator::render_templates(const path &projectDir, const Options &options)
     {
-        const QString name = QString::fromStdString(std::string{projectName});
-        const QString NAME = name.toUpper();
+        FileEditor editor{options};
 
         auto dirIt = fs::recursive_directory_iterator(projectDir);
         for (const auto &entry : dirIt)
         {
-            QFile file(QString::fromStdString(entry.path().string()));
-            FileEditor::replace_in_name(file, "myproject", name);
-            FileEditor::replace_in_content(file, "myproject", name);
-            FileEditor::replace_in_content(file, "MYPROJECT", NAME);
+            editor.render_templates(entry.path());
+            FileEditor::replace_in_name(entry.path(), "myproject", options.name);
         }
-    }
-
-    void Generator::embed_cpp_standard(const path &projectDir, CppStandard standard)
-    {
-        QFile file(projectDir / "cmake" / "Setup.cmake");
-        const auto cppVer = static_cast<std::underlying_type_t<CppStandard>>(standard);
-
-        FileEditor::replace_in_content(file, "20", QString::number(cppVer));
     }
 
     void Generator::setup_git_repository(const std::filesystem::path &projectDir)
