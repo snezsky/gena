@@ -57,16 +57,16 @@
             "name": "conf-dev-common",
             "hidden": true,
             "cacheVariables": {
-                "MYPROJECT_BUILD_TESTS": "ON",
-                "MYPROJECT_ENABLE_DEVELOPER_MODE": "ON"
+                "<@ upper(project_name) @>_BUILD_TESTS": "ON",
+                "<@ upper(project_name) @>_ENABLE_DEVELOPER_MODE": "ON"
             }
         },
         {
             "name": "conf-user-common",
             "hidden": true,
             "cacheVariables": {
-                "MYPROJECT_BUILD_TESTS": "OFF",
-                "MYPROJECT_ENABLE_DEVELOPER_MODE": "OFF"
+                "<@ upper(project_name) @>_BUILD_TESTS": "OFF",
+                "<@ upper(project_name) @>_ENABLE_DEVELOPER_MODE": "OFF"
             }
         },
         {

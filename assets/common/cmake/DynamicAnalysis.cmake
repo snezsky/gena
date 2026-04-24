@@ -1,6 +1,6 @@
-function(__myproject_target_enable_dynamic_analysis TARGET_NAME)
+function(__<@ project_name @>_target_enable_dynamic_analysis TARGET_NAME)
 
-    if (NOT MYPROJECT_ENABLE_DYNAMIC_ANALYSIS)
+    if (NOT <@ upper(project_name) @>_ENABLE_DYNAMIC_ANALYSIS)
         return()
     endif()
     

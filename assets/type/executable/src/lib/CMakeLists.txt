@@ -1,6 +1,6 @@
-add_library(myproject
-    "myproject.hpp"
-    "myproject.cpp")
-myproject_setup_target(myproject)
+add_library(<@ project_name @>
+    "<@ project_name @>.hpp"
+    "<@ project_name @>.cpp")
+<@ project_name @>_setup_target(<@ project_name @>)
 
-target_include_directories(myproject PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(<@ project_name @> PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

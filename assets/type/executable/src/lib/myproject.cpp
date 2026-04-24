@@ -1,8 +1,8 @@
-#include "myproject.hpp"
+#include "<@ project_name @>.hpp"
 
 #include <sstream>
 
-namespace myproject
+namespace <@project_name @>
 {
     std::vector<std::string> split(const std::string &str, char delimiter)
     {
@@ -17,4 +17,4 @@ namespace myproject
 
         return result;
     }
-} // namespace myproject
+} // namespace <@ project_name @>

@@ -1,15 +1,15 @@
-project(myproject-tests)
+project(<@ project_name @>-tests)
 
 find_package(Qt6 REQUIRED COMPONENTS Test)
 qt_standard_project_setup() 
 
 # name should be prefixed with `test_` for coverage
-function(myproject_add_test)
+function(<@ project_name @>_add_test)
 
     cmake_parse_arguments(TEST "" "NAME" "SOURCES" ${ARGN})
     
     add_executable(${TEST_NAME} ${TEST_SOURCES})
-    myproject_setup_target(${TEST_NAME})
+    <@ project_name @>_setup_target(${TEST_NAME})
 
     target_link_libraries(${TEST_NAME} PRIVATE Qt6::Test)
     add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
@@ -21,6 +21,6 @@ function(myproject_add_test)
 
 endfunction()
 
-myproject_add_test(NAME test_myproject SOURCES "test_myproject.cpp")
-target_link_libraries(test_myproject PRIVATE myproject)
+<@ project_name @>_add_test(NAME test_<@ project_name @> SOURCES "test_<@ project_name @>.cpp")
+target_link_libraries(test_<@ project_name @> PRIVATE <@ project_name @>)
 

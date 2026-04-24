@@ -1,16 +1,16 @@
-function(__myproject_target_enable_static_analysis TARGET_NAME)
+function(__<@ project_name @>_target_enable_static_analysis TARGET_NAME)
 
-    if (NOT MYPROJECT_ENABLE_STATIC_ANALYSIS)
+    if (NOT <@ upper(project_name) @>_ENABLE_STATIC_ANALYSIS)
         return()
     endif()
     
-    __myproject_target_enable_cppcheck(${TARGET_NAME})
-    __myproject_target_enable_clang_tidy(${TARGET_NAME})
+    __<@ project_name @>_target_enable_cppcheck(${TARGET_NAME})
+    __<@ project_name @>_target_enable_clang_tidy(${TARGET_NAME})
 
 endfunction()
 
 
-function(__myproject_target_enable_cppcheck TARGET_NAME)
+function(__<@ project_name @>_target_enable_cppcheck TARGET_NAME)
 
     find_program(CPPCHECK cppcheck)
     if (NOT CPPCHECK)
@@ -49,7 +49,7 @@ function(__myproject_target_enable_cppcheck TARGET_NAME)
 endfunction()
 
 
-function(__myproject_target_enable_clang_tidy TARGET_NAME)
+function(__<@ project_name @>_target_enable_clang_tidy TARGET_NAME)
 
     find_program(CLANG_TIDY clang-tidy)
     if(NOT CLANG_TIDY)

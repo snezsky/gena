@@ -1,4 +1,4 @@
-function(__myproject_target_enable_cache TARGET_NAME)
+function(__<@ project_name @>_target_enable_cache TARGET_NAME)
 
   find_program(CACHE_BINARY NAMES "ccache")
   if (NOT CACHE_BINARY)

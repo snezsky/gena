@@ -1,6 +1,6 @@
-function(__myproject_target_enable_test_coverage TARGET_NAME)
+function(__<@ project_name @>_target_enable_test_coverage TARGET_NAME)
 
-    if (NOT MYPROJECT_ENABLE_TEST_COVERAGE)
+    if (NOT <@ upper(project_name) @>_ENABLE_TEST_COVERAGE)
         return()
     endif()
 
