@@ -9,7 +9,7 @@ set(CMAKE_FOLDER "tests/unit")
 function(gena_add_unit_test)
 
     cmake_parse_arguments(TEST "" "NAME" "SOURCES" ${ARGN})
-    
+    list(APPEND TEST_SOURCES "auxiliary.hpp")
     add_executable(${TEST_NAME} ${TEST_SOURCES})
     gena_setup_target(${TEST_NAME})
 

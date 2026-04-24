@@ -1,19 +1,8 @@
+#include "auxiliary.hpp"
 #include "options_validator.hpp"
 #include "gtest/gtest.h"
 
 using namespace gena;
-
-namespace
-{
-    Options valid_options()
-    {
-        return Options{.name = "project",
-                       .type = ProjectType::library,
-                       .standard = CppStandard::cpp23,
-                       .dependencies = Dependency::googletest,
-                       .location = std::filesystem::current_path()};
-    }
-} // namespace
 
 TEST(OptionsValidatorTest, ProjectName)
 {
