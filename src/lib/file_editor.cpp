@@ -9,7 +9,7 @@ namespace gena
     {
         OptionsValidator::validate(options);
 
-        /* Disable feature we don't use to avoid unintended side effects */
+        /* Disable features we don't use to avoid unintended side effects */
         env_.set_html_autoescape(false);
         env_.set_comment("〈」〉", "〔「〕");
         env_.set_line_statement("「〉〔」〈〕");
