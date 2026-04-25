@@ -11,6 +11,16 @@ void gena::OptionsValidator::validate(const GenerationOptions &options)
     validate_location(options.location);
 }
 
+void gena::OptionsValidator::validate(const RenderingOptions &options)
+{
+    /* It uses all the same fields except location, but looks right to keep them separate */
+
+    validate_name(options.name);
+    validate_type(options.type);
+    validate_cpp_standard(options.standard);
+    validate_dependencies(options.dependencies);
+}
+
 void gena::OptionsValidator::validate_name(const std::string &name)
 {
     static const QRegularExpression regexp{"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"};

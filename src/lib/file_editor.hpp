@@ -1,4 +1,4 @@
-#include "generation_options.hpp"
+#include "rendering_options.hpp"
 
 #include "inja/inja.hpp"
 
@@ -11,7 +11,7 @@ namespace gena
     {
       public:
         /* Creates instance with `options` for template engine */
-        explicit FileEditor(const GenerationOptions &options);
+        explicit FileEditor(const RenderingOptions &options);
 
         /* Replaces all placeholders in `file` content with template engine */
         void render_templates(const std::filesystem::path &file);

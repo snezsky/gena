@@ -5,7 +5,7 @@
 
 namespace gena
 {
-    FileEditor::FileEditor(const GenerationOptions &options)
+    FileEditor::FileEditor(const RenderingOptions &options)
     {
         OptionsValidator::validate(options);
 

@@ -1,4 +1,5 @@
 #include "generation_options.hpp"
+#include "rendering_options.hpp"
 
 namespace gena
 {
