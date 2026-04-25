@@ -66,10 +66,9 @@ int main(int argc, char *argv[])
     {
         const std::span<char *> args(argv, static_cast<size_t>(argc));
         const Options options = parse_options(args);
-        const std::filesystem::path projectTestDir = options.location / options.name / "tests";
 
         Generator::generate(options);
-        inject_generator_tests(options, projectTestDir);
+        inject_generator_tests(options, options.location / options.name / "tests");
     }
     catch (const std::exception &e)
     {
