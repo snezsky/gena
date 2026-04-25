@@ -2,82 +2,85 @@
 
 #include <QRegularExpression>
 
-void gena::OptionsValidator::validate(const GenerationOptions &options)
+namespace gena
 {
-    validate_name(options.name);
-    validate_type(options.type);
-    validate_cpp_standard(options.standard);
-    validate_dependencies(options.dependencies);
-    validate_location(options.location, options.name);
-}
-
-void gena::OptionsValidator::validate(const RenderingOptions &options)
-{
-    /* It uses all the same fields except location, but looks right to keep them separate */
-
-    validate_name(options.name);
-    validate_type(options.type);
-    validate_cpp_standard(options.standard);
-    validate_dependencies(options.dependencies);
-}
-
-void gena::OptionsValidator::validate_name(const std::string &name)
-{
-    static const QRegularExpression regexp{"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"};
-    if (!regexp.match(QString::fromStdString(name)).hasMatch())
+    void gena::OptionsValidator::validate(const GenerationOptions &options)
     {
-        throw std::invalid_argument("Invalid project name! Use English letters, numbers and underscores only.");
-    }
-}
-
-void gena::OptionsValidator::validate_type(ProjectType type)
-{
-    switch (type)
-    {
-    case ProjectType::library:
-    case ProjectType::executable:
-    case ProjectType::qmainwindow: return;
-    }
-    throw std::invalid_argument("Invalid project type!");
-}
-
-void gena::OptionsValidator::validate_cpp_standard(CppStandard standard)
-{
-    switch (standard)
-    {
-    case CppStandard::cpp17:
-    case CppStandard::cpp20:
-    case CppStandard::cpp23: return;
-    }
-    throw std::invalid_argument("Invalid C++ standard!");
-}
-
-void gena::OptionsValidator::validate_dependencies(Dependencies dependencies)
-{
-    const int testFrameworksCount = static_cast<int>(dependencies.testFlag(Dependency::qtest)) +
-                                    static_cast<int>(dependencies.testFlag(Dependency::catch2)) +
-                                    static_cast<int>(dependencies.testFlag(Dependency::googletest));
-    if (testFrameworksCount != 1)
-    {
-        throw std::invalid_argument("Invalid dependencies! You must choose exactly one test framework.");
-    }
-}
-
-void gena::OptionsValidator::validate_location(const std::filesystem::path &location, std::string_view projectName)
-{
-    if (std::filesystem::path projectDir = location / projectName;
-        std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))
-    {
-        throw std::invalid_argument("Directory '" + projectDir.make_preferred().string() + "' is not empty.");
+        validate_name(options.name);
+        validate_type(options.type);
+        validate_cpp_standard(options.standard);
+        validate_dependencies(options.dependencies);
+        validate_location(options.location, options.name);
     }
 
-    if (!std::filesystem::exists(location))
+    void gena::OptionsValidator::validate(const RenderingOptions &options)
     {
-        throw std::invalid_argument("Invalid project location! Path does not exist.");
+        /* It uses all the same fields except location, but looks right to keep them separate */
+
+        validate_name(options.name);
+        validate_type(options.type);
+        validate_cpp_standard(options.standard);
+        validate_dependencies(options.dependencies);
     }
 
-    if (!std::filesystem::is_directory(location))
+    void gena::OptionsValidator::validate_name(const std::string &name)
     {
-        throw std::invalid_argument("Invalid project location! Path is not a directory.");
+        static const QRegularExpression regexp{"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"};
+        if (!regexp.match(QString::fromStdString(name)).hasMatch())
+        {
+            throw std::invalid_argument("Invalid project name! Use English letters, numbers and underscores only.");
+        }
     }
-}
+
+    void gena::OptionsValidator::validate_type(ProjectType type)
+    {
+        switch (type)
+        {
+        case ProjectType::library:
+        case ProjectType::executable:
+        case ProjectType::qmainwindow: return;
+        }
+        throw std::invalid_argument("Invalid project type!");
+    }
+
+    void gena::OptionsValidator::validate_cpp_standard(CppStandard standard)
+    {
+        switch (standard)
+        {
+        case CppStandard::cpp17:
+        case CppStandard::cpp20:
+        case CppStandard::cpp23: return;
+        }
+        throw std::invalid_argument("Invalid C++ standard!");
+    }
+
+    void gena::OptionsValidator::validate_dependencies(Dependencies dependencies)
+    {
+        const int testFrameworksCount = static_cast<int>(dependencies.testFlag(Dependency::qtest)) +
+                                        static_cast<int>(dependencies.testFlag(Dependency::catch2)) +
+                                        static_cast<int>(dependencies.testFlag(Dependency::googletest));
+        if (testFrameworksCount != 1)
+        {
+            throw std::invalid_argument("Invalid dependencies! You must choose exactly one test framework.");
+        }
+    }
+
+    void gena::OptionsValidator::validate_location(const std::filesystem::path &location, std::string_view projectName)
+    {
+        if (std::filesystem::path projectDir = location / projectName;
+            std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))
+        {
+            throw std::invalid_argument("Directory '" + projectDir.make_preferred().string() + "' is not empty.");
+        }
+
+        if (!std::filesystem::exists(location))
+        {
+            throw std::invalid_argument("Invalid project location! Path does not exist.");
+        }
+
+        if (!std::filesystem::is_directory(location))
+        {
+            throw std::invalid_argument("Invalid project location! Path is not a directory.");
+        }
+    }
+} // namespace gena
