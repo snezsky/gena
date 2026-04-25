@@ -40,7 +40,9 @@ namespace gena
             }
             catch (const inja::InjaError &e)
             {
-                throw std::runtime_error(e.what());
+                const std::string filename = std::filesystem::path{file}.make_preferred().string();
+                throw std::runtime_error(
+                    std::format("Error rendering template!\n\nFile: {}\nError: {}", filename, e.what()));
             }
 
             const std::string content = env_.render_file(file, options_);
