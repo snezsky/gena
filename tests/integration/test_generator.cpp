@@ -11,7 +11,7 @@ using namespace gena;
 
 namespace
 {
-    Options parse_options([[maybe_unused]] std::span<char *> args)
+    GenerationOptions parse_options([[maybe_unused]] std::span<char *> args)
     {
         if (args.size() != 2)
         {
@@ -20,7 +20,7 @@ namespace
 
         const QString projectName{args[1]};
 
-        Options options;
+        GenerationOptions options;
         options.name = projectName.toStdString();
         options.location = std::filesystem::current_path();
 
@@ -43,7 +43,7 @@ namespace
     }
 
     /* The idea is to run generator tests from the generated project with ctest */
-    void inject_generator_tests(const Options &options, const std::filesystem::path &projectTestDir)
+    void inject_generator_tests(const GenerationOptions &options, const std::filesystem::path &projectTestDir)
     {
         static const std::string folderToInject = "injected";
 
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     try
     {
         const std::span<char *> args(argv, static_cast<size_t>(argc));
-        const Options options = parse_options(args);
+        const GenerationOptions options = parse_options(args);
 
         Generator::generate(options);
         inject_generator_tests(options, options.location / options.name / "tests");

@@ -4,7 +4,7 @@
 
 using namespace gena;
 
-struct FileEditorTest : public ::testing::TestWithParam<std::pair<Options, std::filesystem::path>>
+struct FileEditorTest : public ::testing::TestWithParam<std::pair<GenerationOptions, std::filesystem::path>>
 {
     FileEditorTest()
     {
@@ -44,7 +44,7 @@ TEST_F(FileEditorTest, ReplaceInFileName)
 
 TEST_F(FileEditorTest, RenderTemplatesExceptions)
 {
-    EXPECT_THROW(FileEditor editor{Options{}}, std::invalid_argument);
+    EXPECT_THROW(FileEditor editor{GenerationOptions{}}, std::invalid_argument);
 }
 
 TEST_P(FileEditorTest, RenderTemplates)
@@ -65,7 +65,7 @@ using namespace std::filesystem;
 
 // clang-format off
 INSTANTIATE_TEST_SUITE_P(, FileEditorTest, ::testing::Values(
-    std::make_pair(Options{"first_name", library,     cpp17, googletest, current_path()}, "expected1.txt"),
-    std::make_pair(Options{"SecondName", executable,  cpp20, {catch2, CLI11}, current_path()}, "expected2.txt"),
-    std::make_pair(Options{"Third_Name", qmainwindow, cpp23, {qtest , spdlog}, current_path()}, "expected3.txt")));
+    std::pair(GenerationOptions{"first_name", library,     cpp17, googletest, current_path()}, "expected1.txt"),
+    std::pair(GenerationOptions{"SecondName", executable,  cpp20, {catch2, CLI11}, current_path()}, "expected2.txt"),
+    std::pair(GenerationOptions{"Third_Name", qmainwindow, cpp23, {qtest , spdlog}, current_path()}, "expected3.txt")));
 // clang-format on

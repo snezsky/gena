@@ -6,7 +6,7 @@ using namespace gena;
 
 TEST(OptionsValidatorTest, ProjectName)
 {
-    Options options = valid_options();
+    GenerationOptions options = valid_options();
 
     options.name = "";
     EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Name can't be empty";
@@ -23,14 +23,14 @@ TEST(OptionsValidatorTest, ProjectName)
 
 TEST(OptionsValidatorTest, ProjectType)
 {
-    Options options = valid_options();
+    GenerationOptions options = valid_options();
     options.type = static_cast<ProjectType>(0xCA);
     EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Type have to be a valid enum value";
 }
 
 TEST(OptionsValidatorTest, CppStandard)
 {
-    Options options = valid_options();
+    GenerationOptions options = valid_options();
     options.standard = static_cast<CppStandard>(0xFE);
     EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument)
         << "C++ standard have to be a valid enum value";
@@ -46,7 +46,7 @@ TEST(OptionsValidatorTest, Dependencies)
         Dependencies{Dependency::googletest, Dependency::catch2, Dependency::qtest},
     };
 
-    Options options = valid_options();
+    GenerationOptions options = valid_options();
     for (auto entry : dependencies)
     {
         options.dependencies = entry;
@@ -57,7 +57,7 @@ TEST(OptionsValidatorTest, Dependencies)
 
 TEST(OptionsValidatorTest, Location)
 {
-    Options options = valid_options();
+    GenerationOptions options = valid_options();
 
     options.location = std::filesystem::path{};
     EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Location can't be empty";

@@ -30,7 +30,7 @@ namespace gena
     };
     Q_DECLARE_FLAGS(Dependencies, Dependency);
 
-    struct Options
+    struct GenerationOptions
     {
         std::string name;
         ProjectType type;

@@ -4,7 +4,7 @@
 #include <QProgressDialog>
 #include <QRegularExpressionValidator>
 
-#include "options.hpp"
+#include "generation_options.hpp"
 
 namespace Ui
 {
@@ -30,7 +30,7 @@ class MainWindow : public QMainWindow
     void unblock_gui_with_error_message(const QString &message);
 
   private:
-    void generate(const gena::Options &options);
+    void generate(const gena::GenerationOptions &options);
 
     [[nodiscard]] gena::ProjectType compute_project_type() const;
     [[nodiscard]] gena::CppStandard compute_cpp_standard() const;

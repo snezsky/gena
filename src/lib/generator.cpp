@@ -1,6 +1,5 @@
-#include "generator.hpp"
 #include "file_editor.hpp"
-#include "options.hpp"
+#include "generator.hpp"
 #include "options_validator.hpp"
 
 #include <fstream>
@@ -12,7 +11,7 @@ namespace fs = std::filesystem;
 
 namespace gena
 {
-    void Generator::generate(const Options &options)
+    void Generator::generate(const GenerationOptions &options)
     {
         OptionsValidator::validate(options);
 
@@ -67,7 +66,7 @@ namespace gena
         if (dependencies.testFlag(Dependency::googletest)) { add_dependency("googletest"); }
     }
 
-    void Generator::render_templates(const path &projectDir, const Options &options)
+    void Generator::render_templates(const path &projectDir, const GenerationOptions &options)
     {
         FileEditor editor{options};
 

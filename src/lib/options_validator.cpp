@@ -2,7 +2,7 @@
 
 #include <QRegularExpression>
 
-void gena::OptionsValidator::validate(const Options &options)
+void gena::OptionsValidator::validate(const GenerationOptions &options)
 {
     validate_name(options.name);
     validate_type(options.type);

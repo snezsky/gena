@@ -1,11 +1,11 @@
-#include "options.hpp"
+#include "generation_options.hpp"
 
 namespace gena
 {
     class OptionsValidator
     {
       public:
-        static void validate(const Options &options);
+        static void validate(const GenerationOptions &options);
 
       private:
         static void validate_name(const std::string &name);

@@ -45,16 +45,16 @@ void MainWindow::on_pushButton_generate_clicked()
         return;
     }
 
-    const gena::Options options{.name = ui->lineEdit_name->text().toStdString(),
-                                .type = compute_project_type(),
-                                .standard = compute_cpp_standard(),
-                                .dependencies = compute_dependencies(),
-                                .location = location.toStdString()};
+    const gena::GenerationOptions options{.name = ui->lineEdit_name->text().toStdString(),
+                                          .type = compute_project_type(),
+                                          .standard = compute_cpp_standard(),
+                                          .dependencies = compute_dependencies(),
+                                          .location = location.toStdString()};
     progressDialog_.show();
     std::ignore = QtConcurrent::run(&MainWindow::generate, this, options);
 }
 
-void MainWindow::generate(const gena::Options &options)
+void MainWindow::generate(const gena::GenerationOptions &options)
 {
     try
     {

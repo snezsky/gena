@@ -1,17 +1,17 @@
 #pragma once
 
-#include "options.hpp"
+#include "generation_options.hpp"
 #include <fstream>
 
 namespace gena
 {
-    inline Options valid_options()
+    inline GenerationOptions valid_options()
     {
-        return Options{.name = "project",
-                       .type = ProjectType::library,
-                       .standard = CppStandard::cpp23,
-                       .dependencies = Dependency::googletest,
-                       .location = std::filesystem::current_path()};
+        return GenerationOptions{.name = "project",
+                                 .type = ProjectType::library,
+                                 .standard = CppStandard::cpp23,
+                                 .dependencies = Dependency::googletest,
+                                 .location = std::filesystem::current_path()};
     }
 
     inline std::string content_of(std::filesystem::path file)
@@ -22,7 +22,7 @@ namespace gena
     }
 
     /* Prints options nicely in a test output */
-    void PrintTo(const Options &options, std::ostream *os)
+    void PrintTo(const GenerationOptions &options, std::ostream *os)
     {
         *os << std::format("options ( {}", options.name);
         *os << std::format(", type({})", std::to_underlying(options.type));
