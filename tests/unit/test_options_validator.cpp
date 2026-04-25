@@ -4,39 +4,51 @@
 
 using namespace gena;
 
-TEST(OptionsValidatorTest, ProjectName)
+template <typename T> struct OptionsValidatorTest : public testing::Test
 {
-    GenerationOptions options = valid_options();
+    T options = valid_options();
+};
 
-    options.name = "";
-    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Name can't be empty";
+using OptionsTypes = testing::Types<GenerationOptions, RenderingOptions>;
+TYPED_TEST_SUITE(OptionsValidatorTest, OptionsTypes);
 
-    options.name = "project-name";
-    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Name can't contain '-'";
+TYPED_TEST(OptionsValidatorTest, ProjectName)
+{
+    this->options.name = "";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument) << "Empty names must not be allowed";
 
-    options.name = "7project";
-    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Name can't start with a digit";
+    this->options.name = " ";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Names consisting of whitespaces must not be allowed";
 
-    options.name = "проект";
-    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Name can't use non-english letters";
+    this->options.name = "project-name";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Names containing '-' must not be allowed";
+
+    this->options.name = "7project";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Names starting with a digit must not be allowed";
+
+    this->options.name = "проект";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Names containing non-ascii symbols must not be allowed";
 }
 
-TEST(OptionsValidatorTest, ProjectType)
+TYPED_TEST(OptionsValidatorTest, ProjectType)
 {
-    GenerationOptions options = valid_options();
-    options.type = static_cast<ProjectType>(0xCA);
-    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Type have to be a valid enum value";
+    this->options.type = static_cast<ProjectType>(0xCA);
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Type has to be a valid enum value";
 }
 
-TEST(OptionsValidatorTest, CppStandard)
+TYPED_TEST(OptionsValidatorTest, CppStandard)
 {
-    GenerationOptions options = valid_options();
-    options.standard = static_cast<CppStandard>(0xFE);
-    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument)
-        << "C++ standard have to be a valid enum value";
+    this->options.standard = static_cast<CppStandard>(0xFE);
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "C++ standard has to be a valid enum value";
 }
 
-TEST(OptionsValidatorTest, Dependencies)
+TYPED_TEST(OptionsValidatorTest, Dependencies)
 {
     static constexpr auto dependencies = {
         Dependencies{},
@@ -46,25 +58,28 @@ TEST(OptionsValidatorTest, Dependencies)
         Dependencies{Dependency::googletest, Dependency::catch2, Dependency::qtest},
     };
 
-    GenerationOptions options = valid_options();
     for (auto entry : dependencies)
     {
-        options.dependencies = entry;
-        EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument)
+        this->options.dependencies = entry;
+        EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
             << "Dependencies have to include exactly one test framework";
     }
 }
 
-TEST(OptionsValidatorTest, Location)
+TEST(GenerationOptionsValidatorTest, Location)
 {
     GenerationOptions options = valid_options();
 
     options.location = std::filesystem::path{};
     EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Location can't be empty";
 
-    options.location = "non_exsitent";
-    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Location have to exist";
+    options.location = "non_existent";
+    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Location has to exist";
 
     options.location = "test_options_validator.exe";
-    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Location have to be the directory";
+    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Location has to be the directory";
+
+    options.name = "CMakeFiles";
+    options.location = std::filesystem::current_path();
+    EXPECT_THROW(OptionsValidator::validate(options), std::invalid_argument) << "Generation path has to be empty";
 }
