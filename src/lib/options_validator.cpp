@@ -8,7 +8,7 @@ void gena::OptionsValidator::validate(const GenerationOptions &options)
     validate_type(options.type);
     validate_cpp_standard(options.standard);
     validate_dependencies(options.dependencies);
-    validate_location(options.location);
+    validate_location(options.location, options.name);
 }
 
 void gena::OptionsValidator::validate(const RenderingOptions &options)
@@ -63,8 +63,14 @@ void gena::OptionsValidator::validate_dependencies(Dependencies dependencies)
     }
 }
 
-void gena::OptionsValidator::validate_location(const std::filesystem::path &location)
+void gena::OptionsValidator::validate_location(const std::filesystem::path &location, std::string_view projectName)
 {
+    if (std::filesystem::path projectDir = location / projectName;
+        std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))
+    {
+        throw std::invalid_argument("Directory '" + projectDir.make_preferred().string() + "' is not empty.");
+    }
+
     if (!std::filesystem::exists(location))
     {
         throw std::invalid_argument("Invalid project location! Path does not exist.");
