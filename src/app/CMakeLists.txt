@@ -10,6 +10,6 @@ add_executable(gena WIN32
 gena_setup_target(gena)
 target_link_libraries(gena PRIVATE Qt6::Widgets Qt6::Concurrent generator)
 
-message(STATUS "Copying project assets...")
+message(STATUS "Copying assets for gena...")
 file(COPY "${PROJECT_SOURCE_DIR}/assets" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 set_target_properties(gena PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})

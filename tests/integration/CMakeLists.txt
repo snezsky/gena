@@ -29,6 +29,6 @@ foreach (STD 17 20 23)
     endforeach()
 endforeach()
 
-message(STATUS "Copying tests assets...")
+message(STATUS "Copying assets for integration tests...")
 file(COPY "${PROJECT_SOURCE_DIR}/assets"         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/injected" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
