@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-namespace <@project_name @>
+namespace <@ project_name @>
 {
     std::vector<std::string> split(const std::string &str, char delimiter)
     {
