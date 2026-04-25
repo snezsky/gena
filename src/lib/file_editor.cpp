@@ -22,6 +22,11 @@ namespace gena
             env_.set_statement("<%", "%>");
             env_.set_expression("<@", "@>");
 
+            /* Hack to specify include directory for inja */
+            env_.set_include_callback([this]([[maybe_unused]] const std::filesystem::path &, const std::string &name) {
+                return env_.parse_file(includePath_ / name);
+            });
+
             options_["project_name"] = options.name;
             options_["cpp_standard"] = options.standard;
             options_["project_type"] = project_type_to_string(options.type);
@@ -89,7 +94,8 @@ namespace gena
 
       private:
         inja::Environment env_;
-        nlohmann::json options_;
+        nlohmann::json options_; // Directory where Inja looks for included template files
+        std::filesystem::path includePath_ = std::filesystem::current_path() / "assets" / "include";
     };
 
     FileEditor::FileEditor(const RenderingOptions &options)
