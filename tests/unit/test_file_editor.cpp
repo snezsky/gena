@@ -53,8 +53,8 @@ TEST_P(FileEditorTest, RenderTemplates)
     auto [options, filename] = GetParam();
     FileEditor{options}.render_templates(created / "original.txt");
 
-    const std::string actual = content_of(created / filename);
-    const std::string expected = content_of(created / "original.txt");
+    const std::string actual = content_of(created / "original.txt");
+    const std::string expected = content_of(created / filename);
 
     EXPECT_EQ(actual, expected);
 }
