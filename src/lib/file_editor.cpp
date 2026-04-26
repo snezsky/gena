@@ -12,25 +12,8 @@ namespace gena
         explicit Impl(const RenderingOptions &options)
         {
             OptionsValidator::validate(options);
-
-            /* Disable features we don't use to avoid unintended side effects */
-            env_.set_html_autoescape(false);
-            env_.set_comment("〈」〉", "〔「〕");
-            env_.set_line_statement("「〉〔」〈〕");
-
-            /* Set custom syntax to not mess with CMake */
-            env_.set_statement("<%", "%>");
-            env_.set_expression("<@", "@>");
-
-            /* Hack to specify include directory for inja */
-            env_.set_include_callback([this]([[maybe_unused]] const std::filesystem::path &, const std::string &name) {
-                return env_.parse_file(includePath_ / name);
-            });
-
-            options_["project_name"] = options.name;
-            options_["cpp_standard"] = options.standard;
-            options_["project_type"] = project_type_to_string(options.type);
-            options_["dependencies"] = compose_dependencies(options.dependencies);
+            setup_inja_environment();
+            setup_inja_data(options);
         }
 
         void render_templates(const std::filesystem::path &file)
@@ -69,6 +52,35 @@ namespace gena
         }
 
       private:
+        void setup_inja_environment()
+        {
+            /* Disable features we don't use to avoid unintended side effects */
+            env_.set_html_autoescape(false);
+            env_.set_comment("〈」〉", "〔「〕");
+            env_.set_line_statement("「〉〔」〈〕");
+
+            /* Process whitespaces in a way that ignores separate lines with conditions/cycles */
+            env_.set_trim_blocks(true);
+            env_.set_lstrip_blocks(true);
+
+            /* Set custom syntax to not mess with CMake */
+            env_.set_statement("<%", "%>");
+            env_.set_expression("<@", "@>");
+
+            /* Hack to specify include directory for inja */
+            env_.set_include_callback([this]([[maybe_unused]] const std::filesystem::path &, const std::string &name) {
+                return env_.parse_file(includePath_ / name);
+            });
+        }
+
+        void setup_inja_data(const RenderingOptions &options)
+        {
+            options_["project_name"] = options.name;
+            options_["cpp_standard"] = options.standard;
+            options_["project_type"] = project_type_to_string(options.type);
+            options_["dependencies"] = compose_dependencies(options.dependencies);
+        }
+
         static std::string project_type_to_string(ProjectType type)
         {
             switch (type)
