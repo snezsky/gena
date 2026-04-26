@@ -8,6 +8,7 @@ struct FileEditorTest : public ::testing::TestWithParam<std::pair<GenerationOpti
 {
     FileEditorTest()
     {
+        std::filesystem::remove_all(created);
         std::filesystem::copy(assets, created);
     }
     ~FileEditorTest()
