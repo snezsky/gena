@@ -9,3 +9,4 @@ cpp23 with actual values, depending on the project options.
 The lines below should be expanded into a list of dependencies:
 - qtest
 - spdlog
+

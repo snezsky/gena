@@ -7,6 +7,22 @@ FileEditor is supposed to replace templates like <@ project_type @> or
 cpp<@ cpp_standard @> with actual values, depending on the project options.
 
 The lines below should be expanded into a list of dependencies:
-<%- for dep in dependencies | sort -%>
+<% for dep in dependencies | sort %>
 - <@ dep @>
-<%- endfor -%>
+<% endfor %>
+
+<% if project_type == "library" %>
+Control statements should not ruin indentation:
+    first line indented by 4 spaces
+<% if true %>
+    second line indented by 4 spaces
+<% endif %>
+    third line indented by 4 spaces
+
+Even when the statements themselves have wrong indentation:
+    first line indented by 4 spaces
+    <%if true   %>
+    second line indented by 4 spaces
+        <%   endif   %>
+    third line indented by 4 spaces
+<% endif %>

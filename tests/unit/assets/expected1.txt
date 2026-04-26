@@ -8,3 +8,13 @@ cpp17 with actual values, depending on the project options.
 
 The lines below should be expanded into a list of dependencies:
 - googletest
+
+Control statements should not ruin indentation:
+    first line indented by 4 spaces
+    second line indented by 4 spaces
+    third line indented by 4 spaces
+
+Even when the statements themselves have wrong indentation:
+    first line indented by 4 spaces
+    second line indented by 4 spaces
+    third line indented by 4 spaces
