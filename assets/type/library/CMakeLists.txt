@@ -5,7 +5,7 @@ project(<@ project_name @>)
 include("cmake/Setup.cmake")
 
 option(<@ upper(project_name) @>_BUILD_TESTS     "build tests"     OFF)
-option(<@ upper(project_name) @>_BUILD_EXAMPLES  "build examples"   ON)
+option(<@ upper(project_name) @>_BUILD_EXAMPLES  "build examples"  OFF)
 
 add_subdirectory("deps" SYSTEM EXCLUDE_FROM_ALL)
 add_subdirectory("src")
