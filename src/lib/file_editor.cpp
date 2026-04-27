@@ -3,6 +3,7 @@
 
 #include <inja/inja.hpp>
 
+#include <format>
 #include <unordered_set>
 
 namespace gena

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "generation_options.hpp"
+
+#include <format>
 #include <fstream>
 
 namespace gena
