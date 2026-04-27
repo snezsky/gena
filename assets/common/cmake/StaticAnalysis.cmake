@@ -18,7 +18,7 @@ function(__<@ project_name @>_target_enable_cppcheck TARGET_NAME)
     endif()
 
     get_target_property(CPP_STANDARD ${TARGET_NAME} CXX_STANDARD)
-    set(SUPPRESS_DIR "*:${PROJECT_SOURCE_DIR}/deps/**/*.hpp")
+    set(SUPPRESS_DIR "*:${PROJECT_SOURCE_DIR}/deps")
     if(MSVC)
         set(CPPCHECK_TEMPLATE vs)
     else()
