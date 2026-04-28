@@ -41,7 +41,7 @@ void MainWindow::on_pushButton_generate_clicked()
     const QString location = QFileDialog::getExistingDirectory(this, "Project destination", "");
     if (location.isEmpty())
     {
-        /* The user closed the file dialog */
+        /* User closed the file dialog */
         return;
     }
 
