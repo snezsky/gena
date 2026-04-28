@@ -68,13 +68,14 @@ namespace gena
 
     void Generator::render_templates(const path &projectDir, const GenerationOptions &options)
     {
-        FileEditor editor{options};
+        /* Collect first — renaming invalidates iterators */
+        const std::vector<fs::path> entries(fs::recursive_directory_iterator(projectDir), {});
 
-        auto dirIt = fs::recursive_directory_iterator(projectDir);
-        for (const auto &entry : dirIt)
+        FileEditor editor{options};
+        for (const fs::path &entry : entries)
         {
-            editor.render_templates(entry.path());
-            FileEditor::replace_in_name(entry.path(), "myproject", options.name);
+            editor.render_templates(entry);
+            FileEditor::replace_in_name(entry, "myproject", options.name);
         }
     }
 
