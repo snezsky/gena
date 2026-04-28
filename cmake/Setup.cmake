@@ -15,10 +15,11 @@ function(gena_setup_target TARGET_NAME)
 
     set_target_properties(
         ${TARGET_NAME} PROPERTIES
+        CXX_EXTENSIONS          OFF
+        CXX_SCAN_FOR_MODULES    OFF
         CXX_STANDARD            23
         CXX_STANDARD_REQUIRED   ON
-        EXPORT_COMPILE_COMMANDS ON
-        CXX_EXTENSIONS          OFF)
+        EXPORT_COMPILE_COMMANDS ON)
     
     __gena_target_enable_cache(${TARGET_NAME})
     __gena_target_enable_warnings(${TARGET_NAME})
