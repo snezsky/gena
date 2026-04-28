@@ -1,5 +1,5 @@
-#include "file_editor.hpp"
 #include "generator.hpp"
+#include "file_editor.hpp"
 #include "options_validator.hpp"
 
 #include <fstream>
