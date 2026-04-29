@@ -1,5 +1,5 @@
 #include <iostream>
-#include "<@ project_name @>.hpp"
+#include "<@ project_name @>/<@ project_name @>.hpp"
 
 // NOLINTNEXTLINE(bugprone-exception-escape)
 int main()

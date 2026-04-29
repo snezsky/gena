@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "<@ project_name @>.hpp"
+#include "<@ project_name @>/<@ project_name @>.hpp"
 
 TEST(StringManipulationTest, SplittingChecks)
 {

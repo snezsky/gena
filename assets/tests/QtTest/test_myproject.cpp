@@ -1,5 +1,5 @@
 #include <QTest>
-#include "<@ project_name @>.hpp"
+#include "<@ project_name @>/<@ project_name @>.hpp"
 
 class StringManipulationTest : public QObject
 {

@@ -1,5 +1,5 @@
 #include "catch2/catch_test_macros.hpp"
-#include "<@ project_name @>.hpp"
+#include "<@ project_name @>/<@ project_name @>.hpp"
 
 TEST_CASE("Splitting checks")
 {
