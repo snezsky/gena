@@ -18,7 +18,77 @@
     <property name="verticalSpacing">
      <number>10</number>
     </property>
-    <item row="1" column="1" colspan="2">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_test_framework">
+      <property name="text">
+       <string>test framework</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_cpp_standard">
+      <property name="text">
+       <string>cpp standard</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0" colspan="3">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_type">
+      <property name="text">
+       <string>project type</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_name">
+      <property name="text">
+       <string>project name</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="2">
+     <widget class="QLineEdit" name="lineEdit_name"/>
+    </item>
+    <item row="0" column="3">
+     <widget class="QToolButton" name="toolButton_name_tip">
+      <property name="toolTip">
+       <string>Keep it short — it will be used as a prefix for
+CMake functions, namespace, file names, etc.</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset theme="QIcon::ThemeIcon::HelpAbout"/>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="3">
      <widget class="QComboBox" name="comboBox_cpp_standard">
       <property name="currentText">
        <string>c++23</string>
@@ -40,50 +110,26 @@
       </item>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_test_framework">
-      <property name="text">
-       <string>test framework</string>
-      </property>
+    <item row="2" column="1" colspan="3">
+     <widget class="QComboBox" name="comboBox_project_type">
+      <item>
+       <property name="text">
+        <string>Library</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Executable</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>QMainWindow</string>
+       </property>
+      </item>
      </widget>
     </item>
-    <item row="7" column="0" colspan="3">
-     <widget class="QPushButton" name="pushButton_generate">
-      <property name="text">
-       <string>Generate</string>
-      </property>
-      <property name="shortcut">
-       <string>Return</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_cpp_standard">
-      <property name="text">
-       <string>cpp standard</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_name"/>
-    </item>
-    <item row="6" column="0" colspan="3">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Orientation::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="1" colspan="2">
+    <item row="3" column="1" colspan="3">
      <widget class="QComboBox" name="comboBox_test_framework">
       <property name="currentText">
        <string>GoogleTest</string>
@@ -105,17 +151,7 @@
       </item>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_name">
-      <property name="text">
-       <string>project name</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="3">
+    <item row="5" column="0" colspan="4">
      <widget class="QGroupBox" name="groupBox_dependencies">
       <property name="title">
        <string>dependencies</string>
@@ -151,33 +187,14 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_type">
+    <item row="7" column="0" colspan="4">
+     <widget class="QPushButton" name="pushButton_generate">
       <property name="text">
-       <string>project type</string>
+       <string>Generate</string>
       </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      <property name="shortcut">
+       <string>Return</string>
       </property>
-     </widget>
-    </item>
-    <item row="2" column="1" colspan="2">
-     <widget class="QComboBox" name="comboBox_project_type">
-      <item>
-       <property name="text">
-        <string>Library</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Executable</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>QMainWindow</string>
-       </property>
-      </item>
      </widget>
     </item>
    </layout>
