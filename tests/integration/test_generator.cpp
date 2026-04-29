@@ -32,7 +32,7 @@ namespace
         if (projectName.endsWith("17")) { options.standard = CppStandard::cpp17; }
         else if (projectName.endsWith("20")) { options.standard = CppStandard::cpp20; }
         else if (projectName.endsWith("23")) { options.standard = CppStandard::cpp23; }
-        else { throw std::invalid_argument("unknown std standard"); }
+        else { throw std::invalid_argument("unknown c++ standard"); }
 
         /* Map each C++ standard to a test framework for full coverage */
         if (projectName.endsWith("17")) { options.dependencies |= Dependency::qtest; }
