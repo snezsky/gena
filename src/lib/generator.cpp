@@ -68,8 +68,11 @@ namespace gena
 
     void Generator::render_templates(const path &projectDir, const GenerationOptions &options)
     {
-        /* Collect first — renaming invalidates iterators */
-        const std::vector<fs::path> entries(fs::recursive_directory_iterator(projectDir), {});
+        /* Process deepest paths first. Renaming a parent invalidates children */
+        std::vector<fs::path> entries(fs::recursive_directory_iterator(projectDir), {});
+        std::ranges::sort(entries, [](const fs::path &lhs, const fs::path &rhs) {
+            return std::distance(lhs.begin(), lhs.end()) > std::distance(rhs.begin(), rhs.end());
+        });
 
         FileEditor editor{options};
         for (const fs::path &entry : entries)
