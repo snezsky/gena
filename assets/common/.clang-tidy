@@ -23,3 +23,7 @@ FormatStyle:     none
 CheckOptions:
   - key: bugprone-easily-swappable-parameters.MinimumLength
     value: 3
+  - key: readability-identifier-length.IgnoredVariableNames
+    value: "id|in|ip|it|iv"
+  - key: readability-identifier-length.IgnoredParameterNames
+    value: "id|in|ip|it|iv"
