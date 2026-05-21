@@ -18,7 +18,7 @@ namespace gena
 
     inline std::string content_of(std::filesystem::path file)
     {
-        std::ifstream in(file, std::ios::binary);
+        std::ifstream in(file);
         in.exceptions(std::ios::failbit | std::ios::badbit);
         return std::string(std::istreambuf_iterator<char>(in), {});
     }
