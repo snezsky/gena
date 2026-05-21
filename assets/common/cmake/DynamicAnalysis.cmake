@@ -12,7 +12,11 @@ function(__<@ project_name @>_target_enable_dynamic_analysis TARGET_NAME)
     if (MSVC)
         target_link_options(${TARGET_NAME} PRIVATE /INCREMENTAL:NO)
         target_compile_options(${TARGET_NAME} PRIVATE /fsanitize=address /Zi)
-        target_compile_definitions(${TARGET_NAME} PRIVATE _DISABLE_VECTOR_ANNOTATION _DISABLE_STRING_ANNOTATION)
+        target_compile_definitions(
+            ${TARGET_NAME} PRIVATE
+            _DISABLE_VECTOR_ANNOTATION
+            _DISABLE_STRING_ANNOTATION
+            _DISABLE_OPTIONAL_ANNOTATION)
     endif()
 
 endfunction()
