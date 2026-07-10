@@ -1,5 +1,5 @@
 #include <fstream>
-#include <iostream>
+#include <print>
 #include <span>
 
 #include <QString>
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     }
     catch (const std::exception &e)
     {
-        std::cout << "Generation failed with exception:\n" << e.what() << '\n';
+        std::println("Generation failed with exception: {}", e.what());
         return EXIT_FAILURE;
     }
 }
