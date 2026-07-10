@@ -18,7 +18,7 @@ cmake --list-presets
 cmake --preset <preset-name>
 cmake --build build/<preset-name>
 ```
-Tested on Windows 10/11 and Ubuntu 24.04, but it should work on other Unix-like systems too.
+Tested on Windows 10/11 and Ubuntu 24/26, but it should work on other Unix-like systems too.
 
 > [!NOTE]
 > When building on Windows from the command line, use the x64 Native  
