@@ -14,7 +14,7 @@ function(__<@ project_name @>_target_enable_cppcheck TARGET_NAME)
 
     find_program(CPPCHECK cppcheck)
     if (NOT CPPCHECK)
-        message(FATAL_ERROR "Static analysis is enabled, but cppcheck was not found. Please install it.")
+        message(FATAL_ERROR "Static analysis is enabled, but cppcheck was not found. Please install it")
     endif()
 
     get_target_property(CPP_STANDARD ${TARGET_NAME} CXX_STANDARD)

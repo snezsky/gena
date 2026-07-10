@@ -2,7 +2,7 @@ function(assert_target_property_equal TARGET PROPERTY EXPECTED)
 
     get_target_property(ACTUAL ${TARGET} ${PROPERTY})
     if (NOT "${ACTUAL}" STREQUAL "${EXPECTED}")
-        message(FATAL_ERROR "Expected '${PROPERTY}' to be '${EXPECTED}', but got '${ACTUAL}'.")
+        message(FATAL_ERROR "Expected '${PROPERTY}' to be '${EXPECTED}', but got '${ACTUAL}'")
     endif()
 
 endfunction()
