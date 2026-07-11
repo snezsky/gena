@@ -29,6 +29,8 @@ namespace gena
 
             copy_dependencies(source / "deps", destination / "deps", options.dependencies);
             setup_git_repository(destination);
+
+            projectDirectory_ = destination;
         }
         catch (...)
         {
@@ -36,6 +38,9 @@ namespace gena
             throw;
         }
     }
+
+    std::filesystem::path Generator::project_directory() const
+    { return projectDirectory_; }
 
     void Generator::copy_sources(const path &source, const path &destination, ProjectType projectType)
     {
