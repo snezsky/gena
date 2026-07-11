@@ -19,14 +19,22 @@ namespace gena
         const fs::path source = pwd / "assets";
         const fs::path destination = options.location / options.name;
 
-        copy_content(source / "common", destination);
-        copy_sources(source, destination, options.type);
-        copy_tests(source / "tests", destination / "tests", options.dependencies);
+        try
+        {
+            copy_content(source / "common", destination);
+            copy_sources(source, destination, options.type);
+            copy_tests(source / "tests", destination / "tests", options.dependencies);
 
-        render_templates(destination, options);
+            render_templates(destination, options);
 
-        copy_dependencies(source / "deps", destination / "deps", options.dependencies);
-        setup_git_repository(destination);
+            copy_dependencies(source / "deps", destination / "deps", options.dependencies);
+            setup_git_repository(destination);
+        }
+        catch (...)
+        {
+            fs::remove_all(destination);
+            throw;
+        }
     }
 
     void Generator::copy_sources(const path &source, const path &destination, ProjectType projectType)
