@@ -8,7 +8,7 @@ namespace gena
     class Generator
     {
       public:
-        static void generate(const GenerationOptions &options);
+        void generate(const GenerationOptions &options);
 
       private:
         using path = std::filesystem::path;

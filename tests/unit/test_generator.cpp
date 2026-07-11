@@ -9,7 +9,7 @@ TEST(TestGenerator, DoesNotCreateDirectoryIfOptionsInvalid)
     gena::GenerationOptions options = gena::valid_options();
     options.standard = static_cast<gena::CppStandard>(0xFF); // invalidates
 
-    EXPECT_THROW(gena::Generator::generate(options), std::invalid_argument);
+    EXPECT_THROW(gena::Generator{}.generate(options), std::invalid_argument);
     EXPECT_FALSE(std::filesystem::exists(options.location / options.name));
 }
 
@@ -22,7 +22,7 @@ TEST(TestGenerator, DoesNotModifyExistingDirectoryIfOptionsInvalid)
 
     /* Project directory will be `options.location / options.name` */
 
-    EXPECT_THROW(gena::Generator::generate(options), std::invalid_argument);
+    EXPECT_THROW(gena::Generator{}.generate(options), std::invalid_argument);
     EXPECT_TRUE(std::filesystem::exists(options.location / options.name));
     EXPECT_TRUE(std::filesystem::exists(options.location / options.name / "exist.txt"));
 }

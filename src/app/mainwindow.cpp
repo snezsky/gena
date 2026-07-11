@@ -58,7 +58,7 @@ void MainWindow::generate(const gena::GenerationOptions &options)
 {
     try
     {
-        gena::Generator::generate(options);
+        gena::Generator{}.generate(options);
     }
     catch (const std::exception &e)
     {
