@@ -1,8 +1,8 @@
 set(CMAKE_FOLDER "tests/integration")
 
-add_executable(test_generator "test_generator.cpp")
-target_link_libraries(test_generator PRIVATE generator)
-gena_setup_target(test_generator)
+add_executable(test_generation "test_generation.cpp")
+target_link_libraries(test_generation PRIVATE generator)
+gena_setup_target(test_generation)
 
 foreach (STD 17 20 23)
     foreach (TYPE library executable qmainwindow)
@@ -11,7 +11,7 @@ foreach (STD 17 20 23)
         # generate test project with injected generator tests
         add_test(
             NAME generation_${GEN_NAME}
-            COMMAND test_generator ${GEN_NAME})
+            COMMAND test_generation ${GEN_NAME})
         set_tests_properties(generation_${GEN_NAME} PROPERTIES FIXTURE_SETUP generation_${GEN_NAME})
 
         # build generated project and run it's tests + injected tests
