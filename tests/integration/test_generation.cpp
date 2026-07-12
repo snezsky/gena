@@ -67,8 +67,9 @@ int main(int argc, char *argv[])
         const std::span<char *> args(argv, static_cast<size_t>(argc));
         const GenerationOptions options = parse_options(args);
 
-        Generator{}.generate(options);
-        inject_generator_tests(options, options.location / options.name / "tests");
+        Generator generator;
+        generator.generate(options);
+        inject_generator_tests(options, generator.project_directory() / "tests");
     }
     catch (const std::exception &e)
     {
