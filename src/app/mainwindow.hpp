@@ -4,7 +4,7 @@
 #include <QProgressDialog>
 #include <QRegularExpressionValidator>
 
-#include "generation_options.hpp"
+#include "generator.hpp"
 
 namespace Ui
 {
@@ -41,4 +41,6 @@ class MainWindow : public QMainWindow
 
     QProgressDialog progressDialog_;
     QRegularExpressionValidator nameValidator_;
+
+    gena::Generator generator_;
 };

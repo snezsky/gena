@@ -2,7 +2,6 @@
 #include <QMessageBox>
 #include <QtConcurrentRun>
 
-#include "generator.hpp"
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
@@ -58,7 +57,7 @@ void MainWindow::generate(const gena::GenerationOptions &options)
 {
     try
     {
-        gena::Generator{}.generate(options);
+        generator_.generate(options);
     }
     catch (const std::exception &e)
     {
