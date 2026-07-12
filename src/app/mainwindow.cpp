@@ -1,3 +1,4 @@
+#include <QDesktopServices>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QtConcurrentRun>
@@ -70,7 +71,20 @@ void MainWindow::generate(const gena::GenerationOptions &options)
 void MainWindow::unblock_gui_with_success_message()
 {
     progressDialog_.hide();
-    QMessageBox::information(this, " ", "Generation successful!");
+
+    QMessageBox box{this};
+    box.setWindowTitle(" ");
+    box.setText("Generation successful!");
+    box.setIcon(QMessageBox::Information);
+    box.addButton(QMessageBox::Close);
+    QPushButton *openProjectButton = box.addButton("Open project folder", QMessageBox::AcceptRole);
+
+    box.exec();
+    if (box.clickedButton() == openProjectButton)
+    {
+        const auto projectPath = QString::fromStdString(generator_.project_directory().string());
+        QDesktopServices::openUrl(QUrl::fromLocalFile(projectPath));
+    }
 }
 
 void MainWindow::unblock_gui_with_error_message(const QString &message)
