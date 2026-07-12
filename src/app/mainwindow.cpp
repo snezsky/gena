@@ -77,7 +77,7 @@ void MainWindow::unblock_gui_with_success_message()
     box.setText("Generation successful!");
     box.setIcon(QMessageBox::Information);
     box.addButton(QMessageBox::Close);
-    QPushButton *openProjectButton = box.addButton("Open project folder", QMessageBox::AcceptRole);
+    const QPushButton *openProjectButton = box.addButton("Open project folder", QMessageBox::AcceptRole);
 
     box.exec();
     if (box.clickedButton() == openProjectButton)
