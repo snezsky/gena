@@ -12,7 +12,7 @@ namespace gena
         return GenerationOptions{.name = "project",
                                  .type = ProjectType::library,
                                  .standard = CppStandard::cpp23,
-                                 .dependencies = Dependency::googletest,
+                                 .dependencies = Dependency::qtest,
                                  .location = std::filesystem::current_path()};
     }
 
