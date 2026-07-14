@@ -39,7 +39,13 @@ namespace gena
     }
 
     std::filesystem::path Generator::project_directory() const
-    { return projectDirectory_; }
+    {
+        if (projectDirectory_.empty())
+        {
+            throw std::runtime_error("Cannot retrieve project directory before a successful generation");
+        }
+        return projectDirectory_;
+    }
 
     void Generator::copy_sources(const path &source, const path &destination, ProjectType projectType)
     {
