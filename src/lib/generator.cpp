@@ -1,10 +1,10 @@
 #include "generator.hpp"
 #include "file_editor.hpp"
 #include "options_validator.hpp"
+#include "whereami/whereami.hpp"
 
 #include <fstream>
 
-#include <QCoreApplication>
 #include <QProcess>
 
 namespace fs = std::filesystem;
@@ -15,8 +15,7 @@ namespace gena
     {
         OptionsValidator::validate(options);
 
-        const fs::path pwd{QCoreApplication::applicationDirPath().toStdU16String()};
-        const fs::path source = pwd / "assets";
+        const fs::path source = whereami::get_executable_directory() / "assets";
         const fs::path destination = options.location / options.name;
 
         try

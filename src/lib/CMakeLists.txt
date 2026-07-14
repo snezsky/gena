@@ -1,5 +1,7 @@
 find_package(Qt6 REQUIRED COMPONENTS Core)
 
+add_subdirectory(whereami)
+
 add_library(generator
     "generation_options.hpp"
     "rendering_options.hpp"
@@ -13,5 +15,5 @@ gena_setup_target(generator)
 
 target_link_libraries(generator
     PUBLIC  Qt6::Core
-    PRIVATE pantor::inja)
+    PRIVATE pantor::inja whereami)
 target_include_directories(generator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
