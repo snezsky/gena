@@ -8,42 +8,37 @@ struct FileEditorTest : public ::testing::TestWithParam<std::pair<GenerationOpti
 {
     FileEditorTest()
     {
-        std::filesystem::remove_all(created);
-        std::filesystem::copy(assets, created);
-    }
-    ~FileEditorTest()
-    {
-        std::filesystem::remove_all(created);
+        std::filesystem::copy(test_data, test_output);
     }
 
-    std::filesystem::path assets = std::filesystem::current_path() / "assets";
-    std::filesystem::path created = assets / "created";
+    std::filesystem::path test_output = gena::temp_directory();
+    std::filesystem::path test_data = std::filesystem::current_path() / "test_data";
 };
 
 TEST_F(FileEditorTest, ReplaceInDirectoryName)
 {
-    const std::filesystem::path dir{created / "butterfly"};
+    const std::filesystem::path dir{test_output / "butterfly"};
 
     std::filesystem::create_directory(dir);
     FileEditor::replace_in_name(dir, "butter", "dragon");
 
-    EXPECT_TRUE(std::filesystem::exists(created / "dragonfly"));
-    EXPECT_FALSE(std::filesystem::exists(created / "butterfly"));
+    EXPECT_TRUE(std::filesystem::exists(test_output / "dragonfly"));
+    EXPECT_FALSE(std::filesystem::exists(test_output / "butterfly"));
 }
 
 TEST_F(FileEditorTest, ReplaceInFileName)
 {
-    const std::filesystem::path file{created / "sunflower.txt"};
+    const std::filesystem::path file{test_output / "sunflower.txt"};
 
-    std::ofstream out(file, std::ios::out);
+    std::ofstream out(file);
     out.close(); // editor can't rename a file while it's open
     FileEditor::replace_in_name(file, "sun", "moon");
 
-    EXPECT_TRUE(std::filesystem::exists(created / "moonflower.txt"));
-    EXPECT_FALSE(std::filesystem::exists(created / "sunflower.txt"));
+    EXPECT_TRUE(std::filesystem::exists(test_output / "moonflower.txt"));
+    EXPECT_FALSE(std::filesystem::exists(test_output / "sunflower.txt"));
 }
 
-TEST_F(FileEditorTest, RenderTemplatesExceptions)
+TEST_F(FileEditorTest, ThrowsWithInvalidOptions)
 {
     EXPECT_THROW(FileEditor editor{GenerationOptions{}}, std::invalid_argument);
 }
@@ -51,10 +46,10 @@ TEST_F(FileEditorTest, RenderTemplatesExceptions)
 TEST_P(FileEditorTest, RenderTemplates)
 {
     auto [options, filename] = GetParam();
-    FileEditor{options}.render_templates(created / "original.txt");
+    FileEditor{options}.render_templates(test_output / "original.txt");
 
-    const std::string actual = content_of(created / "original.txt");
-    const std::string expected = content_of(created / filename);
+    const std::string actual = content_of(test_output / "original.txt");
+    const std::string expected = content_of(test_output / filename);
 
     EXPECT_EQ(actual, expected);
 }
