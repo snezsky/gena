@@ -37,5 +37,6 @@ namespace gena
         CppStandard standard;
         Dependencies dependencies;
         std::filesystem::path location;
+        bool setup_git = false;
     };
 } // namespace gena

@@ -18,24 +18,17 @@
     <property name="verticalSpacing">
      <number>10</number>
     </property>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_test_framework">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_name">
       <property name="text">
-       <string>test framework</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_cpp_standard">
-      <property name="text">
-       <string>cpp standard</string>
+       <string>project name</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
       </property>
      </widget>
     </item>
-    <item row="6" column="0" colspan="3">
+    <item row="7" column="0" colspan="3">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Orientation::Vertical</enum>
@@ -58,33 +51,13 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_name">
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_cpp_standard">
       <property name="text">
-       <string>project name</string>
+       <string>cpp standard</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_name"/>
-    </item>
-    <item row="0" column="3">
-     <widget class="QToolButton" name="toolButton_name_tip">
-      <property name="toolTip">
-       <string>Keep it short — it will be used as a prefix for
-CMake functions, namespace, file names, etc.</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset theme="QIcon::ThemeIcon::HelpAbout"/>
-      </property>
-      <property name="popupMode">
-       <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
       </property>
      </widget>
     </item>
@@ -110,6 +83,23 @@ CMake functions, namespace, file names, etc.</string>
       </item>
      </widget>
     </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_test_framework">
+      <property name="text">
+       <string>test framework</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0" colspan="4">
+     <widget class="QPushButton" name="pushButton_generate">
+      <property name="text">
+       <string>Generate</string>
+      </property>
+      <property name="shortcut">
+       <string>Return</string>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="1" colspan="3">
      <widget class="QComboBox" name="comboBox_project_type">
       <item>
@@ -125,28 +115,6 @@ CMake functions, namespace, file names, etc.</string>
       <item>
        <property name="text">
         <string>QMainWindow</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="3" column="1" colspan="3">
-     <widget class="QComboBox" name="comboBox_test_framework">
-      <property name="currentText">
-       <string>GoogleTest</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>GoogleTest</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Catch2</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>QtTest</string>
        </property>
       </item>
      </widget>
@@ -187,13 +155,55 @@ CMake functions, namespace, file names, etc.</string>
       </layout>
      </widget>
     </item>
-    <item row="7" column="0" colspan="4">
-     <widget class="QPushButton" name="pushButton_generate">
-      <property name="text">
-       <string>Generate</string>
+    <item row="0" column="1" colspan="2">
+     <widget class="QLineEdit" name="lineEdit_name"/>
+    </item>
+    <item row="0" column="3">
+     <widget class="QToolButton" name="toolButton_name_tip">
+      <property name="toolTip">
+       <string>Keep it short — it will be used as a prefix for
+CMake functions, namespace, file names, etc.</string>
       </property>
-      <property name="shortcut">
-       <string>Return</string>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset theme="QIcon::ThemeIcon::HelpAbout"/>
+      </property>
+      <property name="popupMode">
+       <enum>QToolButton::ToolButtonPopupMode::DelayedPopup</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" colspan="3">
+     <widget class="QComboBox" name="comboBox_test_framework">
+      <property name="currentText">
+       <string>GoogleTest</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>GoogleTest</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Catch2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>QtTest</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QCheckBox" name="checkBox_setup_git">
+      <property name="text">
+       <string>setup git repository</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </item>

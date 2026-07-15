@@ -27,7 +27,7 @@ namespace gena
             render_templates(destination, options);
 
             copy_dependencies(source / "deps", destination / "deps", options.dependencies);
-            setup_git_repository(destination);
+            if (options.setup_git) { setup_git_repository(destination); }
 
             projectDirectory_ = destination;
         }

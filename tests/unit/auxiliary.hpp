@@ -13,7 +13,8 @@ namespace gena
                                  .type = ProjectType::library,
                                  .standard = CppStandard::cpp23,
                                  .dependencies = Dependency::qtest,
-                                 .location = std::filesystem::current_path()};
+                                 .location = std::filesystem::current_path(),
+                                 .setup_git = false};
     }
 
     inline GenerationOptions options_with_invalid_standard()

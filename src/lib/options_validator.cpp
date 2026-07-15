@@ -15,7 +15,7 @@ namespace gena
 
     void gena::OptionsValidator::validate(const RenderingOptions &options)
     {
-        /* It uses all the same fields except location, but looks right to keep them separate */
+        /* It uses almost all the same fields, but looks right to keep them separate */
 
         validate_name(options.name);
         validate_type(options.type);

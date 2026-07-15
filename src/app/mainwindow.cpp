@@ -49,7 +49,8 @@ void MainWindow::on_pushButton_generate_clicked()
                                           .type = compute_project_type(),
                                           .standard = compute_cpp_standard(),
                                           .dependencies = compute_dependencies(),
-                                          .location = location.toStdString()};
+                                          .location = location.toStdString(),
+                                          .setup_git = ui->checkBox_setup_git->isChecked()};
     progressDialog_.show();
     std::ignore = QtConcurrent::run(&MainWindow::generate, this, options);
 }
