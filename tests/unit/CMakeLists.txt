@@ -27,5 +27,5 @@ gena_add_unit_test(NAME test_file_editor SOURCES "test_file_editor.cpp")
 gena_add_unit_test(NAME test_options_validator SOURCES "test_options_validator.cpp")
 
 message(STATUS "Copying assets for unit tests...")
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/assets" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/test_data" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
