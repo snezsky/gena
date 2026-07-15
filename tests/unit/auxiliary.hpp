@@ -16,6 +16,20 @@ namespace gena
                                  .location = std::filesystem::current_path()};
     }
 
+    inline GenerationOptions options_with_invalid_standard()
+    {
+        gena::GenerationOptions options;
+        options.standard = static_cast<gena::CppStandard>(0xFE);
+        return options;
+    }
+
+    inline std::filesystem::path would_be_project_directory(gena::GenerationOptions options)
+    {
+        /* Generator will not return project directory if
+           generation failed, so we just return what it would be */
+        return options.location / options.name;
+    }
+
     inline std::string content_of(std::filesystem::path file)
     {
         std::ifstream in(file);
