@@ -119,12 +119,8 @@ namespace gena
     FileEditor::~FileEditor() = default;
 
     void FileEditor::render_templates(const std::filesystem::path &file)
-    {
-        impl_->render_templates(file);
-    }
+    { impl_->render_templates(file); }
 
     void FileEditor::replace_in_name(const std::filesystem::path &file, std::string_view before, std::string_view after)
-    {
-        FileEditor::Impl::replace_in_name(file, before, after);
-    }
+    { FileEditor::Impl::replace_in_name(file, before, after); }
 } // namespace gena
