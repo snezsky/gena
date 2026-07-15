@@ -33,6 +33,7 @@ namespace gena
         }
         catch (...)
         {
+            projectDirectory_.clear();
             fs::remove_all(destination);
             throw;
         }
