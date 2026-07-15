@@ -2,18 +2,34 @@
 
 #include "generation_options.hpp"
 
+#include <QTemporaryDir>
 #include <format>
 #include <fstream>
 
 namespace gena
 {
+    inline std::filesystem::path temp_directory()
+    {
+        static std::vector<QTemporaryDir> temps;
+
+        QTemporaryDir temp;
+        if (!temp.isValid())
+        {
+            const std::string error = temp.errorString().toStdString();
+            throw std::runtime_error("Failed to create temporary directory: " + error);
+        }
+
+        temps.push_back(std::move(temp));
+        return temps.back().path().toStdString();
+    }
+
     inline GenerationOptions valid_options()
     {
         return GenerationOptions{.name = "project",
                                  .type = ProjectType::library,
                                  .standard = CppStandard::cpp23,
                                  .dependencies = Dependency::qtest,
-                                 .location = std::filesystem::current_path(),
+                                 .location = temp_directory(),
                                  .setup_git = false};
     }
 
