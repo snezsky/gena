@@ -2,6 +2,7 @@
 #include "options_validator.hpp"
 
 #include <inja/inja.hpp>
+#include <whereami/whereami.hpp>
 
 #include <format>
 #include <unordered_set>
@@ -70,7 +71,9 @@ namespace gena
 
             /* Hack to specify include directory for inja */
             env_.set_include_callback([this]([[maybe_unused]] const std::filesystem::path &, const std::string &name) {
-                return env_.parse_file(includePath_ / name);
+                static const auto applicationPath = whereami::get_executable_directory();
+                static const auto includePath = applicationPath / "assets" / "include";
+                return env_.parse_file(includePath / name);
             });
         }
 
@@ -108,7 +111,6 @@ namespace gena
       private:
         inja::Environment env_;
         nlohmann::json options_; // Directory where Inja looks for included template files
-        std::filesystem::path includePath_ = std::filesystem::current_path() / "assets" / "include";
     };
 
     FileEditor::FileEditor(const RenderingOptions &options)
