@@ -19,7 +19,7 @@ namespace gena
 
     inline GenerationOptions options_with_invalid_standard()
     {
-        gena::GenerationOptions options;
+        gena::GenerationOptions options = valid_options();
         options.standard = static_cast<gena::CppStandard>(0xFE);
         return options;
     }
