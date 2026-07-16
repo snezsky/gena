@@ -103,8 +103,6 @@ namespace gena
 
     void Generator::setup_git_repository(const std::filesystem::path &projectDir)
     {
-        if (QProcess::execute("git", {"--version"}) != 0) { return; }
-
         auto git = [&](const QStringList &args) {
             QProcess process;
             process.setWorkingDirectory(QString::fromStdString(projectDir.string()));
