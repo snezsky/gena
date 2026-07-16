@@ -26,7 +26,12 @@ namespace gena
 
             try
             {
-                env_.render_file(file, options_);
+                const std::string content = env_.render_file(file, options_);
+
+                std::ofstream out;
+                out.exceptions(std::ios::failbit | std::ios::badbit); // NOLINT(hicpp-signed-bitwise)
+                out.open(file, std::ios::out | std::ios::trunc);      // NOLINT(hicpp-signed-bitwise)
+                out << content;
             }
             catch (const inja::InjaError &e)
             {
@@ -34,13 +39,12 @@ namespace gena
                 throw std::runtime_error(
                     std::format("Error rendering template!\n\nFile: {}\nError: {}", filename, e.what()));
             }
-
-            const std::string content = env_.render_file(file, options_);
-
-            std::ofstream out;
-            out.exceptions(std::ios::failbit | std::ios::badbit); // NOLINT(hicpp-signed-bitwise)
-            out.open(file, std::ios::out | std::ios::trunc);      // NOLINT(hicpp-signed-bitwise)
-            out << content;
+            catch (const std::system_error &e)
+            {
+                const std::string filename = std::filesystem::path{file}.make_preferred().string();
+                throw std::runtime_error(
+                    std::format("Error writing rendered template to file!\n\nFile: {}\nError: {}", filename, e.what()));
+            }
         }
 
         static void replace_in_name(const std::filesystem::path &file, std::string_view before, std::string_view after)
