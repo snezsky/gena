@@ -13,7 +13,15 @@ namespace gena
 {
     void Generator::generate(const GenerationOptions &options)
     {
-        OptionsValidator::validate(options);
+        try
+        {
+            OptionsValidator::validate(options);
+        }
+        catch (...)
+        {
+            projectDirectory_.clear();
+            throw;
+        }
 
         const fs::path source = whereami::get_executable_directory() / "assets";
         const fs::path destination = options.location / options.name;
