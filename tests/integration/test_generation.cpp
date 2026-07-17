@@ -1,5 +1,5 @@
 #include <fstream>
-#include <print>
+#include <iostream>
 #include <span>
 
 #include <QString>
@@ -60,7 +60,7 @@ namespace
 } // namespace
 
 // NOLINTNEXTLINE(bugprone-exception-escape)
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
     try
     {
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
     }
     catch (const std::exception &e)
     {
-        std::println("Generation failed with exception: {}", e.what());
+        std::cout << "Generation failed with exception: " << e.what() << '\n';
         return EXIT_FAILURE;
     }
 }
