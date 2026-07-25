@@ -72,6 +72,17 @@ TEST(TestGenerator, GitRepoNotCreatedIfOptionNotSet)
     EXPECT_FALSE(std::filesystem::exists(generator.project_directory() / ".git"));
 }
 
+TEST(TestGenerator, SingleQtTestDoesNotCreateDepsDirectory)
+{
+    gena::GenerationOptions options = gena::valid_options();
+    options.dependencies = gena::Dependency::qtest;
+
+    gena::Generator generator;
+    generator.generate(options);
+
+    EXPECT_FALSE(std::filesystem::exists(generator.project_directory() / "deps"));
+}
+
 TEST(TestGenerator, DoesNotCreateDirectoryIfOptionsInvalid)
 {
     gena::Generator generator;
