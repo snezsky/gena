@@ -49,6 +49,7 @@ void MainWindow::on_pushButton_generate_clicked()
                                           .type = compute_project_type(),
                                           .standard = compute_cpp_standard(),
                                           .dependencies = compute_dependencies(),
+                                          .cpp_namespace = ui->lineEdit_namespace->text().toStdString(),
                                           .location = location.toStdString(),
                                           .setup_git = ui->checkBox_setup_git->isChecked()};
     progressDialog_.show();
