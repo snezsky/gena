@@ -1,6 +1,6 @@
 include(CheckCXXCompilerFlag)
 
-function(__<@ project_name @>_target_enable_hardening TARGET_NAME)
+function(__<@ lower(namespace) @>_target_enable_hardening TARGET_NAME)
 
     if(MSVC)
         target_link_options(${TARGET_NAME} PRIVATE /NXCOMPAT /CETCOMPAT)

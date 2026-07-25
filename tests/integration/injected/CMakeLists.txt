@@ -1,7 +1,7 @@
 include("Utility.cmake")
 
 add_executable(configured "empty.cpp")
-<@ project_name @>_setup_target(configured)
+<@ lower(namespace) @>_setup_target(configured)
 
 assert_target_property_equal(configured CXX_EXTENSIONS OFF)
 assert_target_property_equal(configured CXX_STANDARD_REQUIRED ON)

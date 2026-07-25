@@ -57,22 +57,22 @@
             "name": "conf-dev-common",
             "hidden": true,
             "cacheVariables": {
-                "<@ upper(project_name) @>_BUILD_TESTS": "ON",
+                "<@ upper(namespace) @>_BUILD_TESTS": "ON",
 <% if project_type == "library" %>
-                "<@ upper(project_name) @>_BUILD_EXAMPLES": "ON",
+                "<@ upper(namespace) @>_BUILD_EXAMPLES": "ON",
 <% endif %>
-                "<@ upper(project_name) @>_ENABLE_DEVELOPER_MODE": "ON"
+                "<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE": "ON"
             }
         },
         {
             "name": "conf-user-common",
             "hidden": true,
             "cacheVariables": {
-                "<@ upper(project_name) @>_BUILD_TESTS": "OFF",
+                "<@ upper(namespace) @>_BUILD_TESTS": "OFF",
 <% if project_type == "library" %>
-                "<@ upper(project_name) @>_BUILD_EXAMPLES": "OFF",
+                "<@ upper(namespace) @>_BUILD_EXAMPLES": "OFF",
 <% endif %>
-                "<@ upper(project_name) @>_ENABLE_DEVELOPER_MODE": "OFF"
+                "<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE": "OFF"
             }
         },
         {

@@ -1,6 +1,6 @@
-function(__<@ project_name @>_target_enable_warnings TARGET_NAME)
+function(__<@ lower(namespace) @>_target_enable_warnings TARGET_NAME)
 
-    if (NOT <@ upper(project_name) @>_ENABLE_WARNINGS)
+    if (NOT <@ upper(namespace) @>_ENABLE_WARNINGS)
         return()
     endif()
     

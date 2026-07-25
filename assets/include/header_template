@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace <@ project_name @>
+namespace <@ namespace @>
 {
     /*! Split string by delimiter
      *
@@ -13,4 +13,4 @@ namespace <@ project_name @>
      */
     [[nodiscard]]
     std::vector<std::string> split(const std::string &str, char delimiter);
-} // namespace <@ project_name @>
+} // namespace <@ namespace @>

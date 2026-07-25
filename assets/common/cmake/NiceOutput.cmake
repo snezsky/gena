@@ -1,4 +1,4 @@
-function(__<@ project_name @>_target_enable_nice_output TARGET_NAME)
+function(__<@ lower(namespace) @>_target_enable_nice_output TARGET_NAME)
 
 target_compile_options(
     ${TARGET_NAME} PRIVATE

@@ -8,4 +8,4 @@ add_executable(<@ project_name @>-app WIN32
     "mainwindow.ui"
     "ico/app.rc") # windows icon
 target_link_libraries(<@ project_name @>-app PRIVATE Qt6::Widgets <@ project_name @>)
-<@ project_name @>_setup_target(<@ project_name @>-app)
+<@ lower(namespace) @>_setup_target(<@ project_name @>-app)
