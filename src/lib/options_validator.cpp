@@ -4,13 +4,13 @@
 
 namespace gena
 {
-    void gena::OptionsValidator::validate(const GenerationOptions &options)
+    void OptionsValidator::validate(const GenerationOptions &options)
     {
         validate(RenderingOptions{options});
         validate_location(options.location, options.name);
     }
 
-    void gena::OptionsValidator::validate(const RenderingOptions &options)
+    void OptionsValidator::validate(const RenderingOptions &options)
     {
         validate_name(options.name);
         validate_type(options.type);
@@ -19,7 +19,7 @@ namespace gena
         validate_namespace(options.cpp_namespace);
     }
 
-    void gena::OptionsValidator::validate_name(const std::string &name)
+    void OptionsValidator::validate_name(const std::string &name)
     {
         static const QRegularExpression regexp{"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"};
         if (!regexp.match(QString::fromStdString(name)).hasMatch())
@@ -28,7 +28,7 @@ namespace gena
         }
     }
 
-    void gena::OptionsValidator::validate_type(ProjectType type)
+    void OptionsValidator::validate_type(ProjectType type)
     {
         switch (type)
         {
@@ -39,7 +39,7 @@ namespace gena
         throw std::invalid_argument("Invalid project type!");
     }
 
-    void gena::OptionsValidator::validate_cpp_standard(CppStandard standard)
+    void OptionsValidator::validate_cpp_standard(CppStandard standard)
     {
         switch (standard)
         {
@@ -50,7 +50,7 @@ namespace gena
         throw std::invalid_argument("Invalid C++ standard!");
     }
 
-    void gena::OptionsValidator::validate_dependencies(Dependencies dependencies)
+    void OptionsValidator::validate_dependencies(Dependencies dependencies)
     {
         const int testFrameworksCount = static_cast<int>(dependencies.testFlag(Dependency::qtest)) +
                                         static_cast<int>(dependencies.testFlag(Dependency::catch2)) +
@@ -61,7 +61,6 @@ namespace gena
         }
     }
 
-    void gena::OptionsValidator::validate_location(const std::filesystem::path &location, std::string_view projectName)
     void OptionsValidator::validate_namespace(const std::string &cpp_namespace)
     {
         static const QRegularExpression regexp{"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"};
@@ -70,6 +69,8 @@ namespace gena
             throw std::invalid_argument("Invalid C++ namespace! Use English letters, numbers and underscores only.");
         }
     }
+
+    void OptionsValidator::validate_location(const std::filesystem::path &location, std::string_view projectName)
     {
         if (std::filesystem::path projectDir = location / projectName;
             std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))
