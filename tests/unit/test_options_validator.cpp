@@ -8,7 +8,7 @@ template <typename T> struct OptionsValidatorTest : public testing::Test
 {
     T options = valid_options();
 };
-
+    
 using OptionsTypes = testing::Types<GenerationOptions, RenderingOptions>;
 TYPED_TEST_SUITE(OptionsValidatorTest, OptionsTypes);
 
@@ -21,6 +21,10 @@ TYPED_TEST(OptionsValidatorTest, ProjectName)
     EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
         << "Names consisting of whitespaces must not be allowed";
 
+    this->options.name = " ";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Names consisting whitespaces in the middle must not be allowed";
+
     this->options.name = "project-name";
     EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
         << "Names containing '-' must not be allowed";
@@ -32,6 +36,32 @@ TYPED_TEST(OptionsValidatorTest, ProjectName)
     this->options.name = "проект";
     EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
         << "Names containing non-ascii symbols must not be allowed";
+}
+
+TYPED_TEST(OptionsValidatorTest, CppNamespace)
+{
+    this->options.cpp_namespace = "";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument) << "Empty namespaces must not be allowed";
+
+    this->options.cpp_namespace = " ";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Namespaces consisting of whitespaces must not be allowed";
+
+    this->options.cpp_namespace = " ";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Namespaces consisting whitespaces in the middle must not be allowed";
+
+    this->options.cpp_namespace = "namespace-name";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Namespaces containing '-' must not be allowed";
+
+    this->options.cpp_namespace = "7namespace";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Namespaces starting with a digit must not be allowed";
+
+    this->options.cpp_namespace = "проект";
+    EXPECT_THROW(OptionsValidator::validate(this->options), std::invalid_argument)
+        << "Namespaces containing non-ascii symbols must not be allowed";
 }
 
 TYPED_TEST(OptionsValidatorTest, ProjectType)

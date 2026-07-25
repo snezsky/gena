@@ -29,6 +29,7 @@ namespace gena
                                  .type = ProjectType::library,
                                  .standard = CppStandard::cpp23,
                                  .dependencies = Dependency::qtest,
+                                 .cpp_namespace = "prj",
                                  .location = temp_directory(),
                                  .setup_git = false};
     }

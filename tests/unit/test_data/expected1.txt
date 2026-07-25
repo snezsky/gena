@@ -2,7 +2,7 @@
 ## headers in the README
 ### are handled properly
 
-You are reading this file to test first_name::FileEditor.
+You are reading this file to test first_namespace::first_name::FileEditor.
 FileEditor is supposed to replace templates like library or
 cpp17 with actual values, depending on the project options.
 
