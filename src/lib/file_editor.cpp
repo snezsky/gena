@@ -87,6 +87,7 @@ namespace gena
             options_["cpp_standard"] = options.standard;
             options_["project_type"] = project_type_to_string(options.type);
             options_["dependencies"] = compose_dependencies(options.dependencies);
+            options_["namespace"] = options.cpp_namespace;
         }
 
         static std::string project_type_to_string(ProjectType type)

@@ -36,6 +36,7 @@ namespace gena
         ProjectType type;
         CppStandard standard;
         Dependencies dependencies;
+        std::string cpp_namespace;
         std::filesystem::path location;
         bool setup_git = false;
     };

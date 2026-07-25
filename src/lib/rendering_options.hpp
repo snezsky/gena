@@ -10,13 +10,15 @@ namespace gena
         ProjectType type;
         CppStandard standard;
         Dependencies dependencies;
+        std::string cpp_namespace;
 
         // cppcheck-suppress noExplicitConstructor
         RenderingOptions(const GenerationOptions &options)
             : name{options.name},
               type{options.type},
               standard{options.standard},
-              dependencies{options.dependencies}
+              dependencies{options.dependencies},
+              cpp_namespace{options.cpp_namespace}
         {
         }
     };

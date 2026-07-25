@@ -6,21 +6,17 @@ namespace gena
 {
     void gena::OptionsValidator::validate(const GenerationOptions &options)
     {
-        validate_name(options.name);
-        validate_type(options.type);
-        validate_cpp_standard(options.standard);
-        validate_dependencies(options.dependencies);
+        validate(RenderingOptions{options});
         validate_location(options.location, options.name);
     }
 
     void gena::OptionsValidator::validate(const RenderingOptions &options)
     {
-        /* It uses almost all the same fields, but looks right to keep them separate */
-
         validate_name(options.name);
         validate_type(options.type);
         validate_cpp_standard(options.standard);
         validate_dependencies(options.dependencies);
+        validate_namespace(options.cpp_namespace);
     }
 
     void gena::OptionsValidator::validate_name(const std::string &name)
@@ -66,6 +62,14 @@ namespace gena
     }
 
     void gena::OptionsValidator::validate_location(const std::filesystem::path &location, std::string_view projectName)
+    void OptionsValidator::validate_namespace(const std::string &cpp_namespace)
+    {
+        static const QRegularExpression regexp{"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"};
+        if (!regexp.match(QString::fromStdString(cpp_namespace)).hasMatch())
+        {
+            throw std::invalid_argument("Invalid C++ namespace! Use English letters, numbers and underscores only.");
+        }
+    }
     {
         if (std::filesystem::path projectDir = location / projectName;
             std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))

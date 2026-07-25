@@ -14,6 +14,7 @@ namespace gena
         static void validate_type(ProjectType type);
         static void validate_cpp_standard(CppStandard standard);
         static void validate_dependencies(Dependencies dependencies);
+        static void validate_namespace(const std::string &cpp_namespace);
         static void validate_location(const std::filesystem::path &location, std::string_view projectName);
     };
 } // namespace gena
