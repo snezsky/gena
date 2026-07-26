@@ -1,16 +1,23 @@
 #pragma once
 
 #include <QFlags>
+#include <QObject>
+#include <QtQml/qqmlregistration.h>
+
 #include <filesystem>
 
 namespace gena
 {
+    Q_NAMESPACE
+    QML_NAMED_ELEMENT(Options)
+
     enum class ProjectType : uint8_t
     {
         Library,
         Executable,
         QMainWindow,
     };
+    Q_ENUM_NS(ProjectType)
 
     enum class CppStandard : uint8_t
     {
@@ -18,6 +25,7 @@ namespace gena
         Cpp20 = 20,
         Cpp23 = 23,
     };
+    Q_ENUM_NS(CppStandard)
 
     enum class Dependency : uint8_t
     {
@@ -29,6 +37,8 @@ namespace gena
         GoogleTest = 1U << 5U,
     };
     Q_DECLARE_FLAGS(Dependencies, Dependency);
+    Q_FLAG_NS(Dependencies)
+    Q_ENUM_NS(Dependency)
 
     struct GenerationOptions
     {
