@@ -25,20 +25,20 @@ namespace
         options.location = std::filesystem::current_path();
         options.cpp_namespace = options.name;
 
-        if (projectName.startsWith("library")) { options.type = ProjectType::library; }
-        else if (projectName.startsWith("executable")) { options.type = ProjectType::executable; }
-        else if (projectName.startsWith("qmainwindow")) { options.type = ProjectType::qmainwindow; }
+        if (projectName.startsWith("library")) { options.type = ProjectType::Library; }
+        else if (projectName.startsWith("executable")) { options.type = ProjectType::Executable; }
+        else if (projectName.startsWith("qmainwindow")) { options.type = ProjectType::QMainWindow; }
         else { throw std::invalid_argument("unknown project type"); }
 
-        if (projectName.endsWith("17")) { options.standard = CppStandard::cpp17; }
-        else if (projectName.endsWith("20")) { options.standard = CppStandard::cpp20; }
-        else if (projectName.endsWith("23")) { options.standard = CppStandard::cpp23; }
+        if (projectName.endsWith("17")) { options.standard = CppStandard::Cpp17; }
+        else if (projectName.endsWith("20")) { options.standard = CppStandard::Cpp20; }
+        else if (projectName.endsWith("23")) { options.standard = CppStandard::Cpp23; }
         else { throw std::invalid_argument("unknown c++ standard"); }
 
         /* Map each C++ standard to a test framework for full coverage */
-        if (projectName.endsWith("17")) { options.dependencies |= Dependency::qtest; }
-        else if (projectName.endsWith("20")) { options.dependencies = Dependency::catch2; }
-        else if (projectName.endsWith("23")) { options.dependencies = Dependency::googletest; }
+        if (projectName.endsWith("17")) { options.dependencies |= Dependency::QTest; }
+        else if (projectName.endsWith("20")) { options.dependencies = Dependency::Catch2; }
+        else if (projectName.endsWith("23")) { options.dependencies = Dependency::GoogleTest; }
 
         return options;
     }

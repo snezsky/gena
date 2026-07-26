@@ -32,9 +32,9 @@ namespace gena
     {
         switch (type)
         {
-        case ProjectType::library:
-        case ProjectType::executable:
-        case ProjectType::qmainwindow: return;
+        case ProjectType::Library:
+        case ProjectType::Executable:
+        case ProjectType::QMainWindow: return;
         }
         throw std::invalid_argument("Invalid project type!");
     }
@@ -43,18 +43,18 @@ namespace gena
     {
         switch (standard)
         {
-        case CppStandard::cpp17:
-        case CppStandard::cpp20:
-        case CppStandard::cpp23: return;
+        case CppStandard::Cpp17:
+        case CppStandard::Cpp20:
+        case CppStandard::Cpp23: return;
         }
         throw std::invalid_argument("Invalid C++ standard!");
     }
 
     void OptionsValidator::validate_dependencies(Dependencies dependencies)
     {
-        const int testFrameworksCount = static_cast<int>(dependencies.testFlag(Dependency::qtest)) +
-                                        static_cast<int>(dependencies.testFlag(Dependency::catch2)) +
-                                        static_cast<int>(dependencies.testFlag(Dependency::googletest));
+        const int testFrameworksCount = static_cast<int>(dependencies.testFlag(Dependency::QTest)) +
+                                        static_cast<int>(dependencies.testFlag(Dependency::Catch2)) +
+                                        static_cast<int>(dependencies.testFlag(Dependency::GoogleTest));
         if (testFrameworksCount != 1)
         {
             throw std::invalid_argument("Invalid dependencies! You must choose exactly one test framework.");

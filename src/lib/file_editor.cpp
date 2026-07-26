@@ -94,9 +94,9 @@ namespace gena
         {
             switch (type)
             {
-            case ProjectType::library: return "library";
-            case ProjectType::executable: return "executable";
-            case ProjectType::qmainwindow: return "qmainwindow";
+            case ProjectType::Library: return "library";
+            case ProjectType::Executable: return "executable";
+            case ProjectType::QMainWindow: return "qmainwindow";
             }
             std::unreachable();
         }
@@ -104,12 +104,12 @@ namespace gena
         static std::vector<std::string> compose_dependencies(Dependencies deps)
         {
             std::vector<std::string> names;
-            if (deps.testFlag(Dependency::json)) { names.emplace_back("json"); }
+            if (deps.testFlag(Dependency::Json)) { names.emplace_back("json"); }
             if (deps.testFlag(Dependency::CLI11)) { names.emplace_back("CLI11"); }
-            if (deps.testFlag(Dependency::spdlog)) { names.emplace_back("spdlog"); }
-            if (deps.testFlag(Dependency::qtest)) { names.emplace_back("qtest"); }
-            if (deps.testFlag(Dependency::catch2)) { names.emplace_back("catch2"); }
-            if (deps.testFlag(Dependency::googletest)) { names.emplace_back("googletest"); }
+            if (deps.testFlag(Dependency::Spdlog)) { names.emplace_back("spdlog"); }
+            if (deps.testFlag(Dependency::QTest)) { names.emplace_back("qtest"); }
+            if (deps.testFlag(Dependency::Catch2)) { names.emplace_back("catch2"); }
+            if (deps.testFlag(Dependency::GoogleTest)) { names.emplace_back("googletest"); }
             return names;
         }
 

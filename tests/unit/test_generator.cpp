@@ -75,7 +75,7 @@ TEST(TestGenerator, GitRepoNotCreatedIfOptionNotSet)
 TEST(TestGenerator, SingleQtTestDoesNotCreateDepsDirectory)
 {
     gena::GenerationOptions options = gena::valid_options();
-    options.dependencies = gena::Dependency::qtest;
+    options.dependencies = gena::Dependency::QTest;
 
     gena::Generator generator;
     generator.generate(options);

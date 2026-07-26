@@ -82,10 +82,10 @@ TYPED_TEST(OptionsValidatorTest, Dependencies)
 {
     static constexpr auto dependencies = {
         Dependencies{},
-        Dependencies{Dependency::catch2, Dependency::qtest},
-        Dependencies{Dependency::catch2, Dependency::googletest},
-        Dependencies{Dependency::googletest, Dependency::qtest},
-        Dependencies{Dependency::googletest, Dependency::catch2, Dependency::qtest},
+        Dependencies{Dependency::Catch2, Dependency::QTest},
+        Dependencies{Dependency::Catch2, Dependency::GoogleTest},
+        Dependencies{Dependency::GoogleTest, Dependency::QTest},
+        Dependencies{Dependency::GoogleTest, Dependency::Catch2, Dependency::QTest},
     };
 
     for (auto entry : dependencies)

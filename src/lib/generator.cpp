@@ -60,23 +60,23 @@ namespace gena
     {
         switch (projectType)
         {
-        case ProjectType::library: copy_content(source / "type" / "library", destination); break;
-        case ProjectType::executable: copy_content(source / "type" / "executable", destination); break;
-        case ProjectType::qmainwindow: copy_content(source / "type" / "qmainwindow", destination); break;
+        case ProjectType::Library: copy_content(source / "type" / "library", destination); break;
+        case ProjectType::Executable: copy_content(source / "type" / "executable", destination); break;
+        case ProjectType::QMainWindow: copy_content(source / "type" / "qmainwindow", destination); break;
         }
     }
 
     void Generator::copy_tests(const path &source, const path &destination, Dependencies dependencies)
     {
-        if (dependencies.testFlag(Dependency::qtest)) { copy_content(source / "QtTest", destination); }
-        if (dependencies.testFlag(Dependency::catch2)) { copy_content(source / "Catch2", destination); }
-        if (dependencies.testFlag(Dependency::googletest)) { copy_content(source / "googletest", destination); }
+        if (dependencies.testFlag(Dependency::QTest)) { copy_content(source / "QtTest", destination); }
+        if (dependencies.testFlag(Dependency::Catch2)) { copy_content(source / "Catch2", destination); }
+        if (dependencies.testFlag(Dependency::GoogleTest)) { copy_content(source / "googletest", destination); }
     }
 
     void Generator::copy_dependencies(const path &source, const path &destination, Dependencies dependencies)
     {
         /* The qtest dependency does not require any files to be copied */
-        if (!dependencies || dependencies == Dependency::qtest) { return; }
+        if (!dependencies || dependencies == Dependency::QTest) { return; }
 
         auto add_dependency = [&source, &destination](std::string_view name) {
             fs::copy(source / name, destination / name, fs::copy_options::recursive);
@@ -87,11 +87,11 @@ namespace gena
         fs::create_directories(destination);
         fs::copy_file(source / "CMakeLists.txt", destination / "CMakeLists.txt");
 
-        if (dependencies.testFlag(Dependency::json)) { add_dependency("json"); }
+        if (dependencies.testFlag(Dependency::Json)) { add_dependency("json"); }
         if (dependencies.testFlag(Dependency::CLI11)) { add_dependency("CLI11"); }
-        if (dependencies.testFlag(Dependency::spdlog)) { add_dependency("spdlog"); }
-        if (dependencies.testFlag(Dependency::catch2)) { add_dependency("Catch2"); }
-        if (dependencies.testFlag(Dependency::googletest)) { add_dependency("googletest"); }
+        if (dependencies.testFlag(Dependency::Spdlog)) { add_dependency("spdlog"); }
+        if (dependencies.testFlag(Dependency::Catch2)) { add_dependency("Catch2"); }
+        if (dependencies.testFlag(Dependency::GoogleTest)) { add_dependency("googletest"); }
     }
 
     void Generator::render_templates(const path &projectDir, const GenerationOptions &options)

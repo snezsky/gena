@@ -26,9 +26,9 @@ namespace gena
     inline GenerationOptions valid_options()
     {
         return GenerationOptions{.name = "project",
-                                 .type = ProjectType::library,
-                                 .standard = CppStandard::cpp23,
-                                 .dependencies = Dependency::qtest,
+                                 .type = ProjectType::Library,
+                                 .standard = CppStandard::Cpp23,
+                                 .dependencies = Dependency::QTest,
                                  .cpp_namespace = "prj",
                                  .location = temp_directory(),
                                  .setup_git = false};
