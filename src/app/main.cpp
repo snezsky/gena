@@ -1,10 +1,18 @@
-#include <QApplication>
-#include "mainwindow.hpp"
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
-int main(int argc, char *argv[]) noexcept
+int main(int argc, char *argv[])
 {
-    const QApplication app(argc, argv);
-    MainWindow window;
-    window.show();
-    return QApplication::exec();
+    QGuiApplication app(argc, argv);
+
+    QQmlApplicationEngine engine;
+    QObject::connect(
+        &engine, &QQmlApplicationEngine::objectCreationFailed, &app,
+        []() {
+            QCoreApplication::exit(-1);
+        },
+        Qt::QueuedConnection);
+    engine.load(":/Gena/Main.qml");
+
+    return QGuiApplication::exec();
 }
