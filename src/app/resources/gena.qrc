@@ -1,6 +1,10 @@
 <RCC>
-    <qresource prefix="/qml"/>
     <qresource prefix="/">
         <file>qtquickcontrols2.conf</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>tooltip.svg</file>
+        <file>info.svg</file>
+        <file>error.svg</file>
     </qresource>
 </RCC>
