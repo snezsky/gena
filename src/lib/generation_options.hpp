@@ -1,7 +1,9 @@
 #pragma once
 
+#include <QUrl>
 #include <QFlags>
 #include <QObject>
+#include <QVariantMap>
 #include <QtQml/qqmlregistration.h>
 
 #include <filesystem>
@@ -49,5 +51,26 @@ namespace gena
         std::string cpp_namespace;
         std::filesystem::path location;
         bool setup_git = false;
+
+        static GenerationOptions fromQVariantMap(const QVariantMap &map)
+        {
+            auto get_or_throw = [&map](const QString &key) {
+                if (!map.contains(key))
+                {
+                    throw std::runtime_error("Generation options missing required key: " + key.toStdString());
+                }
+                return map[key];
+            };
+
+            return GenerationOptions{
+                .name = get_or_throw("name").toString().toStdString(),
+                .type = get_or_throw("type").value<ProjectType>(),
+                .standard = get_or_throw("standard").value<CppStandard>(),
+                .dependencies = get_or_throw("dependencies").value<Dependencies>(),
+                .cpp_namespace = get_or_throw("namespace").toString().toStdString(),
+                .location = get_or_throw("location").toUrl().toLocalFile().toStdString(),
+                .setup_git = get_or_throw("setupGit").toBool(),
+            };
+        }
     };
 } // namespace gena
