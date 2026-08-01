@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
-import Generator
+import Gena
 
 ApplicationWindow
 {
@@ -134,7 +134,7 @@ ApplicationWindow
         title: "Generation successful"
         text: "Open the project directory?"
         standardButtons: Dialog.Open | Dialog.No
-        onAccepted: Qt.openUrlExternally(generator.projectDirectory())
+        onAccepted: Qt.openUrlExternally(generator.projectDirectory)
     }
 
     MessageBox {
@@ -175,8 +175,8 @@ ApplicationWindow
 
             generator.generateAsync({
                 name:         textFieldName.text,
-                projectType:  comboBoxProjectType.currentValue,
-                cppStandard:  comboBoxCppStandard.currentValue,
+                type:  comboBoxProjectType.currentValue,
+                standard:  comboBoxCppStandard.currentValue,
                 dependencies: deps,
                 namespace:    textFieldNamespace.text,
                 location:     folderDialog.selectedFolder,
