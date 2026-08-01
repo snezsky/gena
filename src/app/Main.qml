@@ -47,8 +47,8 @@ ApplicationWindow
             title: "project type"
             model: [
                 { text: "Library",     value: Options.ProjectType.Library },
-                { text: "Executable",  value: Options.ProjectType.Executable },
-                { text: "QMainWindow", value: Options.ProjectType.QMainWindow }
+                { text: "Console Application",  value: Options.ProjectType.Executable },
+                { text: "Qt Widgets Application", value: Options.ProjectType.QMainWindow }
             ]
             currentIndex: 0
         }
