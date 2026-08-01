@@ -8,15 +8,19 @@ qt_add_executable(gena WIN32
     "resources/gena.qrc"
 )
 qt_add_qml_module(gena
-    URI             Gena
-    VERSION         0.1
+    URI       Gena
+    VERSION   0.1
+    SOURCES
+        "qgenerator.hpp"
+        "qgenerator.cpp"
+        "../lib/generation_options.hpp"
     QML_FILES
         "Main.qml"
         "MessageBox.qml"
         "LabeledComboBox.qml"
         "LabeledTextField.qml"
 )
-target_link_libraries(gena PRIVATE Qt6::Quick Qt6::Qml generator generatorplugin)
+target_link_libraries(gena PRIVATE Qt6::Quick Qt6::Qml generator)
 gena_setup_target(gena)
 
 message(STATUS "Copying assets for gena...")
