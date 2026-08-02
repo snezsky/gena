@@ -6,6 +6,7 @@ qt_add_library(gena-qml STATIC "resources/gena.qrc")
 qt_add_qml_module(gena-qml
     URI       Gena
     VERSION   0.1
+    RESOURCE_PREFIX "/"
     SOURCES
         "qgenerator.hpp"
         "qgenerator.cpp"
