@@ -9,7 +9,7 @@ qt_add_qml_module(gena-qml
     SOURCES
         "qgenerator.hpp"
         "qgenerator.cpp"
-        "../lib/generation_options.hpp"
+        "../Generator/generation_options.hpp"
     QML_FILES
         "Main.qml"
         "MessageBox.qml"

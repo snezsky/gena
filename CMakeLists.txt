@@ -11,8 +11,8 @@ include("cmake/Setup.cmake")
 option(GENA_BUILD_TESTS "build tests" OFF)
 
 add_subdirectory("deps" SYSTEM)
-add_subdirectory("src/lib")
-add_subdirectory("src/app")
+add_subdirectory("src/Generator")
+add_subdirectory("src/Gena")
 
 if (GENA_BUILD_TESTS)
     enable_testing()
