@@ -3,6 +3,8 @@
 
 int main(int argc, char *argv[])
 {
+    Q_INIT_RESOURCE(gena);
+
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;

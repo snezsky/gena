@@ -2,12 +2,8 @@ find_package(Qt6 REQUIRED COMPONENTS Quick)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 
-qt_add_executable(gena WIN32
-    "main.cpp"
-    "resources/gena.rc"
-    "resources/gena.qrc"
-)
-qt_add_qml_module(gena
+qt_add_library(gena-qml STATIC "resources/gena.qrc")
+qt_add_qml_module(gena-qml
     URI       Gena
     VERSION   0.1
     SOURCES
@@ -20,8 +16,17 @@ qt_add_qml_module(gena
         "LabeledComboBox.qml"
         "LabeledTextField.qml"
 )
-target_link_libraries(gena PRIVATE Qt6::Quick Qt6::Qml generator)
+gena_setup_target(gena-qml)
+target_link_libraries(gena-qml PUBLIC Qt6::Quick Qt6::Qml generator)
+
+
+qt_add_executable(gena WIN32
+    "main.cpp"
+    "resources/gena.rc"
+)
 gena_setup_target(gena)
+target_link_libraries(gena PRIVATE gena-qml gena-qmlplugin)
+
 
 message(STATUS "Copying assets for gena...")
 file(COPY "${PROJECT_SOURCE_DIR}/assets" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
