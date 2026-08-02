@@ -17,9 +17,7 @@ qt_add_qml_module(gena-qml
         "LabeledComboBox.qml"
         "LabeledTextField.qml"
 )
-gena_setup_target(gena-qml)
 target_link_libraries(gena-qml PUBLIC Qt6::Quick Qt6::Qml generator)
-
 
 qt_add_executable(gena WIN32
     "main.cpp"
@@ -31,3 +29,7 @@ target_link_libraries(gena PRIVATE gena-qml gena-qmlplugin)
 
 message(STATUS "Copying assets for gena...")
 file(COPY "${PROJECT_SOURCE_DIR}/assets" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+# otherwise linters will try to analyze generated code
+set(GENA_ENABLE_STATIC_ANALYSIS OFF)
+gena_setup_target(gena-qml)
