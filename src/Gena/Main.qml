@@ -104,7 +104,11 @@ ApplicationWindow
 
     Shortcut {
         sequence: "Return"
-        onActivated: buttonGenerate.clicked()
+        onActivated: {
+            if (buttonGenerate.enabled) {
+                buttonGenerate.clicked()
+            }
+        }
     }
 
     Item {
