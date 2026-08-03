@@ -46,8 +46,8 @@ ApplicationWindow
             id: comboBoxProjectType
             title: "project type"
             model: [
-                { text: "Library",     value: Options.ProjectType.Library },
-                { text: "Console Application",  value: Options.ProjectType.Executable },
+                { text: "Library",                value: Options.ProjectType.Library },
+                { text: "Console Application",    value: Options.ProjectType.Executable },
                 { text: "Qt Widgets Application", value: Options.ProjectType.QMainWindow }
             ]
             currentIndex: 0
@@ -175,8 +175,8 @@ ApplicationWindow
 
             generator.generateAsync({
                 name:         textFieldName.text,
-                type:  comboBoxProjectType.currentValue,
-                standard:  comboBoxCppStandard.currentValue,
+                type:         comboBoxProjectType.currentValue,
+                standard:     comboBoxCppStandard.currentValue,
                 dependencies: deps,
                 namespace:    textFieldNamespace.text,
                 location:     folderDialog.selectedFolder,
