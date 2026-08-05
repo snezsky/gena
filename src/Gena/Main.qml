@@ -91,6 +91,10 @@ ApplicationWindow
             id: checkBoxSetupGit
             text: "setup git repository"
             checked: true
+
+            ToolTip.delay: 500
+            ToolTip.visible: checkBoxSetupGit.hovered
+            ToolTip.text: "Creates a repository and makes an initial commit using your identity. Requires Git to be installed"
         }
 
         Item { Layout.fillHeight: true }
