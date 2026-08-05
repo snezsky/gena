@@ -10,7 +10,9 @@ ApplicationWindow
     id: root
     visible: true
     minimumWidth: 340
-    minimumHeight: 530
+    maximumWidth: 340
+    minimumHeight: 535
+    maximumHeight: 535
 
     ColumnLayout
     {
