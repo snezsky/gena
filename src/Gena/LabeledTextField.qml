@@ -28,10 +28,10 @@ RowLayout {
             Layout.preferredWidth: textField.height
             Layout.preferredHeight: textField.height
 
-            icon.color: palette.light
             icon.width: textField.height
             icon.height: textField.height
             icon.source: "qrc:/icons/tooltip.svg"
+            icon.color: hovered ? Material.primaryTextColor : Material.hintTextColor
 
             ToolTip.delay: 500
             ToolTip.text: tooltip
