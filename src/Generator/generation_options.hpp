@@ -16,8 +16,8 @@ namespace gena
     enum class ProjectType : uint8_t
     {
         Library,
-        Executable,
-        QMainWindow,
+        ConsoleApplication,
+        QtWidgetsApplication,
     };
     Q_ENUM_NS(ProjectType)
 

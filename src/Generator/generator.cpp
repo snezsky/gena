@@ -61,8 +61,8 @@ namespace gena
         switch (projectType)
         {
         case ProjectType::Library: copy_content(source / "type" / "library", destination); break;
-        case ProjectType::Executable: copy_content(source / "type" / "executable", destination); break;
-        case ProjectType::QMainWindow: copy_content(source / "type" / "qmainwindow", destination); break;
+        case ProjectType::ConsoleApplication: copy_content(source / "type" / "executable", destination); break;
+        case ProjectType::QtWidgetsApplication: copy_content(source / "type" / "qmainwindow", destination); break;
         }
     }
 

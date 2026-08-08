@@ -33,8 +33,8 @@ namespace gena
         switch (type)
         {
         case ProjectType::Library:
-        case ProjectType::Executable:
-        case ProjectType::QMainWindow: return;
+        case ProjectType::ConsoleApplication:
+        case ProjectType::QtWidgetsApplication: return;
         }
         throw std::invalid_argument("Invalid project type!");
     }

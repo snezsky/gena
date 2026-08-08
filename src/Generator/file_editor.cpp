@@ -95,8 +95,8 @@ namespace gena
             switch (type)
             {
             case ProjectType::Library: return "library";
-            case ProjectType::Executable: return "executable";
-            case ProjectType::QMainWindow: return "qmainwindow";
+            case ProjectType::ConsoleApplication: return "executable";
+            case ProjectType::QtWidgetsApplication: return "qmainwindow";
             }
             std::unreachable();
         }
