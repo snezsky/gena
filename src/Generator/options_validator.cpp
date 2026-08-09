@@ -34,6 +34,7 @@ namespace gena
         {
         case ProjectType::Library:
         case ProjectType::ConsoleApplication:
+        case ProjectType::QtQuickApplication:
         case ProjectType::QtWidgetsApplication: return;
         }
         throw std::invalid_argument("Invalid project type!");

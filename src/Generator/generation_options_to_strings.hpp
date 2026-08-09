@@ -14,6 +14,7 @@ namespace gena
         {
         case ProjectType::Library: return "Library";
         case ProjectType::ConsoleApplication: return "ConsoleApplication";
+        case ProjectType::QtQuickApplication: return "QtQuickApplication";
         case ProjectType::QtWidgetsApplication: return "QtWidgetsApplication";
         }
         std::unreachable();

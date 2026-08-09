@@ -17,6 +17,7 @@ namespace gena
     {
         Library,
         ConsoleApplication,
+        QtQuickApplication,
         QtWidgetsApplication,
     };
     Q_ENUM_NS(ProjectType)

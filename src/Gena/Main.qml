@@ -51,6 +51,7 @@ ApplicationWindow
             model: [
                 { text: "Library",                value: Options.ProjectType.Library },
                 { text: "Console Application",    value: Options.ProjectType.ConsoleApplication },
+                { text: "Qt Quick Application",   value: Options.ProjectType.QtQuickApplication },
                 { text: "Qt Widgets Application", value: Options.ProjectType.QtWidgetsApplication }
             ]
             currentIndex: 0
