@@ -11,7 +11,7 @@ The lines below should be expanded into a list of dependencies:
 - <@ dep @>
 <% endfor %>
 
-<% if project_type == "library" %>
+<% if project_type == "Library" %>
 Control statements should not ruin indentation:
     first line indented by 4 spaces
 <% if true %>

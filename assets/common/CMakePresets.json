@@ -58,7 +58,7 @@
             "hidden": true,
             "cacheVariables": {
                 "<@ upper(namespace) @>_BUILD_TESTS": "ON",
-<% if project_type == "library" %>
+<% if project_type == "Library" %>
                 "<@ upper(namespace) @>_BUILD_EXAMPLES": "ON",
 <% endif %>
                 "<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE": "ON"
@@ -69,7 +69,7 @@
             "hidden": true,
             "cacheVariables": {
                 "<@ upper(namespace) @>_BUILD_TESTS": "OFF",
-<% if project_type == "library" %>
+<% if project_type == "Library" %>
                 "<@ upper(namespace) @>_BUILD_EXAMPLES": "OFF",
 <% endif %>
                 "<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE": "OFF"
