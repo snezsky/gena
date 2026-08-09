@@ -14,6 +14,7 @@ ApplicationWindow
     minimumHeight: 535
     maximumHeight: 535
 
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -49,8 +50,8 @@ ApplicationWindow
             title: "project type"
             model: [
                 { text: "Library",                value: Options.ProjectType.Library },
-                { text: "Console Application",    value: Options.ProjectType.Executable },
-                { text: "Qt Widgets Application", value: Options.ProjectType.QMainWindow }
+                { text: "Console Application",    value: Options.ProjectType.ConsoleApplication },
+                { text: "Qt Widgets Application", value: Options.ProjectType.QtWidgetsApplication }
             ]
             currentIndex: 0
         }
