@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "auxiliary.hpp"
+#include "generation_options_to_strings.hpp"
 #include "generator.hpp"
 
 namespace
@@ -10,9 +11,12 @@ namespace
       public:
         MocksAssetsEnvironment()
         {
+            static const std::string qtest{gena::to_string(gena::Dependency::QTest)};
+            static const std::string library{gena::to_string(gena::ProjectType::Library)};
+
             std::filesystem::create_directories("assets/deps");
-            std::filesystem::create_directories("assets/type/library");
-            std::filesystem::create_directories("assets/tests/QtTest");
+            std::filesystem::create_directories("assets/tests/" + qtest);
+            std::filesystem::create_directories("assets/type/Library/" + library);
             std::filesystem::create_directories("assets/common/scripts");
 
             std::ofstream cmake("assets/deps/CMakeLists.txt");

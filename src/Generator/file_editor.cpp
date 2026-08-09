@@ -1,5 +1,6 @@
 #include "file_editor.hpp"
 #include "options_validator.hpp"
+#include "generation_options_to_strings.hpp"
 
 #include <inja/inja.hpp>
 #include <whereami/whereami.hpp>
@@ -85,32 +86,9 @@ namespace gena
         {
             options_["project_name"] = options.name;
             options_["cpp_standard"] = options.standard;
-            options_["project_type"] = project_type_to_string(options.type);
-            options_["dependencies"] = compose_dependencies(options.dependencies);
+            options_["project_type"] = to_string(options.type);
+            options_["dependencies"] = to_strings(options.dependencies);
             options_["namespace"] = options.cpp_namespace;
-        }
-
-        static std::string project_type_to_string(ProjectType type)
-        {
-            switch (type)
-            {
-            case ProjectType::Library: return "library";
-            case ProjectType::ConsoleApplication: return "executable";
-            case ProjectType::QtWidgetsApplication: return "qmainwindow";
-            }
-            std::unreachable();
-        }
-
-        static std::vector<std::string> compose_dependencies(Dependencies deps)
-        {
-            std::vector<std::string> names;
-            if (deps.testFlag(Dependency::Json)) { names.emplace_back("json"); }
-            if (deps.testFlag(Dependency::CLI11)) { names.emplace_back("CLI11"); }
-            if (deps.testFlag(Dependency::Spdlog)) { names.emplace_back("spdlog"); }
-            if (deps.testFlag(Dependency::QTest)) { names.emplace_back("qtest"); }
-            if (deps.testFlag(Dependency::Catch2)) { names.emplace_back("catch2"); }
-            if (deps.testFlag(Dependency::GoogleTest)) { names.emplace_back("googletest"); }
-            return names;
         }
 
       private:

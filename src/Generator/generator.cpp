@@ -1,6 +1,8 @@
 #include "generator.hpp"
 #include "file_editor.hpp"
+#include "generation_options_to_strings.hpp"
 #include "options_validator.hpp"
+
 #include "whereami/whereami.hpp"
 
 #include <fstream>
@@ -57,20 +59,17 @@ namespace gena
     }
 
     void Generator::copy_sources(const path &source, const path &destination, ProjectType projectType)
-    {
-        switch (projectType)
-        {
-        case ProjectType::Library: copy_content(source / "type" / "library", destination); break;
-        case ProjectType::ConsoleApplication: copy_content(source / "type" / "executable", destination); break;
-        case ProjectType::QtWidgetsApplication: copy_content(source / "type" / "qmainwindow", destination); break;
-        }
-    }
+    { copy_content(source / "type" / to_string(projectType), destination); }
 
     void Generator::copy_tests(const path &source, const path &destination, Dependencies dependencies)
     {
-        if (dependencies.testFlag(Dependency::QTest)) { copy_content(source / "QtTest", destination); }
-        if (dependencies.testFlag(Dependency::Catch2)) { copy_content(source / "Catch2", destination); }
-        if (dependencies.testFlag(Dependency::GoogleTest)) { copy_content(source / "googletest", destination); }
+        auto copyTests = [&](Dependency dep) {
+            if (dependencies.testFlag(dep)) { copy_content(source / to_string(Dependency::QTest), destination); }
+        };
+
+        copyTests(Dependency::QTest);
+        copyTests(Dependency::Catch2);
+        copyTests(Dependency::GoogleTest);
     }
 
     void Generator::copy_dependencies(const path &source, const path &destination, Dependencies dependencies)
