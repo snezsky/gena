@@ -4,6 +4,7 @@ add_subdirectory(whereami)
 
 add_library(generator
     "generation_options.hpp"
+    "generation_options_to_strings.hpp"
     "rendering_options.hpp"
     "options_validator.hpp"
     "options_validator.cpp"
