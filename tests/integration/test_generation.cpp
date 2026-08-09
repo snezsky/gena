@@ -26,8 +26,8 @@ namespace
         options.cpp_namespace = options.name;
 
         if (projectName.startsWith("library")) { options.type = ProjectType::Library; }
-        else if (projectName.startsWith("executable")) { options.type = ProjectType::ConsoleApplication; }
-        else if (projectName.startsWith("qmainwindow")) { options.type = ProjectType::QtWidgetsApplication; }
+        else if (projectName.startsWith("console")) { options.type = ProjectType::ConsoleApplication; }
+        else if (projectName.startsWith("widgets")) { options.type = ProjectType::QtWidgetsApplication; }
         else { throw std::invalid_argument("unknown project type"); }
 
         if (projectName.endsWith("17")) { options.standard = CppStandard::Cpp17; }
