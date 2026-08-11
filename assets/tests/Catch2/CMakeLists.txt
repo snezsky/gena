@@ -22,5 +22,8 @@ endfunction()
 
 
 <@ lower(namespace) @>_add_test(NAME test_<@ project_name @> SOURCES "test_<@ project_name @>.cpp")
+<% if project_type == "QtQuickApplication" %>
+target_link_libraries(test_<@ project_name @> PRIVATE core)
+<% else %>
 target_link_libraries(test_<@ project_name @> PRIVATE <@ project_name @>)
-
+<% endif %>
