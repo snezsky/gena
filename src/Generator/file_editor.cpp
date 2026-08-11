@@ -1,6 +1,6 @@
 #include "file_editor.hpp"
-#include "options_validator.hpp"
 #include "generation_options_to_strings.hpp"
+#include "options_validator.hpp"
 
 #include <inja/inja.hpp>
 #include <whereami/whereami.hpp>
@@ -21,8 +21,8 @@ namespace gena
 
         void render_templates(const std::filesystem::path &file)
         {
-            static const std::unordered_set<std::string> allowed{".cmake", ".hpp", ".cpp", ".json",
-                                                                 ".txt",   ".md",  ".rc"};
+            static const std::unordered_set<std::string> allowed{".cmake", ".hpp", ".cpp", ".qml",
+                                                                 ".json",  ".txt", ".md",  ".rc"};
             if (!allowed.contains(file.extension().string())) { return; }
 
             try
