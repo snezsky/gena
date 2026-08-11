@@ -1,0 +1,20 @@
+find_package(Qt6 REQUIRED COMPONENTS Quick)
+qt_standard_project_setup()
+
+qt_add_executable(<@ project_name @> WIN32
+    "main.cpp"
+    "resources/<@ project_name @>.rc"
+    "resources/<@ project_name @>.qrc"
+)
+qt_add_qml_module(<@ project_name @>
+    URI <@ capitalize(project_name) @>.App
+    VERSION 0.1
+    RESOURCE_PREFIX "/"
+    SOURCES
+        "main.cpp"
+    QML_FILES
+        "Main.qml"
+)
+
+target_link_libraries(<@ project_name @> PRIVATE core coreplugin)
+set_target_properties(<@ project_name @> PROPERTIES AUTORCC ON)
