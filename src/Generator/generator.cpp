@@ -11,6 +11,18 @@
 
 namespace fs = std::filesystem;
 
+namespace
+{
+    std::string capitalize(const std::string &str)
+    {
+        if (str.empty()) { return ""; }
+
+        std::string capitalized = str;
+        capitalized[0] = static_cast<char>(std::toupper(static_cast<unsigned char>(capitalized[0])));
+        return capitalized;
+    }
+} // namespace
+
 namespace gena
 {
     void Generator::generate(const GenerationOptions &options)
@@ -106,6 +118,7 @@ namespace gena
         {
             editor.render_templates(entry);
             FileEditor::replace_in_name(entry, "myproject", options.name);
+            FileEditor::replace_in_name(entry, "Myproject", capitalize(options.name));
         }
     }
 
