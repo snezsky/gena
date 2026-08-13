@@ -1,5 +1,6 @@
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup()
+set(CMAKE_AUTORCC ON)
 
 qt_add_library(gena-qml STATIC "resources/gena.qrc")
 qt_add_qml_module(gena-qml
