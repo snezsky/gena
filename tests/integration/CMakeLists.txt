@@ -5,7 +5,7 @@ target_link_libraries(test_generation PRIVATE generator)
 gena_setup_target(test_generation)
 
 foreach (STD 17 20 23)
-    foreach (TYPE library console widgets)
+    foreach (TYPE library console widgets quick)
         set(GEN_NAME ${TYPE}${STD})
 
         # generate test project with injected generator tests

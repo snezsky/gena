@@ -26,6 +26,7 @@ namespace
         options.cpp_namespace = options.name;
 
         if (projectName.startsWith("library")) { options.type = ProjectType::Library; }
+        else if (projectName.startsWith("quick")) { options.type = ProjectType::QtQuickApplication; }
         else if (projectName.startsWith("console")) { options.type = ProjectType::ConsoleApplication; }
         else if (projectName.startsWith("widgets")) { options.type = ProjectType::QtWidgetsApplication; }
         else { throw std::invalid_argument("unknown project type"); }
