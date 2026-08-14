@@ -60,11 +60,11 @@ namespace gena
     void PrintTo(const GenerationOptions &options, std::ostream *os)
     {
         *os << "options: ";
-        *os << std::format("{} ,", options.name);
-        *os << std::format("{} ,", options.cpp_namespace);
-        *os << std::format("{} ,", to_string(options.type));
-        *os << std::format("{} ,", to_string(options.standard));
-        *os << std::format("{} ,", to_strings(options.dependencies));
+        *os << std::format("{}, ", options.name);
+        *os << std::format("{}, ", options.cpp_namespace);
+        *os << std::format("{}, ", to_string(options.type));
+        *os << std::format("{}, ", to_string(options.standard));
+        *os << std::format("{}, ", to_string(options.dependencies));
         *os << options.location.string();
     }
 } // namespace gena
