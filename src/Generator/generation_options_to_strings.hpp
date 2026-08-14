@@ -60,4 +60,18 @@ namespace gena
         }
         return result;
     }
+
+    [[nodiscard]]
+    constexpr std::string to_string(Dependencies dependencies)
+    {
+        const std::vector<std::string_view> strings = to_strings(dependencies);
+
+        std::string result;
+        for (const auto &string : strings)
+        {
+            if (!result.empty()) { result += " | "; }
+            result += string;
+        }
+        return result;
+    }
 } // namespace gena
