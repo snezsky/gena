@@ -76,7 +76,7 @@ namespace gena
     void Generator::copy_tests(const path &source, const path &destination, Dependencies dependencies)
     {
         auto copyTests = [&](Dependency dep) {
-            if (dependencies.testFlag(dep)) { copy_content(source / to_string(Dependency::QTest), destination); }
+            if (dependencies.testFlag(dep)) { copy_content(source / to_string(dep), destination); }
         };
 
         copyTests(Dependency::QTest);
