@@ -23,13 +23,13 @@ qt_add_executable(gena WIN32
     "main.cpp"
     "resources/gena.rc"
 )
-gena_setup_target(gena)
 target_link_libraries(gena PRIVATE gena-qml gena-qmlplugin)
-
 
 message(STATUS "Copying assets for gena...")
 file(COPY "${PROJECT_SOURCE_DIR}/assets" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # otherwise linters will try to analyze generated code
+set(GENA_ENABLE_WARNINGS OFF)
 set(GENA_ENABLE_STATIC_ANALYSIS OFF)
+gena_setup_target(gena)
 gena_setup_target(gena-qml)
