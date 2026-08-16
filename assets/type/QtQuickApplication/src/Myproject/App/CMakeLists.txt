@@ -16,5 +16,5 @@ qt_add_qml_module(<@ project_name @>
         "Main.qml"
 )
 
-target_link_libraries(<@ project_name @> PRIVATE core coreplugin)
 set_target_properties(<@ project_name @> PROPERTIES AUTORCC ON)
+target_link_libraries(<@ project_name @> PRIVATE Qt6::Quick core coreplugin)

@@ -11,7 +11,7 @@ qt_add_qml_module(core
         "<@ project_name @>.cpp"
 )
 
-target_link_libraries(core PUBLIC Qt6::Quick)
+target_link_libraries(core PUBLIC Qt6::Qml)
 target_include_directories(core 
     PUBLIC  "${CMAKE_CURRENT_SOURCE_DIR}/include"
     PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/<@ project_name @>"
