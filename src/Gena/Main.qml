@@ -186,13 +186,13 @@ ApplicationWindow
                      | (checkBoxJson.checked   ? Options.Json   : 0)
 
             generator.generateAsync({
-                name:         textFieldName.text,
-                type:         comboBoxProjectType.currentValue,
-                standard:     comboBoxCppStandard.currentValue,
-                dependencies: deps,
-                namespace:    textFieldNamespace.text,
-                location:     folderDialog.selectedFolder,
-                setupGit:     checkBoxSetupGit.checked
+                name:            textFieldName.text,
+                type:            comboBoxProjectType.currentValue,
+                standard:        comboBoxCppStandard.currentValue,
+                dependencies:    deps,
+                namespace:       textFieldNamespace.text,
+                outputDirectory: folderDialog.selectedFolder,
+                setupGit:        checkBoxSetupGit.checked
             })
         }
     }

@@ -50,7 +50,7 @@ namespace gena
         CppStandard standard;
         Dependencies dependencies;
         std::string cpp_namespace;
-        std::filesystem::path location;
+        std::filesystem::path output_directory;
         bool setup_git = false;
 
         static GenerationOptions fromQVariantMap(const QVariantMap &map)
@@ -69,7 +69,7 @@ namespace gena
                 .standard = get_or_throw("standard").value<CppStandard>(),
                 .dependencies = get_or_throw("dependencies").value<Dependencies>(),
                 .cpp_namespace = get_or_throw("namespace").toString().toStdString(),
-                .location = get_or_throw("location").toUrl().toLocalFile().toStdString(),
+                .output_directory = get_or_throw("outputDirectory").toUrl().toLocalFile().toStdString(),
                 .setup_git = get_or_throw("setupGit").toBool(),
             };
         }

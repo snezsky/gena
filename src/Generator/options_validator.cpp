@@ -7,7 +7,7 @@ namespace gena
     void OptionsValidator::validate(const GenerationOptions &options)
     {
         validate(RenderingOptions{options});
-        validate_location(options.location, options.name);
+        validate_output_directory(options.output_directory, options.name);
     }
 
     void OptionsValidator::validate(const RenderingOptions &options)
@@ -71,22 +71,23 @@ namespace gena
         }
     }
 
-    void OptionsValidator::validate_location(const std::filesystem::path &location, std::string_view projectName)
+    void OptionsValidator::validate_output_directory(const std::filesystem::path &outputDir,
+                                                     std::string_view projectName)
     {
-        if (std::filesystem::path projectDir = location / projectName;
+        if (std::filesystem::path projectDir = outputDir / projectName;
             std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))
         {
             throw std::invalid_argument("Directory '" + projectDir.make_preferred().string() + "' is not empty.");
         }
 
-        if (!std::filesystem::exists(location))
+        if (!std::filesystem::exists(outputDir))
         {
-            throw std::invalid_argument("Invalid project location! Path does not exist.");
+            throw std::invalid_argument("Invalid output directory! Path does not exist.");
         }
 
-        if (!std::filesystem::is_directory(location))
+        if (!std::filesystem::is_directory(outputDir))
         {
-            throw std::invalid_argument("Invalid project location! Path is not a directory.");
+            throw std::invalid_argument("Invalid output directory! Path is not a directory.");
         }
     }
 } // namespace gena

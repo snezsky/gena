@@ -31,7 +31,7 @@ namespace gena
                                  .standard = CppStandard::Cpp23,
                                  .dependencies = Dependency::QTest,
                                  .cpp_namespace = "prj",
-                                 .location = temp_directory(),
+                                 .output_directory = temp_directory(),
                                  .setup_git = false};
     }
 
@@ -46,7 +46,7 @@ namespace gena
     {
         /* Generator will not return project directory if
            generation failed, so we just return what it would be */
-        return options.location / options.name;
+        return options.output_directory / options.name;
     }
 
     inline std::string content_of(std::filesystem::path file)
@@ -65,6 +65,6 @@ namespace gena
         *os << std::format("{}, ", to_string(options.type));
         *os << std::format("{}, ", to_string(options.standard));
         *os << std::format("{}, ", to_string(options.dependencies));
-        *os << options.location.string();
+        *os << options.output_directory.string();
     }
 } // namespace gena

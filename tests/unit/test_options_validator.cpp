@@ -91,20 +91,20 @@ TYPED_TEST(OptionsValidatorTest, Dependencies)
     }
 }
 
-TEST(GenerationOptionsValidatorTest, Location)
+TEST(GenerationOptionsValidatorTest, OutputDirectory)
 {
     GenerationOptions options = valid_options();
 
-    options.location = std::filesystem::path{};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Location can't be empty";
+    options.output_directory = std::filesystem::path{};
+    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Output directory can't be empty";
 
-    options.location = "non_existent";
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Location has to exist";
+    options.output_directory = "non_existent";
+    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Output directory has to exist";
 
-    options.location = "test_options_validator.exe";
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Location has to be the directory";
+    options.output_directory = "test_options_validator.exe";
+    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Output directory has to be the directory";
 
     options.name = "CMakeFiles";
-    options.location = std::filesystem::current_path();
+    options.output_directory = std::filesystem::current_path();
     EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Generation path has to be empty";
 }

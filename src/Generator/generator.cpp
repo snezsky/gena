@@ -38,7 +38,7 @@ namespace gena
         }
 
         const fs::path source = whereami::get_executable_directory() / "assets";
-        const fs::path destination = options.location / options.name;
+        const fs::path destination = options.output_directory / options.name;
 
         try
         {

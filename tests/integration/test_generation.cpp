@@ -22,7 +22,7 @@ namespace
 
         GenerationOptions options;
         options.name = projectName.toStdString();
-        options.location = std::filesystem::current_path();
+        options.output_directory = std::filesystem::current_path();
         options.cpp_namespace = options.name;
 
         if (projectName.startsWith("library")) { options.type = ProjectType::Library; }
