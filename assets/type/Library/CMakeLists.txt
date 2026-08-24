@@ -7,7 +7,7 @@ include("cmake/Setup.cmake")
 option(<@ upper(namespace) @>_BUILD_TESTS     "build tests"     OFF)
 option(<@ upper(namespace) @>_BUILD_EXAMPLES  "build examples"  OFF)
 
-<% if length(dependencies) > 1 or dependencies.0 != "QTest" %>
+<% if dependencies != ["QTest"] %>
 add_subdirectory("deps" SYSTEM EXCLUDE_FROM_ALL)
 <% endif %>
 add_subdirectory("src")
