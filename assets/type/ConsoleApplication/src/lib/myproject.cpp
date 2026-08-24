@@ -1,1 +1,1 @@
-<% include "source_template" %>
+<% include "source_template.cpp" %>

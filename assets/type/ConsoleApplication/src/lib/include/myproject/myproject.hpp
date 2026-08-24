@@ -1,1 +1,1 @@
-<% include "header_template" %>
+<% include "header_template.hpp" %>
