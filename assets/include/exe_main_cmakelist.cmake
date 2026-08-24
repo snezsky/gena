@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.28)
 
-project(<@ project_name @>)
-
 include("cmake/Setup.cmake")
+
+project(<@ project_name @>)
 
 option(<@ upper(namespace) @>_BUILD_TESTS "build tests" OFF)
 

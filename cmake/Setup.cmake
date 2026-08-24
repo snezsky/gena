@@ -10,6 +10,7 @@ include("cmake/NiceOutput.cmake")
 include("cmake/TestCoverage.cmake")
 include("cmake/StaticAnalysis.cmake")
 include("cmake/DynamicAnalysis.cmake")
+include("cmake/PreventInSourceBuild.cmake")
 
 function(gena_setup_target TARGET_NAME)
 

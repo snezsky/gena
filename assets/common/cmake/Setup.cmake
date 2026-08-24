@@ -10,6 +10,7 @@ include("cmake/NiceOutput.cmake")
 include("cmake/TestCoverage.cmake")
 include("cmake/StaticAnalysis.cmake")
 include("cmake/DynamicAnalysis.cmake")
+include("cmake/PreventInSourceBuild.cmake")
 
 function(<@ lower(namespace) @>_setup_target TARGET_NAME)
 

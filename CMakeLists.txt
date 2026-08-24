@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.28)
 
+include("cmake/Setup.cmake")
+
 project(
   gena
   DESCRIPTION "C++ project generator"
   HOMEPAGE_URL "https://github.com/snezsky/gena"
   LANGUAGES CXX)
-
-include("cmake/Setup.cmake")
-
+  
 option(GENA_BUILD_TESTS "build tests" OFF)
 
 add_subdirectory("deps" SYSTEM)
