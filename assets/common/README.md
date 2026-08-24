@@ -10,6 +10,9 @@ cmake --build build/<preset-name>
 ```
 
 ## Dependencies
+<% if project_type in ["QtQuickApplication", "QtWidgetsApplication"] %>
+- [Qt 6.3+](https://www.qt.io/development/download-qt-installer-oss) 
+<% endif %>
 - [ccache](https://ccache.dev/download.html) (recommended)
 - [cppcheck](https://cppcheck.sourceforge.io/) (developer mode only)
 - [clang-tidy](https://github.com/llvm/llvm-project/releases/) (developer mode only)
