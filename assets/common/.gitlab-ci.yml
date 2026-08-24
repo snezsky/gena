@@ -5,8 +5,8 @@ stages:
   
 variables:
   PRESET: "clang-debug-dev"
-  BUILD_DIR: "build/clang-debug-dev"
-  TEST_DIR: "build/clang-debug-dev/tests"
+  BUILD_DIR: "out/build/clang-debug-dev"
+  TEST_DIR: "out/build/clang-debug-dev/tests"
   
 build-job:
   stage: build

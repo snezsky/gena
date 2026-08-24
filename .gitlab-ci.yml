@@ -9,10 +9,10 @@ build-job:
   stage: build
   script:
     - cmake --preset $PRESET
-    - cmake --build build/$PRESET
+    - cmake --build out/build/$PRESET
   artifacts:
     paths:
-      - build/$PRESET
+      - out/build/$PRESET
 
 test-job:
   stage: test

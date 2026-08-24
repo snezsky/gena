@@ -29,6 +29,6 @@ string(TOUPPER ${GEN_NAME} GEN_NAME_UPPER)
 
 foreach (PRESET ${PRESETS})
     assert_process_succeeds(${CMAKE_COMMAND} --preset ${PRESET} -D${GEN_NAME_UPPER}_BUILD_TESTS=ON)
-    assert_process_succeeds(${CMAKE_COMMAND} --build build/${PRESET})
+    assert_process_succeeds(${CMAKE_COMMAND} --build out/build/${PRESET})
     assert_process_succeeds(${CMAKE_CTEST_COMMAND} --preset test-${PRESET})
 endforeach()
