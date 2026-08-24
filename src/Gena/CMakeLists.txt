@@ -33,3 +33,13 @@ set(GENA_ENABLE_WARNINGS OFF)
 set(GENA_ENABLE_STATIC_ANALYSIS OFF)
 gena_setup_target(gena)
 gena_setup_target(gena-qml)
+
+qt_generate_deploy_qml_app_script(
+    TARGET gena
+    OUTPUT_SCRIPT qml_deploy
+    NO_TRANSLATIONS
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+install(TARGETS gena)
+install(SCRIPT ${qml_deploy})
+install(DIRECTORY "${PROJECT_SOURCE_DIR}/assets" TYPE BIN)
