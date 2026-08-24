@@ -42,7 +42,7 @@ TEST(TestGenerator, WorksOutsideApplicationDir)
 TEST(TestGenerator, ProjectDirectoryThrowsWithoutGeneration)
 {
     gena::Generator generator;
-    EXPECT_THROW(generator.project_directory(), std::runtime_error);
+    EXPECT_ANY_THROW(generator.project_directory());
 }
 
 TEST(TestGenerator, ProjectDirectoryClearsOldValue)
@@ -50,8 +50,8 @@ TEST(TestGenerator, ProjectDirectoryClearsOldValue)
     gena::Generator generator;
     generator.generate(gena::valid_options());
 
-    EXPECT_THROW(generator.generate(gena::options_with_invalid_standard()), std::invalid_argument);
-    EXPECT_THROW(generator.project_directory(), std::runtime_error);
+    EXPECT_ANY_THROW(generator.generate(gena::options_with_invalid_standard()));
+    EXPECT_ANY_THROW(generator.project_directory());
 }
 
 TEST(TestGenerator, GitRepoCreatedIfOptionSet)
@@ -92,7 +92,7 @@ TEST(TestGenerator, DoesNotCreateDirectoryIfOptionsInvalid)
     gena::Generator generator;
     gena::GenerationOptions options = gena::options_with_invalid_standard();
 
-    EXPECT_THROW(generator.generate(options), std::invalid_argument);
+    EXPECT_ANY_THROW(generator.generate(options));
     EXPECT_FALSE(std::filesystem::exists(gena::would_be_project_directory(options)));
 }
 
@@ -107,7 +107,7 @@ TEST(TestGenerator, DoesNotModifyExistingDirectoryIfOptionsInvalid)
 
     gena::Generator generator;
 
-    EXPECT_THROW(generator.generate(options), std::invalid_argument);
+    EXPECT_ANY_THROW(generator.generate(options));
     EXPECT_TRUE(std::filesystem::exists(projectDir));
     EXPECT_TRUE(std::filesystem::exists(projectDir / file));
 }

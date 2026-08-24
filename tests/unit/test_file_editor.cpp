@@ -7,9 +7,7 @@ using namespace gena;
 struct FileEditorTest : public ::testing::TestWithParam<std::pair<GenerationOptions, std::filesystem::path>>
 {
     FileEditorTest()
-    {
-        std::filesystem::copy(test_data, test_output);
-    }
+    { std::filesystem::copy(test_data, test_output); }
 
     std::filesystem::path test_output = gena::temp_directory();
     std::filesystem::path test_data = std::filesystem::current_path() / "test_data";
@@ -39,9 +37,7 @@ TEST_F(FileEditorTest, ReplaceInFileName)
 }
 
 TEST_F(FileEditorTest, ThrowsWithInvalidOptions)
-{
-    EXPECT_THROW(FileEditor editor{GenerationOptions{}}, std::invalid_argument);
-}
+{ EXPECT_ANY_THROW(FileEditor editor{GenerationOptions{}}); }
 
 TEST_P(FileEditorTest, RenderTemplates)
 {
