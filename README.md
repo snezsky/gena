@@ -29,7 +29,7 @@ Tested on Windows 10/11 and Ubuntu 24/26, but it should work on other Unix-like 
   environment variable to your Qt installation and add its binary directory to your **PATH**.
 
 ## Dependencies
-- [Qt 6.3+](https://www.qt.io/development/download-qt-installer-oss) 
+- [Qt 6.4.2+](https://www.qt.io/development/download-qt-installer-oss) 
 - [ccache](https://ccache.dev/download.html) (recommended)
 - [cppcheck](https://cppcheck.sourceforge.io/) (developer mode only)
 - [clang-tidy](https://github.com/llvm/llvm-project/releases/) (developer mode only)

@@ -1,6 +1,6 @@
 project(<@ project_name @>-tests)
 
-find_package(Qt6 REQUIRED COMPONENTS Test)
+find_package(Qt6 6.4.2 REQUIRED COMPONENTS Test)
 qt_standard_project_setup() 
 
 # name should be prefixed with `test_` for coverage

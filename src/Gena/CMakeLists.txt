@@ -1,4 +1,4 @@
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.4.2 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup()
 set(CMAKE_AUTORCC ON)
 

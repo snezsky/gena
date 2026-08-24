@@ -1,4 +1,4 @@
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 6.4.2 REQUIRED COMPONENTS Widgets)
 qt_standard_project_setup()
 
 add_executable(<@ project_name @>-app WIN32
