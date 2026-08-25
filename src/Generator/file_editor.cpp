@@ -86,9 +86,9 @@ namespace gena
         {
             options_["project_name"] = options.name;
             options_["cpp_standard"] = options.standard;
-            options_["project_type"] = to_string(options.type);
-            options_["dependencies"] = to_strings(options.dependencies);
             options_["namespace"] = options.cpp_namespace;
+            options_["project_type"] = to_string(options.type);
+            options_["test_framework"] = to_string(options.test_framework);
         }
 
       private:

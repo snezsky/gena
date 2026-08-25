@@ -3,10 +3,6 @@
 ### are handled properly
 
 You are reading this file to test Third_Namespace::Third_Name::FileEditor.
-FileEditor is supposed to replace templates like QtWidgetsApplication or
+FileEditor is supposed to replace templates like QtWidgetsApplication, QTest or
 cpp23 with actual values, depending on the project options.
-
-The lines below should be expanded into a list of dependencies:
-- QTest
-- spdlog
 

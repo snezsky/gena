@@ -9,7 +9,7 @@ namespace gena
         std::string name;
         ProjectType type;
         CppStandard standard;
-        Dependencies dependencies;
+        TestFramework test_framework;
         std::string cpp_namespace;
 
         // cppcheck-suppress noExplicitConstructor
@@ -17,7 +17,7 @@ namespace gena
             : name{options.name},
               type{options.type},
               standard{options.standard},
-              dependencies{options.dependencies},
+              test_framework{options.test_framework},
               cpp_namespace{options.cpp_namespace}
         {
         }

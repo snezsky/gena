@@ -7,7 +7,7 @@ project(<@ project_name @>)
 option(<@ upper(namespace) @>_BUILD_TESTS     "build tests"     OFF)
 option(<@ upper(namespace) @>_BUILD_EXAMPLES  "build examples"  OFF)
 
-<% if dependencies != ["QTest"] %>
+<% if test_framework != "QTest" %>
 add_subdirectory("deps" SYSTEM EXCLUDE_FROM_ALL)
 <% endif %>
 add_subdirectory("src")

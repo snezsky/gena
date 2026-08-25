@@ -29,7 +29,7 @@ namespace gena
         return GenerationOptions{.name = "project",
                                  .type = ProjectType::Library,
                                  .standard = CppStandard::Cpp23,
-                                 .dependencies = Dependency::QTest,
+                                 .test_framework = TestFramework::QTest,
                                  .cpp_namespace = "prj",
                                  .output_directory = temp_directory(),
                                  .setup_git = false};
@@ -64,7 +64,7 @@ namespace gena
         *os << std::format("{}, ", options.cpp_namespace);
         *os << std::format("{}, ", to_string(options.type));
         *os << std::format("{}, ", to_string(options.standard));
-        *os << std::format("{}, ", to_string(options.dependencies));
+        *os << std::format("{}, ", to_string(options.test_framework));
         *os << options.output_directory.string();
     }
 } // namespace gena

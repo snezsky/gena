@@ -1,7 +1,7 @@
 # reusing googletest from generator's assets
 set(CMAKE_FOLDER "tests/unit/deps")
 add_subdirectory(
-    "${PROJECT_SOURCE_DIR}/assets/deps/googletest"
+    "${PROJECT_SOURCE_DIR}/assets/test_frameworks/googletest"
     "${PROJECT_BINARY_DIR}/tests/googletest" EXCLUDE_FROM_ALL)
 include("GoogleTest")
 set(CMAKE_FOLDER "tests/unit")

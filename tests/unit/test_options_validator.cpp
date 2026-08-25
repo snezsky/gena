@@ -73,22 +73,10 @@ TYPED_TEST(OptionsValidatorTest, CppStandard)
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "C++ standard has to be a valid enum value";
 }
 
-TYPED_TEST(OptionsValidatorTest, Dependencies)
+TYPED_TEST(OptionsValidatorTest, TestFramework)
 {
-    static constexpr auto dependencies = {
-        Dependencies{},
-        Dependencies{Dependency::Catch2, Dependency::QTest},
-        Dependencies{Dependency::Catch2, Dependency::GoogleTest},
-        Dependencies{Dependency::GoogleTest, Dependency::QTest},
-        Dependencies{Dependency::GoogleTest, Dependency::Catch2, Dependency::QTest},
-    };
-
-    for (auto entry : dependencies)
-    {
-        this->options.dependencies = entry;
-        EXPECT_ANY_THROW(OptionsValidator::validate(this->options))
-            << "Dependencies have to include exactly one test framework";
-    }
+    this->options.test_framework = static_cast<TestFramework>(0xFE);
+    EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Test framework has to be a valid enum value";
 }
 
 TEST(GenerationOptionsValidatorTest, OutputDirectory)

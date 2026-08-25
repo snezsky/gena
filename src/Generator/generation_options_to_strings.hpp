@@ -33,45 +33,14 @@ namespace gena
     }
 
     [[nodiscard]]
-    constexpr std::string_view to_string(Dependency dependency)
+    constexpr std::string_view to_string(TestFramework testFramework)
     {
-        switch (dependency)
+        switch (testFramework)
         {
-        case Dependency::Json: return "json";
-        case Dependency::CLI11: return "CLI11";
-        case Dependency::Spdlog: return "spdlog";
-        case Dependency::QTest: return "QTest";
-        case Dependency::Catch2: return "Catch2";
-        case Dependency::GoogleTest: return "googletest";
+        case TestFramework::QTest: return "QTest";
+        case TestFramework::Catch2: return "Catch2";
+        case TestFramework::GoogleTest: return "googletest";
         }
         std::unreachable();
-    }
-
-    [[nodiscard]]
-    constexpr std::vector<std::string_view> to_strings(Dependencies dependencies)
-    {
-        static constexpr auto allDeps = {Dependency::Json,  Dependency::CLI11,  Dependency::Spdlog,
-                                         Dependency::QTest, Dependency::Catch2, Dependency::GoogleTest};
-
-        std::vector<std::string_view> result;
-        for (const auto &dependency : allDeps)
-        {
-            if (dependencies.testFlag(dependency)) { result.push_back(to_string(dependency)); }
-        }
-        return result;
-    }
-
-    [[nodiscard]]
-    constexpr std::string to_string(Dependencies dependencies)
-    {
-        const std::vector<std::string_view> strings = to_strings(dependencies);
-
-        std::string result;
-        for (const auto &string : strings)
-        {
-            if (!result.empty()) { result += " | "; }
-            result += string;
-        }
-        return result;
     }
 } // namespace gena

@@ -44,11 +44,11 @@ namespace gena
         {
             copy_content(source / "common", destination);
             copy_sources(source, destination, options.type);
-            copy_tests(source / "tests", destination / "tests", options.dependencies);
+            copy_tests(source / "tests", destination / "tests", options.test_framework);
 
             render_templates(destination, options);
 
-            copy_dependencies(source / "deps", destination / "deps", options.dependencies);
+            copy_test_framework(source / "test_frameworks", destination / "deps", options.test_framework);
             if (options.setup_git) { setup_git_repository(destination); }
 
             projectDirectory_ = destination;
@@ -73,36 +73,22 @@ namespace gena
     void Generator::copy_sources(const path &source, const path &destination, ProjectType projectType)
     { copy_content(source / "type" / to_string(projectType), destination); }
 
-    void Generator::copy_tests(const path &source, const path &destination, Dependencies dependencies)
+    void Generator::copy_tests(const path &source, const path &destination, TestFramework testFramework)
+    { copy_content(source / to_string(testFramework), destination); }
+
+    void Generator::copy_test_framework(const path &source, const path &destination, TestFramework testFramework)
     {
-        auto copyTests = [&](Dependency dep) {
-            if (dependencies.testFlag(dep)) { copy_content(source / to_string(dep), destination); }
-        };
+        /* The qtest does not require any files to be copied */
+        if (testFramework == TestFramework::QTest) { return; }
 
-        copyTests(Dependency::QTest);
-        copyTests(Dependency::Catch2);
-        copyTests(Dependency::GoogleTest);
-    }
-
-    void Generator::copy_dependencies(const path &source, const path &destination, Dependencies dependencies)
-    {
-        /* The qtest dependency does not require any files to be copied */
-        if (!dependencies || dependencies == Dependency::QTest) { return; }
-
-        auto add_dependency = [&source, &destination](std::string_view name) {
-            fs::copy(source / name, destination / name, fs::copy_options::recursive);
-            std::ofstream out(destination / "CMakeLists.txt", std::ios::app);
-            out << "add_subdirectory(\"" << name << "\")\n";
-        };
+        const std::string_view testFrameworkName = to_string(testFramework);
 
         fs::create_directories(destination);
         fs::copy_file(source / "CMakeLists.txt", destination / "CMakeLists.txt");
+        fs::copy(source / testFrameworkName, destination / testFrameworkName, fs::copy_options::recursive);
 
-        if (dependencies.testFlag(Dependency::Json)) { add_dependency("json"); }
-        if (dependencies.testFlag(Dependency::CLI11)) { add_dependency("CLI11"); }
-        if (dependencies.testFlag(Dependency::Spdlog)) { add_dependency("spdlog"); }
-        if (dependencies.testFlag(Dependency::Catch2)) { add_dependency("Catch2"); }
-        if (dependencies.testFlag(Dependency::GoogleTest)) { add_dependency("googletest"); }
+        std::ofstream out(destination / "CMakeLists.txt", std::ios::app);
+        out << "add_subdirectory(\"" << testFrameworkName << "\")\n";
     }
 
     void Generator::render_templates(const path &projectDir, const GenerationOptions &options)

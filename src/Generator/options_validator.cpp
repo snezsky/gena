@@ -15,7 +15,7 @@ namespace gena
         validate_name(options.name);
         validate_type(options.type);
         validate_cpp_standard(options.standard);
-        validate_dependencies(options.dependencies);
+        validate_test_framework(options.test_framework);
         validate_namespace(options.cpp_namespace);
     }
 
@@ -51,15 +51,15 @@ namespace gena
         throw std::invalid_argument("Invalid C++ standard!");
     }
 
-    void OptionsValidator::validate_dependencies(Dependencies dependencies)
+    void OptionsValidator::validate_test_framework(TestFramework testFramework)
     {
-        const int testFrameworksCount = static_cast<int>(dependencies.testFlag(Dependency::QTest)) +
-                                        static_cast<int>(dependencies.testFlag(Dependency::Catch2)) +
-                                        static_cast<int>(dependencies.testFlag(Dependency::GoogleTest));
-        if (testFrameworksCount != 1)
+        switch (testFramework)
         {
-            throw std::invalid_argument("Invalid dependencies! You must choose exactly one test framework.");
+        case TestFramework::QTest:
+        case TestFramework::Catch2:
+        case TestFramework::GoogleTest: return;
         }
+        throw std::invalid_argument("Invalid test framework!");
     }
 
     void OptionsValidator::validate_namespace(const std::string &cpp_namespace)

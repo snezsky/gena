@@ -11,15 +11,15 @@ namespace
       public:
         MocksAssetsEnvironment()
         {
-            static const std::string qtest{gena::to_string(gena::Dependency::QTest)};
+            static const std::string qtest{gena::to_string(gena::TestFramework::QTest)};
             static const std::string library{gena::to_string(gena::ProjectType::Library)};
 
-            std::filesystem::create_directories("assets/deps");
+            std::filesystem::create_directories("assets/test_frameworks");
             std::filesystem::create_directories("assets/tests/" + qtest);
             std::filesystem::create_directories("assets/type/Library/" + library);
             std::filesystem::create_directories("assets/common/scripts");
 
-            std::ofstream cmake("assets/deps/CMakeLists.txt");
+            std::ofstream cmake("assets/test_frameworks/CMakeLists.txt");
             std::ofstream cover("assets/common/scripts/coverage.sh");
         }
         ~MocksAssetsEnvironment() override
@@ -76,10 +76,10 @@ TEST(TestGenerator, GitRepoNotCreatedIfOptionNotSet)
     EXPECT_FALSE(std::filesystem::exists(generator.project_directory() / ".git"));
 }
 
-TEST(TestGenerator, SingleQtTestDoesNotCreateDepsDirectory)
+TEST(TestGenerator, QtTestDoesNotCreateDepsDirectory)
 {
     gena::GenerationOptions options = gena::valid_options();
-    options.dependencies = gena::Dependency::QTest;
+    options.test_framework = gena::TestFramework::QTest;
 
     gena::Generator generator;
     generator.generate(options);

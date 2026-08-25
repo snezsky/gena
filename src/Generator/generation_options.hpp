@@ -30,25 +30,20 @@ namespace gena
     };
     Q_ENUM_NS(CppStandard)
 
-    enum class Dependency : uint8_t
+    enum class TestFramework : uint8_t
     {
-        Json = 1U << 0U,
-        CLI11 = 1U << 1U,
-        Spdlog = 1U << 2U,
-        QTest = 1U << 3U,
-        Catch2 = 1U << 4U,
-        GoogleTest = 1U << 5U,
+        QTest = 1U << 1U,
+        Catch2 = 1U << 2U,
+        GoogleTest = 1U << 3U,
     };
-    Q_DECLARE_FLAGS(Dependencies, Dependency);
-    Q_FLAG_NS(Dependencies)
-    Q_ENUM_NS(Dependency)
+    Q_ENUM_NS(TestFramework)
 
     struct GenerationOptions
     {
         std::string name;
         ProjectType type;
         CppStandard standard;
-        Dependencies dependencies;
+        TestFramework test_framework;
         std::string cpp_namespace;
         std::filesystem::path output_directory;
         bool setup_git = false;
@@ -67,7 +62,7 @@ namespace gena
                 .name = get_or_throw("name").toString().toStdString(),
                 .type = get_or_throw("type").value<ProjectType>(),
                 .standard = get_or_throw("standard").value<CppStandard>(),
-                .dependencies = get_or_throw("dependencies").value<Dependencies>(),
+                .test_framework = get_or_throw("testFramework").value<TestFramework>(),
                 .cpp_namespace = get_or_throw("namespace").toString().toStdString(),
                 .output_directory = get_or_throw("outputDirectory").toUrl().toLocalFile().toStdString(),
                 .setup_git = get_or_throw("setupGit").toBool(),

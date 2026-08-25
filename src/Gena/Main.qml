@@ -11,9 +11,8 @@ ApplicationWindow
     visible: true
     minimumWidth: 340
     maximumWidth: 340
-    minimumHeight: 535
-    maximumHeight: 535
-
+    minimumHeight: 360
+    maximumHeight: 360
 
     ColumnLayout
     {
@@ -61,32 +60,11 @@ ApplicationWindow
             id: comboBoxTestFramework
             title: "test framework"
             model: [
-                { text: "QTest",      value: Options.Dependency.QTest },
-                { text: "Catch2",     value: Options.Dependency.Catch2 },
-                { text: "GoogleTest", value: Options.Dependency.GoogleTest }
+                { text: "QTest",      value: Options.TestFramework.QTest },
+                { text: "Catch2",     value: Options.TestFramework.Catch2 },
+                { text: "GoogleTest", value: Options.TestFramework.GoogleTest }
             ]
             currentIndex: 2
-        }
-
-        GroupBox {
-            title: "dependencies"
-            Layout.fillWidth: true
-            ColumnLayout {
-                spacing: -10
-                Layout.fillWidth: true
-                CheckBox {
-                    id: checkBoxCLI11
-                    text: "CLI11"
-                }
-                CheckBox {
-                    id: checkBoxSpdlog
-                    text: "spdlog"
-                }
-                CheckBox {
-                    id: checkBoxJson
-                    text: "nlohmann/json"
-                }
-            }
         }
 
         CheckBox {
@@ -161,7 +139,7 @@ ApplicationWindow
         title: "Select the project destination"
         onAccepted: {
             overlay.visible = true
-            generator.composeDependenciesAndGenerate()
+            generator.startGeneration()
         }
     }
 
@@ -179,17 +157,12 @@ ApplicationWindow
             errorDialog.open()
         }
 
-        function composeDependenciesAndGenerate() {
-            let deps = comboBoxTestFramework.currentValue
-                     | (checkBoxCLI11.checked  ? Options.CLI11  : 0)
-                     | (checkBoxSpdlog.checked ? Options.Spdlog : 0)
-                     | (checkBoxJson.checked   ? Options.Json   : 0)
-
+        function startGeneration() {
             generator.generateAsync({
                 name:            textFieldName.text,
                 type:            comboBoxProjectType.currentValue,
                 standard:        comboBoxCppStandard.currentValue,
-                dependencies:    deps,
+                testFramework:   comboBoxTestFramework.currentValue,
                 namespace:       textFieldNamespace.text,
                 outputDirectory: folderDialog.selectedFolder,
                 setupGit:        checkBoxSetupGit.checked

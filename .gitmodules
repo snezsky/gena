@@ -1,18 +1,9 @@
-[submodule "assets/deps/spdlog"]
-	path = assets/deps/spdlog
-	url = https://github.com/gabime/spdlog.git
 [submodule "assets/deps/Catch2"]
 	path = assets/deps/Catch2
 	url = https://github.com/catchorg/Catch2.git
-[submodule "assets/deps/json"]
-	path = assets/deps/json
-	url = https://github.com/nlohmann/json.git
 [submodule "assets/deps/googletest"]
 	path = assets/deps/googletest
 	url = https://github.com/google/googletest.git
-[submodule "assets/deps/CLI11"]
-	path = assets/deps/CLI11
-	url = https://github.com/CLIUtils/CLI11.git
 [submodule "deps/inja"]
 	path = deps/inja
 	url = https://github.com/pantor/inja.git

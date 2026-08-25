@@ -37,9 +37,9 @@ namespace
         else { throw std::invalid_argument("unknown c++ standard"); }
 
         /* Map each C++ standard to a test framework for full coverage */
-        if (projectName.endsWith("17")) { options.dependencies |= Dependency::QTest; }
-        else if (projectName.endsWith("20")) { options.dependencies = Dependency::Catch2; }
-        else if (projectName.endsWith("23")) { options.dependencies = Dependency::GoogleTest; }
+        if (projectName.endsWith("17")) { options.test_framework = TestFramework::QTest; }
+        else if (projectName.endsWith("20")) { options.test_framework = TestFramework::Catch2; }
+        else if (projectName.endsWith("23")) { options.test_framework = TestFramework::GoogleTest; }
 
         return options;
     }

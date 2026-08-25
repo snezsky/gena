@@ -6,7 +6,7 @@ project(<@ project_name @>)
 
 option(<@ upper(namespace) @>_BUILD_TESTS "build tests" OFF)
 
-<% if dependencies != ["QTest"] %>
+<% if test_framework != "QTest" %>
 add_subdirectory("deps" SYSTEM EXCLUDE_FROM_ALL)
 <% endif %>
 <% if project_type == "QtQuickApplication" %>
