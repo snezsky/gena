@@ -24,8 +24,8 @@ Dialog {
             sourceSize: Qt.size(64, 64)
             source: {
                 switch (root.type) {
-                    case MessageBox.Info:  return "qrc:/icons/info.svg"
-                    case MessageBox.Error: return "qrc:/icons/error.svg"
+                    case MessageBox.Info:  return "qrc:/icons/geninfo.svg"
+                    case MessageBox.Error: return "qrc:/icons/generror.svg"
                 }
             }
         }

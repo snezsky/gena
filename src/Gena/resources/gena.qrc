@@ -3,8 +3,10 @@
         <file>qtquickcontrols2.conf</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>tooltip.svg</file>
+        <file>add.svg</file>
+        <file>delete.svg</file>
+        <file>generror.svg</file>
+        <file>geninfo.svg</file>
         <file>info.svg</file>
-        <file>error.svg</file>
     </qresource>
 </RCC>

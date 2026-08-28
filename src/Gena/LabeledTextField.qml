@@ -30,7 +30,7 @@ RowLayout {
 
             icon.width: textField.height
             icon.height: textField.height
-            icon.source: "qrc:/icons/tooltip.svg"
+            icon.source: "qrc:/icons/info.svg"
             icon.color: hovered ? Material.primaryTextColor : Material.hintTextColor
 
             ToolTip.delay: 500
