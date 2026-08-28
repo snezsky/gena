@@ -16,6 +16,8 @@ qt_add_qml_module(gena-qml
         "MessageBox.qml"
         "LabeledComboBox.qml"
         "LabeledTextField.qml"
+        "SubmodulesView.qml"
+        "SubmodulesDelegate.qml"
 )
 target_link_libraries(gena-qml PUBLIC Qt6::Quick Qt6::Qml generator)
 

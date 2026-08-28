@@ -9,10 +9,8 @@ ApplicationWindow
 {
     id: root
     visible: true
-    minimumWidth: 340
-    maximumWidth: 340
-    minimumHeight: 360
-    maximumHeight: 360
+    width: 560
+    height: 635
 
     ColumnLayout
     {
@@ -67,6 +65,11 @@ ApplicationWindow
             currentIndex: 2
         }
 
+        SubmodulesView {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
+
         CheckBox {
             id: checkBoxSetupGit
             text: "setup git repository"
@@ -76,8 +79,6 @@ ApplicationWindow
             ToolTip.visible: checkBoxSetupGit.hovered
             ToolTip.text: "Creates a repository and makes an initial commit using your identity. Requires Git to be installed"
         }
-
-        Item { Layout.fillHeight: true }
 
         Button {
             id: buttonGenerate
