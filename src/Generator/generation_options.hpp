@@ -38,6 +38,12 @@ namespace gena
     };
     Q_ENUM_NS(TestFramework)
 
+    struct Submodule
+    {
+        std::string name;
+        std::string url;
+    };
+
     struct GenerationOptions
     {
         std::string name;
@@ -46,27 +52,7 @@ namespace gena
         TestFramework test_framework;
         std::string cpp_namespace;
         std::filesystem::path output_directory;
+        std::vector<Submodule> submodules;
         bool setup_git = false;
-
-        static GenerationOptions fromQVariantMap(const QVariantMap &map)
-        {
-            auto get_or_throw = [&map](const QString &key) {
-                if (!map.contains(key))
-                {
-                    throw std::runtime_error("Generation options missing required key: " + key.toStdString());
-                }
-                return map[key];
-            };
-
-            return GenerationOptions{
-                .name = get_or_throw("name").toString().toStdString(),
-                .type = get_or_throw("type").value<ProjectType>(),
-                .standard = get_or_throw("standard").value<CppStandard>(),
-                .test_framework = get_or_throw("testFramework").value<TestFramework>(),
-                .cpp_namespace = get_or_throw("namespace").toString().toStdString(),
-                .output_directory = get_or_throw("outputDirectory").toUrl().toLocalFile().toStdString(),
-                .setup_git = get_or_throw("setupGit").toBool(),
-            };
-        }
     };
 } // namespace gena

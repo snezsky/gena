@@ -5,8 +5,25 @@ namespace gena
 {
     void QGenerator::generateAsync(const QVariantMap &options)
     {
-        const GenerationOptions cpp_options = GenerationOptions::fromQVariantMap(options);
-        std::thread(&QGenerator::generate, this, cpp_options).detach();
+        std::vector<Submodule> submodules;
+        for (auto &submodule : options["submodules"].toList())
+        {
+            submodules.push_back(Submodule{.name = submodule.toMap()["name"].toString().toStdString(),
+                                           .url = submodule.toMap()["url"].toString().toStdString()});
+        }
+
+        GenerationOptions cppOptions{
+            .name = options["name"].toString().toStdString(),
+            .type = options["type"].value<ProjectType>(),
+            .standard = options["standard"].value<CppStandard>(),
+            .test_framework = options["testFramework"].value<TestFramework>(),
+            .cpp_namespace = options["namespace"].toString().toStdString(),
+            .output_directory = options["outputDirectory"].toUrl().toLocalFile().toStdString(),
+            .submodules = std::move(submodules),
+            .setup_git = options["setupGit"].toBool(),
+        };
+
+        std::thread(&QGenerator::generate, this, cppOptions).detach();
     }
 
     void QGenerator::generate(const GenerationOptions &options)

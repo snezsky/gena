@@ -66,6 +66,7 @@ ApplicationWindow
         }
 
         SubmodulesView {
+            id: viewSubmodules
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
@@ -159,6 +160,12 @@ ApplicationWindow
         }
 
         function startGeneration() {
+            const submodules = []
+            for (let i = 0; i < viewSubmodules.model.count; ++i) {
+                const submodule = viewSubmodules.model.get(i)
+                submodules.push({name: submodule.name, url: submodule.url})
+            }
+
             generator.generateAsync({
                 name:            textFieldName.text,
                 type:            comboBoxProjectType.currentValue,
@@ -166,6 +173,7 @@ ApplicationWindow
                 testFramework:   comboBoxTestFramework.currentValue,
                 namespace:       textFieldNamespace.text,
                 outputDirectory: folderDialog.selectedFolder,
+                submodules:      submodules,
                 setupGit:        checkBoxSetupGit.checked
             })
         }

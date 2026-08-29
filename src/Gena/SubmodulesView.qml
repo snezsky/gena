@@ -4,6 +4,7 @@ import QtQuick.Controls
 
 ColumnLayout {
     id: root
+    readonly property ListModel model: view.model
 
     Label { text: "Submodules" }
 
