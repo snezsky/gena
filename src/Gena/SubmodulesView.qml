@@ -4,7 +4,7 @@ import QtQuick.Controls
 
 ColumnLayout {
     id: root
-    readonly property ListModel model: view.model
+    property alias model: view.model
 
     Label { text: "Submodules" }
 
@@ -41,7 +41,7 @@ ColumnLayout {
             Button {
                 text: "Add Submodule"
 
-                icon.color: "cornflowerblue"
+                icon.color: enabled ? "cornflowerblue" : "gray"
                 icon.source: "qrc:/icons/add.svg"
 
                 onClicked: { view.model.append({ "name": "", "url": "" }) }

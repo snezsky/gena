@@ -32,7 +32,7 @@ RowLayout {
         ToolButton {
             id: buttonDelete
 
-            icon.color: "tomato"
+            icon.color: enabled ? "tomato" : "gray"
             icon.source: "qrc:/icons/delete.svg"
 
             onClicked: root.ListView.view.model.remove(root.index)
