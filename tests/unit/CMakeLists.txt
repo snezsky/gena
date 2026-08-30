@@ -14,7 +14,7 @@ function(gena_add_unit_test)
     add_executable(${TEST_NAME} ${TEST_SOURCES})
     gena_setup_target(${TEST_NAME})
 
-    target_link_libraries(${TEST_NAME} PRIVATE generator GTest::gtest_main)
+    target_link_libraries(${TEST_NAME} PRIVATE generator GTest::gtest_main GTest::gmock)
     gtest_discover_tests(${TEST_NAME})
 
     # clang-tidy hates googletest's macros
