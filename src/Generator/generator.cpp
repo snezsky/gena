@@ -1,6 +1,7 @@
 #include "generator.hpp"
 #include "file_editor.hpp"
 #include "generation_options_to_strings.hpp"
+#include "git_client.hpp"
 #include "options_validator.hpp"
 
 #include "whereami/whereami.hpp"
@@ -25,7 +26,7 @@ namespace
 
 namespace gena
 {
-    void Generator::generate(const GenerationOptions &options)
+    void Generator::generate(const GenerationOptions &options, std::unique_ptr<IGitClient> gitClient)
     {
         try
         {
@@ -48,7 +49,8 @@ namespace gena
 
             render_templates(destination, options);
 
-            copy_test_framework(source / "test_frameworks", destination / "deps", options.test_framework);
+            // copy_test_framework(source / "test_frameworks", destination / "deps", options.test_framework);
+            setup_git_repository(destination, options.submodules, std::move(gitClient));
 
             projectDirectory_ = destination;
         }
@@ -107,28 +109,20 @@ namespace gena
         }
     }
 
-    void Generator::setup_git_repository(const std::filesystem::path &projectDir)
+    void Generator::setup_git_repository(const std::filesystem::path &projectDir,
+                                         const std::vector<Submodule> &submodules,
+                                         std::unique_ptr<IGitClient> gitClient)
     {
-        auto git = [&](const QStringList &args) {
-            QProcess process;
-            process.setWorkingDirectory(QString::fromStdString(projectDir.string()));
-            process.start("git", args);
+        gitClient->set_repository_path(projectDir);
+        gitClient->init();
 
-            if (!process.waitForFinished() || process.exitStatus() != QProcess::NormalExit ||
-                process.exitCode() != EXIT_SUCCESS)
-            {
-                const std::string command = args.join(' ').toStdString();
-                const std::string error = process.readAllStandardError().toStdString();
-                throw std::runtime_error(
-                    std::format("Failed to setup git repository!\nCommand: {}\nError: {}", command, error));
-            }
-        };
+        gitClient->add("scripts/coverage.sh");
+        gitClient->set_execute_permission("scripts/coverage.sh");
 
-        git({"init"});
-        git({"add", "."});
-        git({"update-index", "--chmod=+x", "scripts/coverage.sh"});
-        git({"add", "."});
-        git({"commit", "-m", "create initial project structure"});
+        gitClient->add_submodules(submodules);
+        gitClient->add(".");
+
+        gitClient->commit("create initial project structure");
     }
 
     void Generator::copy_content(const fs::path &source, const fs::path &destination)

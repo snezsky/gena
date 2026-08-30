@@ -3,6 +3,8 @@ find_package(Qt6 6.4.2 REQUIRED COMPONENTS Core Qml)
 add_subdirectory(whereami)
 
 add_library(generator
+    "git_client.hpp"
+    "git_client.cpp"
     "generation_options.hpp"
     "generation_options_to_strings.hpp"
     "rendering_options.hpp"
