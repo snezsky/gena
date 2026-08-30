@@ -163,7 +163,9 @@ ApplicationWindow
             const submodules = []
             for (let i = 0; i < viewSubmodules.model.count; ++i) {
                 const submodule = viewSubmodules.model.get(i)
-                submodules.push({name: submodule.name, url: submodule.url})
+                if (submodule.name && submodule.url) {
+                    submodules.push({name: submodule.name, url: submodule.url})
+                }
             }
 
             generator.generateAsync({
