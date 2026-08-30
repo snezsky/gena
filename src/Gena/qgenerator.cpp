@@ -20,7 +20,6 @@ namespace gena
             .cpp_namespace = options["namespace"].toString().toStdString(),
             .output_directory = options["outputDirectory"].toUrl().toLocalFile().toStdString(),
             .submodules = std::move(submodules),
-            .setup_git = options["setupGit"].toBool(),
         };
 
         std::thread(&QGenerator::generate, this, cppOptions).detach();

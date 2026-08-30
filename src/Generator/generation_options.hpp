@@ -53,6 +53,5 @@ namespace gena
         std::string cpp_namespace;
         std::filesystem::path output_directory;
         std::vector<Submodule> submodules;
-        bool setup_git = false;
     };
 } // namespace gena

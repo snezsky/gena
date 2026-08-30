@@ -54,28 +54,6 @@ TEST(TestGenerator, ProjectDirectoryClearsOldValue)
     EXPECT_ANY_THROW(generator.project_directory());
 }
 
-TEST(TestGenerator, GitRepoCreatedIfOptionSet)
-{
-    gena::GenerationOptions options = gena::valid_options();
-    options.setup_git = true;
-
-    gena::Generator generator;
-    generator.generate(options);
-
-    EXPECT_TRUE(std::filesystem::exists(generator.project_directory() / ".git"));
-}
-
-TEST(TestGenerator, GitRepoNotCreatedIfOptionNotSet)
-{
-    gena::GenerationOptions options = gena::valid_options();
-    options.setup_git = false;
-
-    gena::Generator generator;
-    generator.generate(options);
-
-    EXPECT_FALSE(std::filesystem::exists(generator.project_directory() / ".git"));
-}
-
 TEST(TestGenerator, QtTestDoesNotCreateDepsDirectory)
 {
     gena::GenerationOptions options = gena::valid_options();

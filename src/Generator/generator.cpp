@@ -49,7 +49,6 @@ namespace gena
             render_templates(destination, options);
 
             copy_test_framework(source / "test_frameworks", destination / "deps", options.test_framework);
-            if (options.setup_git) { setup_git_repository(destination); }
 
             projectDirectory_ = destination;
         }

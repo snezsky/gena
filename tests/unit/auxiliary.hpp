@@ -32,8 +32,7 @@ namespace gena
                                  .test_framework = TestFramework::QTest,
                                  .cpp_namespace = "prj",
                                  .output_directory = temp_directory(),
-                                 .submodules = {Submodule{.name = "gena", .url = "https://github.com/snezsky/gena"}},
-                                 .setup_git = false};
+                                 .submodules = {Submodule{.name = "gena", .url = "https://github.com/snezsky/gena"}}};
     }
 
     inline GenerationOptions options_with_invalid_standard()

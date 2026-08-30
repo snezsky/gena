@@ -10,7 +10,7 @@ ApplicationWindow
     id: root
     visible: true
     width: 560
-    height: 635
+    height: 585
 
     ColumnLayout
     {
@@ -69,16 +69,6 @@ ApplicationWindow
             id: viewSubmodules
             Layout.fillWidth: true
             Layout.fillHeight: true
-        }
-
-        CheckBox {
-            id: checkBoxSetupGit
-            text: "setup git repository"
-            checked: true
-
-            ToolTip.delay: 500
-            ToolTip.visible: checkBoxSetupGit.hovered
-            ToolTip.text: "Creates a repository and makes an initial commit using your identity. Requires Git to be installed"
         }
 
         Button {
@@ -175,8 +165,7 @@ ApplicationWindow
                 testFramework:   comboBoxTestFramework.currentValue,
                 namespace:       textFieldNamespace.text,
                 outputDirectory: folderDialog.selectedFolder,
-                submodules:      submodules,
-                setupGit:        checkBoxSetupGit.checked
+                submodules:      submodules
             })
         }
     }
