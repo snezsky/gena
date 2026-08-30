@@ -38,12 +38,6 @@ namespace gena
     };
     Q_ENUM_NS(TestFramework)
 
-    struct Submodule
-    {
-        std::string name;
-        std::string url;
-    };
-
     struct GenerationOptions
     {
         std::string name;
@@ -52,6 +46,6 @@ namespace gena
         TestFramework test_framework;
         std::string cpp_namespace;
         std::filesystem::path output_directory;
-        std::vector<Submodule> submodules;
+        std::vector<std::string> submodule_urls;
     };
 } // namespace gena

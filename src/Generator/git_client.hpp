@@ -14,8 +14,8 @@ namespace gena
         virtual void init() = 0;
         virtual void add(const std::string &pathspec) = 0;
         virtual void commit(const std::string &message) = 0;
-        virtual void add_submodule(const Submodule &submodule) = 0;
-        virtual void add_submodules(const std::vector<Submodule> &submodules) = 0;
+        virtual void add_submodule(const std::string &url) = 0;
+        virtual void add_submodules(const std::vector<std::string> &urls) = 0;
         virtual void set_execute_permission(const std::filesystem::path &file) = 0;
     };
 
@@ -34,9 +34,9 @@ namespace gena
 
         void commit(const std::string &message) override;
 
-        void add_submodule(const Submodule &submodule) override;
+        void add_submodule(const std::string &url) override;
 
-        void add_submodules(const std::vector<Submodule> &submodules) override;
+        void add_submodules(const std::vector<std::string> &urls) override;
 
         void set_execute_permission(const std::filesystem::path &file) override;
 

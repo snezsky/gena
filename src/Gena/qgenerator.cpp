@@ -5,11 +5,10 @@ namespace gena
 {
     void QGenerator::generateAsync(const QVariantMap &options)
     {
-        std::vector<Submodule> submodules;
-        for (auto &submodule : options["submodules"].toList())
+        std::vector<std::string> submoduleUrls;
+        for (auto &submodule : options["submodules"].toStringList())
         {
-            submodules.push_back(Submodule{.name = submodule.toMap()["name"].toString().toStdString(),
-                                           .url = submodule.toMap()["url"].toString().toStdString()});
+            submoduleUrls.push_back(submodule.toStdString());
         }
 
         GenerationOptions cppOptions{
@@ -19,7 +18,7 @@ namespace gena
             .test_framework = options["testFramework"].value<TestFramework>(),
             .cpp_namespace = options["namespace"].toString().toStdString(),
             .output_directory = options["outputDirectory"].toUrl().toLocalFile().toStdString(),
-            .submodules = std::move(submodules),
+            .submodule_urls = std::move(submoduleUrls),
         };
 
         std::thread(&QGenerator::generate, this, cppOptions).detach();

@@ -50,7 +50,7 @@ namespace gena
             render_templates(destination, options);
 
             // copy_test_framework(source / "test_frameworks", destination / "deps", options.test_framework);
-            setup_git_repository(destination, options.submodules, std::move(gitClient));
+            setup_git_repository(destination, options.submodule_urls, std::move(gitClient));
 
             projectDirectory_ = destination;
         }
@@ -110,7 +110,7 @@ namespace gena
     }
 
     void Generator::setup_git_repository(const std::filesystem::path &projectDir,
-                                         const std::vector<Submodule> &submodules,
+                                         const std::vector<std::string> &submoduleUrls,
                                          std::unique_ptr<IGitClient> gitClient)
     {
         gitClient->set_repository_path(projectDir);
@@ -119,7 +119,7 @@ namespace gena
         gitClient->add("scripts/coverage.sh");
         gitClient->set_execute_permission("scripts/coverage.sh");
 
-        gitClient->add_submodules(submodules);
+        gitClient->add_submodules(submoduleUrls);
         gitClient->add(".");
 
         gitClient->commit("create initial project structure");

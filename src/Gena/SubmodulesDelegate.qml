@@ -11,21 +11,13 @@ RowLayout {
 
     width: root.ListView.view.width
 
-    TextField {
-        Layout.preferredWidth: 180
-
-        text: root.name
-        validator: RegularExpressionValidator { regularExpression: /^[A-Za-z0-9][A-Za-z0-9._ -]*$/ }
-    
-        onEditingFinished: (text) => root.ListView.view.model.setProperty(root.index, "name", text) 
-    }
-
     RowLayout {
         Layout.fillWidth: true
 
         TextField {
             Layout.fillWidth: true
             text: root.url
+            placeholderText: "url"
             onEditingFinished: root.ListView.view.model.setProperty(root.index, "url", text) 
         }
 

@@ -11,12 +11,12 @@ namespace
     {
       public:
         virtual ~MockGitClient() = default;
-        MOCK_METHOD(void, set_repository_path, (std::filesystem::path repository), (override));
+        MOCK_METHOD(void, set_repository_path, (std::filesystem::path), (override));
         MOCK_METHOD(void, init, (), (override));
         MOCK_METHOD(void, add, (const std::string &), (override));
         MOCK_METHOD(void, commit, (const std::string &), (override));
-        MOCK_METHOD(void, add_submodule, (const gena::Submodule &), (override));
-        MOCK_METHOD(void, add_submodules, (const std::vector<gena::Submodule> &), (override));
+        MOCK_METHOD(void, add_submodule, (const std::string &), (override));
+        MOCK_METHOD(void, add_submodules, (const std::vector<std::string> &), (override));
         MOCK_METHOD(void, set_execute_permission, (const std::filesystem::path &), (override));
     };
     using NiceMockGitClient = ::testing::NiceMock<MockGitClient>;

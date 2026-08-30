@@ -97,27 +97,7 @@ TEST(GenerationOptionsValidatorTest, OutputDirectory)
     EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Generation path has to be empty";
 }
 
-TEST(GenerationOptionsValidatorTest, SubmodulesName)
-{
-    GenerationOptions options = valid_options();
-
-    options.submodules = {Submodule{.name = "", .url = "https://github.com/snezsky/gena"}};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule name can't be empty";
-
-    options.submodules = {Submodule{.name = " ", .url = "https://github.com/snezsky/gena"}};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule name can't contain only whitespaces";
-
-    options.submodules = {Submodule{.name = " gena", .url = "https://github.com/snezsky/gena"}};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule name can't start with a whitespace";
-
-    options.submodules = {Submodule{.name = "gena ", .url = "https://github.com/snezsky/gena"}};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule name can't end with a whitespace";
-
-    options.submodules = {Submodule{.name = "g*na", .url = "https://github.com/snezsky/gena"}};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule name should be valid directory name";
-}
-
-TEST(GenerationOptionsValidatorTest, SubmodulesUrl)
+TEST(GenerationOptionsValidatorTest, SubmoduleUrls)
 {
     const std::vector<std::string> validUrls{
         "git@github.com:user/repo.git",
@@ -132,43 +112,36 @@ TEST(GenerationOptionsValidatorTest, SubmodulesUrl)
     };
 
     const std::vector<std::string> invalidUrls{
-        "http//missing-colon.com/repo.git",
-        "https:///missing-host",
-        "https://host with spaces/repo.git",
-        "https://:8080/repo.git",
-        "https://host:invalid-port/repo.git",
-        "ssh:///missing-host/repo.git",
-        "git:///missing-host/repo.git",
-        "@github.com:repo.git",
+        "http//missing-colon.com/repo.git",   "https:///missing-host",
+        "https://host with spaces/repo.git",  "https://:8080/repo.git",
+        "https://host:invalid-port/repo.git", "ssh:///missing-host/repo.git",
+        "git:///missing-host/repo.git",       "@github.com:repo.git",
         "git@@github.com:repo.git",
     };
 
     GenerationOptions options = valid_options();
 
-    options.submodules = {Submodule{.name = "gena", .url = ""}};
+    options.submodule_urls = {""};
     EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't be empty";
 
-    options.submodules = {Submodule{.name = "gena", .url = " "}};
+    options.submodule_urls = {" "};
     EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't contain only whitespaces";
 
-    options.submodules = {Submodule{.name = "gena", .url = " https://github.com/snezsky/gena"}};
+    options.submodule_urls = {" https://github.com/snezsky/gena"};
     EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't start with a whitespace";
 
-    options.submodules = {Submodule{.name = "gena", .url = "https://github.com/snezsky/gena "}};
+    options.submodule_urls = {"https://github.com/snezsky/gena "};
     EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't end with a whitespace";
-
-    options.submodules = {Submodule{.name = "gena", .url = "https://github.com/snezsky/g@na "}};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't end with a whitespaces";
 
     for (const auto &url : invalidUrls)
     {
-        options.submodules = {Submodule{.name = "gena", .url = url}};
+        options.submodule_urls = {url};
         EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "url: " << url;
     }
 
     for (const auto &url : validUrls)
     {
-        options.submodules = {Submodule{.name = "gena", .url = url}};
-        EXPECT_NO_THROW(OptionsValidator::validate(options)) << "url: " << url;;
+        options.submodule_urls = {url};
+        EXPECT_NO_THROW(OptionsValidator::validate(options)) << "url: " << url;
     }
 }

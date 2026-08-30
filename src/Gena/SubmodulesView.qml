@@ -15,12 +15,6 @@ ColumnLayout {
         ColumnLayout {
             anchors.fill: parent
 
-            RowLayout {
-                Layout.fillWidth: true
-                Label { text: "Name"; Layout.preferredWidth: 185; font.bold: true; }
-                Label { text: "Url";  Layout.fillWidth: true; font.bold: true; }
-            }
-
             ListView {
                 id: view
                 Layout.fillWidth: true

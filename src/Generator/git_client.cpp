@@ -46,20 +46,20 @@ namespace gena
     void GitClient::commit(const std::string &message)
     { git(repository_, {"commit", "-m", QString::fromStdString(message)}); }
 
-    void GitClient::add_submodule(const Submodule &submodule)
+    void GitClient::add_submodule(const std::string &url)
     {
-        const QString url = QString::fromStdString(submodule.url);
-        const QString name = QString::fromStdString("deps/" + submodule.name);
+        const QString qUrl = QString::fromStdString(url);
+        const QString qName = "#TODO: add function to extract name";
 
-        git(repository_, {"submodule", "add", url, name});
+        git(repository_, {"submodule", "add", qUrl, qName});
         git(repository_, {"submodule", "update", "--init", "--recursive"});
     }
 
-    void GitClient::add_submodules(const std::vector<Submodule> &submodules)
+    void GitClient::add_submodules(const std::vector<std::string> &urls)
     {
-        for (const auto &submodule : submodules)
+        for (const auto &url : urls)
         {
-            add_submodule(submodule);
+            add_submodule(url);
         }
     }
 

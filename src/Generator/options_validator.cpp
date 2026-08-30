@@ -7,7 +7,7 @@ namespace gena
     void OptionsValidator::validate(const GenerationOptions &options)
     {
         validate(RenderingOptions{options});
-        validate_submodules(options.submodules);
+        validate_submodules(options.submodule_urls);
         validate_output_directory(options.output_directory, options.name);
     }
 
@@ -72,23 +72,17 @@ namespace gena
         }
     }
 
-    void OptionsValidator::validate_submodules(const std::vector<Submodule> &submodules)
+    void OptionsValidator::validate_submodules(const std::vector<std::string> &urls)
     {
         static const QRegularExpression scpRegex(R"(^[^@\s]+@[^@:\s]+:[^\s]+$)");
         static const QRegularExpression urlRegex(R"(^(https?|ssh|git)://[^:/\s]+(?::\d+)?(?:/[^/\s]*)*$)");
-        static const QRegularExpression nameRegex{"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"};
 
-        for (const auto &submodule : submodules)
+        for (const auto &url : urls)
         {
-            if (!nameRegex.match(QString::fromStdString(submodule.name)).hasMatch())
+            if (!urlRegex.match(QString::fromStdString(url)).hasMatch() &&
+                !scpRegex.match(QString::fromStdString(url)).hasMatch())
             {
-                throw std::invalid_argument("Invalid submodule name: " + submodule.name + "!\n" +
-                                            "It should be a valid name for a folder.");
-            }
-            if (!urlRegex.match(QString::fromStdString(submodule.url)).hasMatch() &&
-                !scpRegex.match(QString::fromStdString(submodule.url)).hasMatch())
-            {
-                throw std::invalid_argument("Invalid submodule url: " + submodule.url + "!\n" +
+                throw std::invalid_argument("Invalid submodule url: " + url + "!\n" +
                                             "It should be a valid git repository url to clone.");
             }
         }
