@@ -21,22 +21,22 @@ ColumnLayout {
                 Label { text: "Url";  Layout.fillWidth: true; font.bold: true; }
             }
 
-                ListView {
-                    id: view
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    clip: true
-                    spacing: 10
+            ListView {
+                id: view
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                spacing: 10
 
-                    ScrollBar.vertical: ScrollBar {
-                        width: 8
-                        background.visible: false
-                        Component.onCompleted: contentItem.radius = width / 2
-                    }
-
-                    model: ListModel {}
-                    delegate: SubmodulesDelegate{ spacing: view.spacing }
+                ScrollBar.vertical: ScrollBar {
+                    width: 8
+                    background.visible: false
+                    Component.onCompleted: contentItem.radius = width / 2
                 }
+
+                model: ListModel {}
+                delegate: SubmodulesDelegate{ spacing: view.spacing }
+            }
 
             Button {
                 text: "Add Submodule"
