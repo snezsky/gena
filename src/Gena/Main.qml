@@ -63,6 +63,9 @@ ApplicationWindow
                 { text: "GoogleTest", value: Options.TestFramework.GoogleTest }
             ]
             currentIndex: 2
+            onCurrentValueChanged: {
+                viewSubmodules.update_test_framework_submodule(currentValue)
+            }
         }
 
         SubmodulesView {

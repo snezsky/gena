@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
+import Gena
+
 ColumnLayout {
     id: root
     property alias model: view.model
@@ -39,8 +41,31 @@ ColumnLayout {
                 icon.color: enabled ? "cornflowerblue" : "gray"
                 icon.source: "qrc:/icons/add.svg"
 
-                onClicked: { view.model.append({ "name": "", "url": "" }) }
+                onClicked: { view.model.append({ url: "", deletable: true }) }
             }
+        }
+    }
+
+    function update_test_framework_submodule(testFramework) {
+
+        function removeUrlsContaining(text) {
+            const searchText = text.toLowerCase()
+            for (let i = model.count - 1; i >= 0; --i) {
+                const submodule = model.get(i)
+                if (submodule.url.toLowerCase().includes(searchText)) {
+                    model.remove(i)
+                }
+            }
+        }
+
+        removeUrlsContaining("/catch2")
+        removeUrlsContaining("/googletest")
+
+        if (testFramework === Options.TestFramework.Catch2) {
+            model.insert(0, {url: "https://github.com/catchorg/Catch2.git", deletable: false })
+        }
+        else if (testFramework === Options.TestFramework.GoogleTest) {
+            model.insert(0, {url: "https://github.com/google/googletest.git", deletable: false })
         }
     }
 }

@@ -7,7 +7,7 @@ RowLayout {
     
     required property int index
     required property string url
-    required property string name
+    required property bool deletable
 
     width: root.ListView.view.width
 
@@ -23,7 +23,7 @@ RowLayout {
 
         ToolButton {
             id: buttonDelete
-
+            enabled: deletable
             icon.color: enabled ? "tomato" : "gray"
             icon.source: "qrc:/icons/delete.svg"
 
