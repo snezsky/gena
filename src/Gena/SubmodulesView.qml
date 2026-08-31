@@ -21,6 +21,7 @@ ColumnLayout {
                 Layout.fillHeight: true
                 clip: true
                 spacing: 10
+                topMargin: 10
 
                 ScrollBar.vertical: ScrollBar {
                     width: 8
