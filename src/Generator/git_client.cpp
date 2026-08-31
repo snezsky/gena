@@ -49,7 +49,7 @@ namespace gena
     void GitClient::add_submodule(const std::string &url)
     {
         const QString qUrl = QString::fromStdString(url);
-        const QString qName = "#TODO: add function to extract name";
+        const QString qName = QString::fromStdString(repository_name(url));
 
         git(repository_, {"submodule", "add", qUrl, qName});
         git(repository_, {"submodule", "update", "--init", "--recursive"});
@@ -65,4 +65,14 @@ namespace gena
 
     void GitClient::set_execute_permission(const std::filesystem::path &file)
     { git(repository_, {"update-index", "--chmod=+x", QString::fromStdString(file.string())}); }
+
+    std::string GitClient::repository_name(const std::string &repositoryUrl)
+    {
+        const size_t pos = repositoryUrl.find_last_of('/');
+
+        std::string_view name = repositoryUrl.substr(pos + 1);
+        if (name.ends_with(".git")) { name.remove_suffix(4); }
+
+        return std::string{name};
+    }
 } // namespace gena

@@ -41,6 +41,9 @@ namespace gena
         void set_execute_permission(const std::filesystem::path &file) override;
 
       private:
+        std::string repository_name(const std::string &repositoryUrl);
+
+      private:
         std::filesystem::path repository_;
     };
 } // namespace gena
