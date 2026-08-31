@@ -2,6 +2,19 @@
 
 #include <QRegularExpression>
 
+namespace
+{
+    bool any_contains_case_insensitive(const std::vector<std::string> &haystack, std::string_view needle)
+    {
+        return std::ranges::any_of(haystack, [needle](const std::string &str) {
+            return std::ranges::search(str, needle, [](char a, char b) {
+                       return std::tolower(static_cast<unsigned char>(a)) ==
+                              std::tolower(static_cast<unsigned char>(b));
+                   }).begin() != str.end();
+        });
+    }
+} // namespace
+
 namespace gena
 {
     void OptionsValidator::validate(const GenerationOptions &options)
@@ -72,7 +85,7 @@ namespace gena
         }
     }
 
-    void OptionsValidator::validate_submodules(const std::vector<std::string> &urls)
+    void OptionsValidator::validate_submodules(const std::vector<std::string> &urls, TestFramework testFramework)
     {
         static const QRegularExpression scpRegex(R"(^[^@\s]+@[^@:\s]+:[^\s]+$)");
         static const QRegularExpression urlRegex(R"(^(https?|ssh|git)://[^:/\s]+(?::\d+)?(?:/[^/\s]*)*$)");
@@ -85,6 +98,16 @@ namespace gena
                 throw std::invalid_argument("Invalid submodule url: " + url + "!\n" +
                                             "It should be a valid git repository url to clone.");
             }
+        }
+
+        if (testFramework == TestFramework::Catch2 && !any_contains_case_insensitive(urls, "/catch2"))
+        {
+            throw std::invalid_argument("You must include Catch2 as submodule to use it as test framework.");
+        }
+
+        if (testFramework == TestFramework::Catch2 && !any_contains_case_insensitive(urls, "/googletest"))
+        {
+            throw std::invalid_argument("You must include googletest as submodule to use it as test framework.");
         }
     }
 
