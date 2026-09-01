@@ -105,7 +105,7 @@ namespace gena
             throw std::invalid_argument("You must include Catch2 as submodule to use it as test framework.");
         }
 
-        if (testFramework == TestFramework::Catch2 && !any_contains_case_insensitive(urls, "/googletest"))
+        if (testFramework == TestFramework::GoogleTest && !any_contains_case_insensitive(urls, "/googletest"))
         {
             throw std::invalid_argument("You must include googletest as submodule to use it as test framework.");
         }
