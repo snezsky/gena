@@ -79,6 +79,83 @@ TYPED_TEST(OptionsValidatorTest, TestFramework)
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Test framework has to be a valid enum value";
 }
 
+TEST(GenerationOptionsValidatorTest, ValidSubmoduleUrls)
+{
+    const std::string gtest = "https://github.com/google/googletest";
+    const std::vector<std::vector<std::string>> validUrls{
+        {gtest},
+        {gtest, "git@github.com:user/repo.git"},
+        {gtest, "git@gitlab.com:group/project.git"},
+        {gtest, "git://github.com/user/repo.git"},
+        {gtest, "git://example.com/project.git"},
+        {gtest, "https://github.com/user/repo"},
+        {gtest, "https://github.com/user/repo.git"},
+        {gtest, "https://gitlab.com/group/project.git"},
+        {gtest, "ssh://git@github.com/user/repo.git"},
+        {gtest, "ssh://git@example.com:2222/user/repo.git"},
+    };
+
+    gena::GenerationOptions options = gena::valid_options();
+    options.test_framework = TestFramework::GoogleTest;
+    for (const auto &url : validUrls)
+    {
+        options.submodule_urls = url;
+        EXPECT_NO_THROW(OptionsValidator::validate(options)) << "url: " << url.back();
+    }
+}
+
+TEST(GenerationOptionsValidatorTest, InvalidSubmoduleUrls)
+{
+    const std::string gtest = "https://github.com/google/googletest";
+    const std::vector<std::vector<std::string>> invalidUrls{
+        {gtest, ""},
+        {gtest, " "},
+        {gtest, " https://github.com/snezsky/gena"},
+        {gtest, "https://github.com/snezsky/gena  "},
+        {gtest, "http//missing-colon.com/repo.git"},
+        {gtest, "https:///missing-host"},
+        {gtest, "https://host with spaces/repo.git"},
+        {gtest, "https://:8080/repo.git"},
+        {gtest, "https://host:invalid-port/repo.git"},
+        {gtest, "ssh:///missing-host/repo.git"},
+        {gtest, "git:///missing-host/repo.git"},
+        {gtest, "@github.com:repo.git"},
+        {gtest, "git@@github.com:repo.git"},
+    };
+
+    gena::GenerationOptions options = gena::valid_options();
+    for (const auto &urls : invalidUrls)
+    {
+        options.submodule_urls = urls;
+        EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "url: " << urls.back();
+    }
+}
+
+TEST(GenerationOptionsValidatorTest, MissingTestFrameworkSubmodule)
+{
+    gena::GenerationOptions options = gena::valid_options();
+
+    options.test_framework = gena::TestFramework::GoogleTest;
+    options.submodule_urls = {"https://anything/at-all/not_googletest"};
+    EXPECT_ANY_THROW(OptionsValidator::validate(options));
+
+    options.test_framework = gena::TestFramework::Catch2;
+    options.submodule_urls = {"https://anything/at-all/not_catch2"};
+    EXPECT_ANY_THROW(OptionsValidator::validate(options));
+
+    options.test_framework = gena::TestFramework::GoogleTest;
+    options.submodule_urls = {"https://anything/at-all/googletest"};
+    EXPECT_NO_THROW(OptionsValidator::validate(options));
+
+    options.test_framework = gena::TestFramework::Catch2;
+    options.submodule_urls = {"https://anything/at-all/Catch2"};
+    EXPECT_NO_THROW(OptionsValidator::validate(options));
+
+    options.test_framework = gena::TestFramework::QTest;
+    options.submodule_urls = {"https://it/works/without-submodule"};
+    EXPECT_NO_THROW(OptionsValidator::validate(options));
+}
+
 TEST(GenerationOptionsValidatorTest, OutputDirectory)
 {
     GenerationOptions options = valid_options();
@@ -95,53 +172,4 @@ TEST(GenerationOptionsValidatorTest, OutputDirectory)
     options.name = "CMakeFiles";
     options.output_directory = std::filesystem::current_path();
     EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Generation path has to be empty";
-}
-
-TEST(GenerationOptionsValidatorTest, SubmoduleUrls)
-{
-    const std::vector<std::string> validUrls{
-        "git@github.com:user/repo.git",
-        "git@gitlab.com:group/project.git",
-        "git://github.com/user/repo.git",
-        "git://example.com/project.git",
-        "https://github.com/user/repo",
-        "https://github.com/user/repo.git",
-        "https://gitlab.com/group/project.git",
-        "ssh://git@github.com/user/repo.git",
-        "ssh://git@example.com:2222/user/repo.git",
-    };
-
-    const std::vector<std::string> invalidUrls{
-        "http//missing-colon.com/repo.git",   "https:///missing-host",
-        "https://host with spaces/repo.git",  "https://:8080/repo.git",
-        "https://host:invalid-port/repo.git", "ssh:///missing-host/repo.git",
-        "git:///missing-host/repo.git",       "@github.com:repo.git",
-        "git@@github.com:repo.git",
-    };
-
-    GenerationOptions options = valid_options();
-
-    options.submodule_urls = {""};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't be empty";
-
-    options.submodule_urls = {" "};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't contain only whitespaces";
-
-    options.submodule_urls = {" https://github.com/snezsky/gena"};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't start with a whitespace";
-
-    options.submodule_urls = {"https://github.com/snezsky/gena "};
-    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Submodule url can't end with a whitespace";
-
-    for (const auto &url : invalidUrls)
-    {
-        options.submodule_urls = {url};
-        EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "url: " << url;
-    }
-
-    for (const auto &url : validUrls)
-    {
-        options.submodule_urls = {url};
-        EXPECT_NO_THROW(OptionsValidator::validate(options)) << "url: " << url;
-    }
 }
