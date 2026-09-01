@@ -57,7 +57,7 @@ using namespace std::filesystem;
 
 // clang-format off
 INSTANTIATE_TEST_SUITE_P(, FileEditorTest, ::testing::Values(
-    std::pair(GenerationOptions{"first_name", Library,     Cpp17, GoogleTest, "first_namespace", current_path()}, "expected1.txt"),
-    std::pair(GenerationOptions{"SecondName", ConsoleApplication,  Cpp20, Catch2, "SecondNamespace", current_path()}, "expected2.txt"),
-    std::pair(GenerationOptions{"Third_Name", QtWidgetsApplication, Cpp23, QTest, "Third_Namespace", current_path()}, "expected3.txt")));
+    std::pair(GenerationOptions{"first_name", Library, Cpp17, GoogleTest, "first_namespace", current_path()}, "expected1.txt"),
+    std::pair(GenerationOptions{"SecondName", ConsoleApplication, Cpp20, Catch2, "SecondNamespace", current_path()}, "expected2.txt"),
+    std::pair(GenerationOptions{"Third_Name", QtWidgetsApplication,Cpp23, QTest, "Third_Namespace", current_path()}, "expected3.txt")));
 // clang-format on
