@@ -70,7 +70,8 @@ namespace gena
     {
         const size_t pos = repositoryUrl.find_last_of('/');
 
-        std::string_view name = repositoryUrl.substr(pos + 1);
+        std::string_view name{repositoryUrl};
+        if (pos != std::string::npos) { name.remove_prefix(pos + 1); }
         if (name.ends_with(".git")) { name.remove_suffix(4); }
 
         return std::string{name};

@@ -7,9 +7,9 @@ namespace
     bool any_contains_case_insensitive(const std::vector<std::string> &haystack, std::string_view needle)
     {
         return std::ranges::any_of(haystack, [needle](const std::string &str) {
-            return std::ranges::search(str, needle, [](char a, char b) {
-                       return std::tolower(static_cast<unsigned char>(a)) ==
-                              std::tolower(static_cast<unsigned char>(b));
+            return std::ranges::search(str, needle, [](char haystack_symbol, char needle_symbol) {
+                       return std::tolower(static_cast<unsigned char>(haystack_symbol)) ==
+                              std::tolower(static_cast<unsigned char>(needle_symbol));
                    }).begin() != str.end();
         });
     }
@@ -20,7 +20,7 @@ namespace gena
     void OptionsValidator::validate(const GenerationOptions &options)
     {
         validate(RenderingOptions{options});
-        validate_submodules(options.submodule_urls);
+        validate_submodules(options.submodule_urls, options.test_framework);
         validate_output_directory(options.output_directory, options.name);
     }
 
