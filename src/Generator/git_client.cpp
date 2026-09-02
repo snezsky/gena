@@ -49,7 +49,7 @@ namespace gena
     void GitClient::add_submodule(const std::string &url)
     {
         const QString qUrl = QString::fromStdString(url);
-        const QString qName = QString::fromStdString(repository_name(url));
+        const QString qName = QString::fromStdString("deps/" + repository_name(url));
 
         git(repository_, {"submodule", "add", qUrl, qName});
         git(repository_, {"submodule", "update", "--init", "--recursive"});
