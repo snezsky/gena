@@ -46,6 +46,7 @@ namespace gena
             copy_content(source / "common", destination);
             copy_sources(source, destination, options.type);
             copy_tests(source / "tests", destination / "tests", options.test_framework);
+            create_submodules_directory(destination / "deps", options.submodule_urls);
 
             render_templates(destination, options);
 
@@ -77,19 +78,19 @@ namespace gena
     void Generator::copy_tests(const path &source, const path &destination, TestFramework testFramework)
     { copy_content(source / to_string(testFramework), destination); }
 
-    void Generator::copy_test_framework(const path &source, const path &destination, TestFramework testFramework)
+    void Generator::create_submodules_directory(const path &destination, const std::vector<std::string> &submoduleUrls)
     {
-        /* The qtest does not require any files to be copied */
-        if (testFramework == TestFramework::QTest) { return; }
-
-        const std::string_view testFrameworkName = to_string(testFramework);
+        if (submoduleUrls.empty()) { return; }
 
         fs::create_directories(destination);
-        fs::copy_file(source / "CMakeLists.txt", destination / "CMakeLists.txt");
-        fs::copy(source / testFrameworkName, destination / testFrameworkName, fs::copy_options::recursive);
+        std::ofstream out(destination / "CMakeLists.txt", std::ios::out);
 
-        std::ofstream out(destination / "CMakeLists.txt", std::ios::app);
-        out << "add_subdirectory(\"" << testFrameworkName << "\")\n";
+        out << "# To avoid cluttering the target list\n";
+        out << "set(CMAKE_FOLDER \"deps\")\n\n";
+        for (const std::string &url : submoduleUrls)
+        {
+            out << "add_subdirectory(\"" << GitClient::repository_name(url) << "\")\n";
+        }
     }
 
     void Generator::render_templates(const path &projectDir, const GenerationOptions &options)
