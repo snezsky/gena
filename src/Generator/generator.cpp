@@ -1,8 +1,9 @@
-#include "generator.hpp"
 #include "file_editor.hpp"
 #include "generation_options_to_strings.hpp"
+#include "generator.hpp"
 #include "git_client.hpp"
 #include "options_validator.hpp"
+#include "string_extensions.hpp"
 
 #include "whereami/whereami.hpp"
 
@@ -11,18 +12,6 @@
 #include <QProcess>
 
 namespace fs = std::filesystem;
-
-namespace
-{
-    std::string capitalize(const std::string &str)
-    {
-        if (str.empty()) { return ""; }
-
-        std::string capitalized = str;
-        capitalized[0] = static_cast<char>(std::toupper(static_cast<unsigned char>(capitalized[0])));
-        return capitalized;
-    }
-} // namespace
 
 namespace gena
 {

@@ -7,6 +7,7 @@ add_library(generator
     "git_client.cpp"
     "generation_options.hpp"
     "generation_options_to_strings.hpp"
+    "string_extensions.hpp"
     "rendering_options.hpp"
     "options_validator.hpp"
     "options_validator.cpp"
