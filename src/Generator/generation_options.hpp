@@ -1,9 +1,7 @@
 #pragma once
 
-#include <QUrl>
 #include <QFlags>
 #include <QObject>
-#include <QVariantMap>
 #include <QtQml/qqmlregistration.h>
 
 #include <filesystem>

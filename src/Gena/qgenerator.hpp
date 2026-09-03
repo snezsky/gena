@@ -1,5 +1,8 @@
 #pragma once
 
+#include <QUrl>
+#include <QVariantMap>
+
 #include "generator.hpp"
 
 namespace gena
