@@ -38,8 +38,16 @@ namespace
 
         /* Map each C++ standard to a test framework for full coverage */
         if (projectName.endsWith("17")) { options.test_framework = TestFramework::QTest; }
-        else if (projectName.endsWith("20")) { options.test_framework = TestFramework::Catch2; }
-        else if (projectName.endsWith("23")) { options.test_framework = TestFramework::GoogleTest; }
+        else if (projectName.endsWith("20"))
+        {
+            options.test_framework = TestFramework::Catch2;
+            options.submodule_urls = {"https://github.com/catchorg/Catch2.git"};
+        }
+        else if (projectName.endsWith("23"))
+        {
+            options.test_framework = TestFramework::GoogleTest;
+            options.submodule_urls = {"https://github.com/google/googletest.git"};
+        }
 
         return options;
     }
