@@ -89,6 +89,7 @@ TEST(TestGenerator, QtTestDoesNotCreateDepsDirectory)
 {
     gena::GenerationOptions options = gena::valid_options();
     options.test_framework = gena::TestFramework::QTest;
+    options.submodule_urls.clear();
 
     gena::Generator generator;
     generator.generate(options, std::make_unique<NiceMockGitClient>());
