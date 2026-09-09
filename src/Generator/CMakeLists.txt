@@ -1,4 +1,4 @@
-find_package(Qt6 6.4.2 REQUIRED COMPONENTS Core Qml)
+find_package(Qt6 6.8 REQUIRED COMPONENTS Core Qml)
 
 add_subdirectory(whereami)
 
