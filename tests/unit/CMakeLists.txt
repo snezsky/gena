@@ -1,10 +1,4 @@
-# reusing googletest from generator's assets
-set(CMAKE_FOLDER "tests/unit/deps")
-add_subdirectory(
-    "${PROJECT_SOURCE_DIR}/assets/test_frameworks/googletest"
-    "${PROJECT_BINARY_DIR}/tests/googletest" EXCLUDE_FROM_ALL)
 include("GoogleTest")
-set(CMAKE_FOLDER "tests/unit")
 
 function(gena_add_unit_test)
 
@@ -17,7 +11,7 @@ function(gena_add_unit_test)
     target_link_libraries(${TEST_NAME} PRIVATE generator GTest::gtest_main GTest::gmock)
     gtest_discover_tests(${TEST_NAME})
 
-    # clang-tidy hates googletest's macros
+    set_target_properties(${TEST_NAME} PROPERTIES FOLDER "tests/unit")
     set_source_files_properties(${TEST_SOURCES} PROPERTIES SKIP_LINTING ON)
 
 endfunction()

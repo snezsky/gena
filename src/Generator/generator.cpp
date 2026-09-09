@@ -39,7 +39,6 @@ namespace gena
 
             render_templates(destination, options);
 
-            // copy_test_framework(source / "test_frameworks", destination / "deps", options.test_framework);
             setup_git_repository(destination, options.submodule_urls, std::move(gitClient));
 
             projectDirectory_ = destination;

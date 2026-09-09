@@ -1,9 +1,6 @@
 [submodule "deps/inja"]
 	path = deps/inja
 	url = https://github.com/pantor/inja.git
-[submodule "assets/test_frameworks/googletest"]
-	path = assets/test_frameworks/googletest
+[submodule "deps/googletest"]
+	path = deps/googletest
 	url = https://github.com/google/googletest.git
-[submodule "assets/test_frameworks/Catch2"]
-	path = assets/test_frameworks/Catch2
-	url = https://github.com/catchorg/Catch2.git
