@@ -1,7 +1,7 @@
 function(assert_process_succeeds)
     execute_process(
         COMMAND ${ARGV}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${GEN_NAME}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TYPE}
         RESULT_VARIABLE PROCESS_RESULT
         OUTPUT_VARIABLE PROCESS_STDOUT
         ERROR_VARIABLE  PROCESS_STDERR)
@@ -25,10 +25,10 @@ else()
     set(PRESETS clang-debug-dev clang-release-user gcc-debug-dev gcc-release-user)
 endif()
 
-string(TOUPPER ${GEN_NAME} GEN_NAME_UPPER)
+string(TOUPPER ${PROJECT_TYPE} PROJECT_TYPE_UPPER)
 
 foreach (PRESET ${PRESETS})
-    assert_process_succeeds(${CMAKE_COMMAND} --preset ${PRESET} -D${GEN_NAME_UPPER}_BUILD_TESTS=ON)
+    assert_process_succeeds(${CMAKE_COMMAND} --preset ${PRESET} -D${PROJECT_TYPE_UPPER}_BUILD_TESTS=ON)
     assert_process_succeeds(${CMAKE_COMMAND} --build   out/build/${PRESET})
     assert_process_succeeds(${CMAKE_COMMAND} --install out/build/${PRESET})
     assert_process_succeeds(${CMAKE_CTEST_COMMAND} --preset test-${PRESET})

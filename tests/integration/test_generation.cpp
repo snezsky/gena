@@ -15,39 +15,43 @@ namespace
     {
         if (args.size() != 2)
         {
-            throw std::invalid_argument("expected exactly one argument: the project name [type][cpp_standard]");
+            throw std::invalid_argument("expected exactly one argument: the project type [console|library|quick|widgets]");
         }
 
-        const QString projectName{args[1]};
-
         GenerationOptions options;
-        options.name = projectName.toStdString();
+        options.name = args[1];
         options.output_directory = std::filesystem::current_path();
         options.cpp_namespace = options.name;
 
-        if (projectName.startsWith("library")) { options.type = ProjectType::Library; }
-        else if (projectName.startsWith("quick")) { options.type = ProjectType::QtQuickApplication; }
-        else if (projectName.startsWith("console")) { options.type = ProjectType::ConsoleApplication; }
-        else if (projectName.startsWith("widgets")) { options.type = ProjectType::QtWidgetsApplication; }
-        else { throw std::invalid_argument("unknown project type"); }
+        /* Test everything without combinatorial explosion */
 
-        if (projectName.endsWith("17")) { options.standard = CppStandard::Cpp17; }
-        else if (projectName.endsWith("20")) { options.standard = CppStandard::Cpp20; }
-        else if (projectName.endsWith("23")) { options.standard = CppStandard::Cpp23; }
-        else { throw std::invalid_argument("unknown c++ standard"); }
-
-        /* Map each C++ standard to a test framework for full coverage */
-        if (projectName.endsWith("17")) { options.test_framework = TestFramework::QTest; }
-        else if (projectName.endsWith("20"))
+        if (options.name == "library")
         {
+            options.type = ProjectType::Library;
+            options.standard = CppStandard::Cpp20;
+            options.test_framework = TestFramework::QTest;
+        }
+        else if (options.name == "quick")
+        {
+            options.type = ProjectType::QtQuickApplication;
+            options.standard = CppStandard::Cpp17;
             options.test_framework = TestFramework::Catch2;
             options.submodule_urls = {"https://github.com/catchorg/Catch2.git"};
         }
-        else if (projectName.endsWith("23"))
+        else if (options.name == "console")
         {
+            options.type = ProjectType::ConsoleApplication;
+            options.standard = CppStandard::Cpp23;
             options.test_framework = TestFramework::GoogleTest;
             options.submodule_urls = {"https://github.com/google/googletest.git"};
         }
+        else if (options.name == "widgets")
+        {
+            options.type = ProjectType::QtWidgetsApplication;
+            options.standard = CppStandard::Cpp23;
+            options.test_framework = TestFramework::QTest;
+        }
+        else { throw std::invalid_argument("unknown project type"); }
 
         return options;
     }
