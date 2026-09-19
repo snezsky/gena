@@ -1,6 +1,6 @@
+#include "generator.hpp"
 #include "file_editor.hpp"
 #include "generation_options_to_strings.hpp"
-#include "generator.hpp"
 #include "git_client.hpp"
 #include "options_validator.hpp"
 #include "string_extensions.hpp"
@@ -74,7 +74,10 @@ namespace gena
         if (submoduleUrls.empty()) { return; }
 
         fs::create_directories(destination);
-        std::ofstream out(destination / "CMakeLists.txt", std::ios::out);
+
+        std::ofstream out;
+        out.exceptions(std::ios::failbit | std::ios::badbit);                       // NOLINT(hicpp-signed-bitwise)
+        out.open(destination / "CMakeLists.txt", std::ios::out | std::ios::binary); // NOLINT(hicpp-signed-bitwise)
 
         out << "# To avoid cluttering the target list\n";
         out << "set(CMAKE_FOLDER \"deps\")\n\n";
