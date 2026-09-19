@@ -7,7 +7,7 @@ qt_add_executable(<@ project_name @> WIN32
     "resources/<@ project_name @>.qrc"
 )
 qt_add_qml_module(<@ project_name @>
-    URI <@ capitalize(project_name) @>.App
+    URI <@ capitalized_name @>.App
     VERSION 0.1
     RESOURCE_PREFIX "/"
     SOURCES

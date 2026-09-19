@@ -1,6 +1,7 @@
 #include "file_editor.hpp"
 #include "generation_options_to_strings.hpp"
 #include "options_validator.hpp"
+#include "string_extensions.hpp"
 
 #include <inja/inja.hpp>
 #include <whereami/whereami.hpp>
@@ -85,6 +86,7 @@ namespace gena
         void setup_inja_data(const RenderingOptions &options)
         {
             options_["project_name"] = options.name;
+            options_["capitalized_name"] = capitalize(options.name); // Inja's own capitalize() lowercases the rest of the string
             options_["cpp_standard"] = options.standard;
             options_["namespace"] = options.cpp_namespace;
             options_["project_type"] = to_string(options.type);

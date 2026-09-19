@@ -10,8 +10,8 @@ option(<@ upper(namespace) @>_BUILD_TESTS "build tests" OFF)
 add_subdirectory("deps" SYSTEM EXCLUDE_FROM_ALL)
 <% endif %>
 <% if project_type == "QtQuickApplication" %>
-add_subdirectory("src/<@ capitalize(project_name) @>/Core")
-add_subdirectory("src/<@ capitalize(project_name) @>/App")
+add_subdirectory("src/<@ capitalized_name @>/Core")
+add_subdirectory("src/<@ capitalized_name @>/App")
 <% else %>
 add_subdirectory("src/app")
 add_subdirectory("src/lib")

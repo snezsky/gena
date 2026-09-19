@@ -5,6 +5,7 @@
 You are reading this file to test <@ namespace @>::<@ project_name @>::FileEditor.
 FileEditor is supposed to replace templates like <@ project_type @>, <@ test_framework @> or
 cpp<@ cpp_standard @> with actual values, depending on the project options.
+Capitalized name keeps the case of the rest: <@ capitalized_name @>.
 
 <% if project_type == "Library" %>
 Control statements should not ruin indentation:

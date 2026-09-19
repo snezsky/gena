@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 
-import <@ capitalize(project_name) @>.Core
+import <@ capitalized_name @>.Core
 
 ApplicationWindow {
     visible: true

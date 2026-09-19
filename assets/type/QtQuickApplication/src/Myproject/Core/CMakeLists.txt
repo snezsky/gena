@@ -2,7 +2,7 @@ find_package(Qt6 6.8 REQUIRED COMPONENTS Quick)
 qt_standard_project_setup()
 
 qt_add_qml_module(core
-    URI     <@ capitalize(project_name) @>.Core
+    URI     <@ capitalized_name @>.Core
     VERSION 0.1
     STATIC
     RESOURCE_PREFIX "/"
