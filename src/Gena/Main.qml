@@ -78,7 +78,7 @@ ApplicationWindow
             id: buttonGenerate
             text: "Generate"
             Layout.fillWidth: true
-            enabled: !textFieldName.empty && !textFieldNamespace.empty
+            enabled: !textFieldName.empty && !textFieldNamespace.empty && !overlay.visible
             onClicked: folderDialog.open()
         }
     }
