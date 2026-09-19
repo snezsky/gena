@@ -102,12 +102,6 @@ namespace gena
     void OptionsValidator::validate_output_directory(const std::filesystem::path &outputDir,
                                                      std::string_view projectName)
     {
-        if (std::filesystem::path projectDir = outputDir / projectName;
-            std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))
-        {
-            throw std::invalid_argument("Directory '" + projectDir.make_preferred().string() + "' is not empty.");
-        }
-
         if (!std::filesystem::exists(outputDir))
         {
             throw std::invalid_argument("Invalid output directory! Path does not exist.");
@@ -116,6 +110,18 @@ namespace gena
         if (!std::filesystem::is_directory(outputDir))
         {
             throw std::invalid_argument("Invalid output directory! Path is not a directory.");
+        }
+
+        const auto projectDir = std::filesystem::path{outputDir / projectName}.make_preferred();
+
+        if (std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))
+        {
+            throw std::invalid_argument("Directory '" + projectDir.string() + "' is not empty.");
+        }
+
+        if (std::filesystem::exists(projectDir) && !std::filesystem::is_directory(projectDir))
+        {
+            throw std::invalid_argument("Path '" + projectDir.string() + "' is not a directory.");
         }
     }
 } // namespace gena
