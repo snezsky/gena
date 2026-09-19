@@ -14,9 +14,9 @@ function(__<@ lower(namespace) @>_target_enable_hardening TARGET_NAME)
 
         target_compile_options(
             ${TARGET_NAME} PRIVATE
-            $<$<BOOL:CF_PROTECTION>:-fcf-protection>
-            $<$<BOOL:STACK_PROTECTOR>:-fstack-protector-strong>
-            $<$<BOOL:CLASH_PROTECTION>:-fstack-clash-protection>
+            $<$<BOOL:${CF_PROTECTION}>:-fcf-protection>
+            $<$<BOOL:${STACK_PROTECTOR}>:-fstack-protector-strong>
+            $<$<BOOL:${CLASH_PROTECTION}>:-fstack-clash-protection>
             $<$<NOT:$<CONFIG:Debug>>:-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3>)
 
         target_compile_definitions(${TARGET_NAME} PRIVATE -D_GLIBCXX_ASSERTIONS)
