@@ -1,6 +1,7 @@
 #include "git_client.hpp"
 
 #include <QProcess>
+#include <QProcessEnvironment>
 #include <QStringList>
 
 namespace
@@ -12,7 +13,13 @@ namespace
             throw std::invalid_argument(std::format("Invalid git repository path: {}", repository.string()));
         }
 
+        /* Fail instead of waiting for credentials nobody can enter */
+        QProcessEnvironment environment = QProcessEnvironment::systemEnvironment();
+        environment.insert("GIT_TERMINAL_PROMPT", "0");
+        environment.insert("GCM_INTERACTIVE", "never");
+
         QProcess process;
+        process.setProcessEnvironment(environment);
         process.setWorkingDirectory(QString::fromStdString(repository.string()));
         process.start("git", QStringList(args.begin(), args.end()));
 
