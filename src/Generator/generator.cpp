@@ -45,8 +45,11 @@ namespace gena
         }
         catch (...)
         {
+            /* Best effort. Original exception way more important */
+            std::error_code error;
+            fs::remove_all(destination, error);
+
             projectDirectory_.clear();
-            fs::remove_all(destination);
             throw;
         }
     }
