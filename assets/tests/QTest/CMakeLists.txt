@@ -1,4 +1,4 @@
-project(<@ project_name @>-tests)
+project(<@ project_name @>-tests LANGUAGES CXX)
 
 find_package(Qt6 6.8 REQUIRED COMPONENTS Test)
 qt_standard_project_setup() 
