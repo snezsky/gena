@@ -57,7 +57,6 @@ function(__gena_target_enable_clang_tidy TARGET_NAME)
     endif()
 
     set(CLANG_TIDY_COMMAND ${CLANG_TIDY}
-        ${IGNORE_SANITIZER}
         -extra-arg=-Wno-unknown-warning-option
         -extra-arg=-Wno-ignored-optimization-argument
         -extra-arg=-Wno-unused-command-line-argument
