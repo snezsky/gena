@@ -68,10 +68,11 @@ namespace gena
 
     std::string GitClient::repository_name(const std::string &repositoryUrl)
     {
-        const size_t pos = repositoryUrl.find_last_of('/');
-
         std::string_view name{repositoryUrl};
-        if (pos != std::string::npos) { name.remove_prefix(pos + 1); }
+        while (name.ends_with('/')) { name.remove_suffix(1); }
+
+        const size_t pos = name.find_last_of("/:");
+        if (pos != std::string_view::npos) { name.remove_prefix(pos + 1); }
         if (name.ends_with(".git")) { name.remove_suffix(4); }
 
         return std::string{name};
