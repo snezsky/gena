@@ -133,6 +133,41 @@ TEST(GenerationOptionsValidatorTest, InvalidSubmoduleUrls)
     }
 }
 
+TEST(GenerationOptionsValidatorTest, DuplicateSubmoduleNames)
+{
+    const std::vector<std::vector<std::string>> duplicates{
+        {"https://github.com/a/foo", "https://github.com/a/foo"},
+        {"https://github.com/a/foo", "https://github.com/b/foo"},
+        {"https://github.com/a/foo.git", "git@github.com:b/foo"},
+        {"https://github.com/a/foo/", "https://github.com/b/foo.git"},
+        {"https://github.com/a/foo", "https://github.com/b/FOO"},
+    };
+
+    gena::GenerationOptions options = gena::valid_options();
+    options.test_framework = TestFramework::QTest;
+    for (const auto &urls : duplicates)
+    {
+        options.submodule_urls = urls;
+        EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "urls: " << urls.front() << " and " << urls.back();
+    }
+}
+
+TEST(GenerationOptionsValidatorTest, EmptySubmoduleName)
+{
+    const std::vector<std::vector<std::string>> nameless{
+        {"https://github.com/user/.git"},
+        {"git@github.com:.git"},
+    };
+
+    gena::GenerationOptions options = gena::valid_options();
+    options.test_framework = TestFramework::QTest;
+    for (const auto &urls : nameless)
+    {
+        options.submodule_urls = urls;
+        EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "url: " << urls.back();
+    }
+}
+
 TEST(GenerationOptionsValidatorTest, MissingTestFrameworkSubmodule)
 {
     gena::GenerationOptions options = gena::valid_options();

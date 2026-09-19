@@ -1,14 +1,19 @@
 #include "options_validator.hpp"
+#include "git_client.hpp"
 #include "string_extensions.hpp"
 
 #include <QRegularExpression>
+
+#include <format>
+#include <unordered_map>
 
 namespace gena
 {
     void OptionsValidator::validate(const GenerationOptions &options)
     {
         validate(RenderingOptions{options});
-        validate_submodules(options.submodule_urls, options.test_framework);
+        validate_submodule_urls(options.submodule_urls, options.test_framework);
+        validate_submodule_names(options.submodule_urls);
         validate_output_directory(options.output_directory, options.name);
     }
 
@@ -73,7 +78,7 @@ namespace gena
         }
     }
 
-    void OptionsValidator::validate_submodules(const std::vector<std::string> &urls, TestFramework testFramework)
+    void OptionsValidator::validate_submodule_urls(const std::vector<std::string> &urls, TestFramework testFramework)
     {
         static const QRegularExpression scpRegex(R"(^[^@\s]+@[^@:\s]+:[^\s]+$)");
         static const QRegularExpression urlRegex(R"(^(https?|ssh|git)://[^:/\s]+(?::\d+)?(?:/[^/\s]*)*$)");
@@ -96,6 +101,26 @@ namespace gena
         if (testFramework == TestFramework::GoogleTest && !any_contains_case_insensitive(urls, "/googletest"))
         {
             throw std::invalid_argument("You must include googletest as submodule to use it as test framework.");
+        }
+    }
+
+    void OptionsValidator::validate_submodule_names(const std::vector<std::string> &urls)
+    {
+        std::unordered_map<std::string, std::string> urlByName;
+        for (const auto &url : urls)
+        {
+            const std::string name = GitClient::repository_name(url);
+            if (name.empty())
+            {
+                throw std::invalid_argument("Cannot determine repository name from url: " + url + "!");
+            }
+
+            const auto [existing, inserted] = urlByName.try_emplace(to_lowercase(name), url);
+            if (!inserted)
+            {
+                throw std::invalid_argument(std::format(
+                    "Submodules must have unique names, but {} and {} are both named {}", url, existing->second, name));
+            }
         }
     }
 
