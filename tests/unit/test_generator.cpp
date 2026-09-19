@@ -106,6 +106,30 @@ TEST(TestGenerator, DoesNotCreateDirectoryIfOptionsInvalid)
     EXPECT_FALSE(std::filesystem::exists(gena::would_be_project_directory(options)));
 }
 
+TEST(TestGenerator, DoesNotDeleteExistingFileAtProjectPath)
+{
+    gena::Generator generator;
+    const gena::GenerationOptions options = gena::valid_options();
+    const std::filesystem::path projectPath = gena::would_be_project_directory(options);
+
+    std::ofstream{projectPath};
+
+    EXPECT_ANY_THROW(generator.generate(options, std::make_unique<NiceMockGitClient>()));
+    EXPECT_TRUE(std::filesystem::exists(projectPath));
+}
+
+TEST(TestGenerator, RemovesCreatedDirectoryOnFailure)
+{
+    auto failingGitClient = std::make_unique<NiceMockGitClient>();
+    ON_CALL(*failingGitClient, init()).WillByDefault(::testing::Throw(std::runtime_error("git failed")));
+
+    gena::Generator generator;
+    const gena::GenerationOptions options = gena::valid_options();
+
+    EXPECT_THROW(generator.generate(options, std::move(failingGitClient)), std::runtime_error);
+    EXPECT_FALSE(std::filesystem::exists(gena::would_be_project_directory(options)));
+}
+
 TEST(TestGenerator, DoesNotModifyExistingDirectoryIfOptionsInvalid)
 {
     const gena::GenerationOptions options = gena::options_with_invalid_standard();

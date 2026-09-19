@@ -175,3 +175,19 @@ TEST(GenerationOptionsValidatorTest, OutputDirectory)
     options.output_directory = std::filesystem::current_path();
     EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Generation path has to be empty";
 }
+
+TEST(GenerationOptionsValidatorTest, ProjectPathIsAFile)
+{
+    GenerationOptions options = valid_options();
+    std::ofstream(gena::would_be_project_directory(options));
+
+    EXPECT_ANY_THROW(OptionsValidator::validate(options)) << "Generation path must not be an existing file";
+}
+
+TEST(GenerationOptionsValidatorTest, ProjectPathIsAnEmptyDirectory)
+{
+    GenerationOptions options = valid_options();
+    std::filesystem::create_directory(gena::would_be_project_directory(options));
+
+    EXPECT_NO_THROW(OptionsValidator::validate(options)) << "Generation path may be an empty directory";
+}
