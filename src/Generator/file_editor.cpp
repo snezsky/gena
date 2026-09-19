@@ -63,8 +63,8 @@ namespace gena
         {
             /* Disable features we don't use to avoid unintended side effects */
             env_.set_html_autoescape(false);
-            env_.set_comment("〈」〉", "〔「〕");
-            env_.set_line_statement("「〉〔」〈〕");
+            env_.set_comment("〈」〉", "〔「〕");    // there is no way to disable it, so we just set it 
+            env_.set_line_statement("「〉〔」〈〕"); // to something that will never appear in our templates
 
             /* Process whitespaces in a way that ignores separate lines with conditions/cycles */
             env_.set_trim_blocks(true);
