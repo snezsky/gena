@@ -16,7 +16,7 @@ namespace
         process.setWorkingDirectory(QString::fromStdString(repository.string()));
         process.start("git", QStringList(args.begin(), args.end()));
 
-        if (!process.waitForFinished() || process.exitStatus() != QProcess::NormalExit ||
+        if (!process.waitForFinished(-1) || process.exitStatus() != QProcess::NormalExit ||
             process.exitCode() != EXIT_SUCCESS)
         {
             const std::string command = args.join(' ').toStdString();
