@@ -8,6 +8,15 @@
 
 namespace gena
 {
+    inline std::string to_lowercase(const std::string &str)
+    {
+        std::string lowercased = str;
+        std::ranges::transform(lowercased, lowercased.begin(), [](unsigned char symbol) {
+            return static_cast<char>(std::tolower(symbol));
+        });
+        return lowercased;
+    }
+
     inline std::string capitalize(const std::string &str)
     {
         if (str.empty()) { return ""; }
