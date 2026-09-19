@@ -20,7 +20,9 @@ namespace
             process.exitCode() != EXIT_SUCCESS)
         {
             const std::string command = args.join(' ').toStdString();
-            const std::string error = process.readAllStandardError().toStdString();
+            std::string error = process.readAllStandardError().toStdString();
+            if (error.empty()) { error = process.errorString().toStdString(); }
+
             throw std::runtime_error(
                 std::format("Error occurred during git operation!\nCommand: {}\nError: {}", command, error));
         }
@@ -69,7 +71,10 @@ namespace gena
     std::string GitClient::repository_name(const std::string &repositoryUrl)
     {
         std::string_view name{repositoryUrl};
-        while (name.ends_with('/')) { name.remove_suffix(1); }
+        while (name.ends_with('/'))
+        {
+            name.remove_suffix(1);
+        }
 
         const size_t pos = name.find_last_of("/:");
         if (pos != std::string_view::npos) { name.remove_prefix(pos + 1); }
