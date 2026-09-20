@@ -1,3 +1,5 @@
+#pragma once
+
 #include "rendering_options.hpp"
 
 #include <filesystem>
