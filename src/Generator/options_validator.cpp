@@ -98,8 +98,10 @@ namespace gena
 
     void OptionsValidator::validate_submodule_urls(const std::vector<std::string> &urls, TestFramework testFramework)
     {
-        static const QRegularExpression scpRegex(R"(^[^@\s]+@[^@:\s]+:[^\s]+$)");
-        static const QRegularExpression urlRegex(R"(^(https?|ssh|git)://[^:/\s]+(?::\d+)?(?:/[^/\s]*)*$)");
+        static const QRegularExpression scpRegex(
+            QRegularExpression::anchoredPattern(R"([^@\s]+@[^@:\s]+:[^\s]+)"));
+        static const QRegularExpression urlRegex(
+            QRegularExpression::anchoredPattern(R"((https?|ssh|git)://[^:/\s]+(?::\d+)?(?:/[^/\s]*)*)"));
 
         for (const auto &url : urls)
         {

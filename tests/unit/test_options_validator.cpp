@@ -136,6 +136,8 @@ TEST(GenerationOptionsValidatorTest, InvalidSubmoduleUrls)
         {gtest, " "},
         {gtest, " https://github.com/snezsky/gena"},
         {gtest, "https://github.com/snezsky/gena  "},
+        {gtest, "https://github.com/snezsky/gena\n"},
+        {gtest, "git@github.com:snezsky/gena.git\n"},
         {gtest, "http//missing-colon.com/repo.git"},
         {gtest, "https:///missing-host"},
         {gtest, "https://host with spaces/repo.git"},
