@@ -28,6 +28,9 @@ TYPED_TEST(OptionsValidatorTest, ProjectName)
     this->options.name = "project-name";
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Names containing '-' must not be allowed";
 
+    this->options.name = "name\n";
+    EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Names with trailing newlines must not be allowed";
+
     this->options.name = "7project";
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Names starting with a digit must not be allowed";
 
@@ -51,6 +54,10 @@ TYPED_TEST(OptionsValidatorTest, CppNamespace)
 
     this->options.cpp_namespace = "namespace-name";
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Namespaces containing '-' must not be allowed";
+
+    this->options.cpp_namespace = "namespace\n";
+    EXPECT_ANY_THROW(OptionsValidator::validate(this->options))
+        << "Namespaces with trailing newlines must not be allowed";
 
     this->options.cpp_namespace = "7namespace";
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options))

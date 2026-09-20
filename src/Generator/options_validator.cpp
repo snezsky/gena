@@ -28,13 +28,16 @@ namespace gena
 
     void OptionsValidator::validate_name(const std::string &name)
     {
-        static const QRegularExpression regexp{"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$"};
+        // clang-format off
+        static const QRegularExpression regexp{QRegularExpression::anchoredPattern("[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*")};
+        constexpr auto cmakeKeywords = std::to_array<std::string_view>({"all", "clean", "help", "install", "test"});
+        // clang-format on
+
         if (!regexp.match(QString::fromStdString(name)).hasMatch())
         {
             throw std::invalid_argument("Invalid project name! Use English letters, numbers and underscores only.");
         }
 
-        constexpr auto cmakeKeywords = std::to_array<std::string_view>({"all", "clean", "help", "install", "test"});
         if (std::ranges::contains(cmakeKeywords, name))
         {
             throw std::invalid_argument("Invalid project name! '" + name + "' is a reserved target name.");
@@ -78,7 +81,7 @@ namespace gena
     void OptionsValidator::validate_namespace(const std::string &cppNamespace)
     {
         // clang-format off
-        static const QRegularExpression regex{ "^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$" };
+        static const QRegularExpression regex{ QRegularExpression::anchoredPattern("[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*") };
         constexpr auto cppKeywords = std::to_array<std::string_view>({ "alignas", "alignof", "and", "and_eq", "asm", "atomic_cancel", "atomic_commit", "atomic_noexcept", "auto", "bitand", "bitor", "bool", "break", "case", "catch", "char", "char8_t", "char16_t", "char32_t", "class", "compl", "concept", "const", "consteval", "constexpr", "constinit", "const_cast", "continue", "contract_assert", "co_await", "co_return", "co_yield", "decltype", "default", "delete", "do", "double", "dynamic_cast", "else", "enum", "explicit", "export", "extern", "false", "float", "for", "friend", "goto", "if", "inline", "int", "long", "mutable", "namespace", "new", "noexcept", "not", "not_eq", "nullptr", "operator", "or", "or_eq", "private", "protected", "public", "reflexpr", "register", "reinterpret_cast", "requires", "return", "short", "signed", "sizeof", "static", "static_assert", "static_cast", "struct", "switch", "synchronized", "template", "this", "thread_local", "throw", "true", "try", "typedef", "typeid", "typename", "union", "unsigned", "using", "virtual", "void", "volatile", "wchar_t", "while", "xor", "xor_eq" });
         // clang-format on
 
