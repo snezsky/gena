@@ -17,7 +17,7 @@ qt_add_qml_module(<@ project_name @>
 )
 
 set_target_properties(<@ project_name @> PROPERTIES AUTORCC ON)
-target_link_libraries(<@ project_name @> PRIVATE Qt6::Quick core coreplugin)
+target_link_libraries(<@ project_name @> PRIVATE Qt6::Quick <@ project_name @>-core <@ project_name @>-coreplugin)
 
 install(TARGETS <@ project_name @> RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 qt_generate_deploy_qml_app_script(
