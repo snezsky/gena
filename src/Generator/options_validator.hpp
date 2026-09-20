@@ -16,7 +16,7 @@ namespace gena
         static void validate_type(ProjectType type);
         static void validate_cpp_standard(CppStandard standard);
         static void validate_test_framework(TestFramework testFramework);
-        static void validate_namespace(const std::string &cpp_namespace);
+        static void validate_namespace(const std::string &cppNamespace);
         static void validate_submodule_urls(const std::vector<std::string>& urls, TestFramework testFramework);
         static void validate_submodule_names(const std::vector<std::string> &urls);
         static void validate_output_directory(const std::filesystem::path &outputDir, std::string_view projectName);

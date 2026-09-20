@@ -61,6 +61,21 @@ TYPED_TEST(OptionsValidatorTest, CppNamespace)
         << "Namespaces containing non-ascii symbols must not be allowed";
 }
 
+TYPED_TEST(OptionsValidatorTest, ReservedNames)
+{
+    this->options.name = "test";
+    EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Names reserved by CMake must not be allowed";
+
+    this->options.name = "Test";
+    EXPECT_NO_THROW(OptionsValidator::validate(this->options)) << "Reserved names are case-sensitive";
+
+    this->options.cpp_namespace = "class";
+    EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "C++ keywords must not be allowed as namespaces";
+
+    this->options.cpp_namespace = "Class";
+    EXPECT_NO_THROW(OptionsValidator::validate(this->options)) << "C++ keywords are case-sensitive";
+}
+
 TYPED_TEST(OptionsValidatorTest, ProjectType)
 {
     this->options.type = static_cast<ProjectType>(0xCA);
