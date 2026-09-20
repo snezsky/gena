@@ -21,9 +21,9 @@ TYPED_TEST(OptionsValidatorTest, ProjectName)
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options))
         << "Names consisting of whitespaces must not be allowed";
 
-    this->options.name = " ";
+    this->options.name = "project name";
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options))
-        << "Names consisting whitespaces in the middle must not be allowed";
+        << "Names containing whitespaces in the middle must not be allowed";
 
     this->options.name = "project-name";
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Names containing '-' must not be allowed";
@@ -48,9 +48,9 @@ TYPED_TEST(OptionsValidatorTest, CppNamespace)
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options))
         << "Namespaces consisting of whitespaces must not be allowed";
 
-    this->options.cpp_namespace = " ";
+    this->options.cpp_namespace = "name space";
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options))
-        << "Namespaces consisting whitespaces in the middle must not be allowed";
+        << "Namespaces containing whitespaces in the middle must not be allowed";
 
     this->options.cpp_namespace = "namespace-name";
     EXPECT_ANY_THROW(OptionsValidator::validate(this->options)) << "Namespaces containing '-' must not be allowed";
