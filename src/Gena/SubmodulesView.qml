@@ -41,7 +41,10 @@ ColumnLayout {
                 icon.color: enabled ? "cornflowerblue" : "gray"
                 icon.source: "qrc:/icons/add.svg"
 
-                onClicked: { view.model.append({ url: "", deletable: true }) }
+                onClicked: {
+                    view.model.append({ url: "", deletable: true })
+                    view.positionViewAtEnd()
+                }
             }
         }
     }
