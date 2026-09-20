@@ -2,9 +2,8 @@
 #include "git_client.hpp"
 #include "string_extensions.hpp"
 
-#include <QRegularExpression>
-
 #include <format>
+#include <regex>
 #include <unordered_map>
 
 namespace gena
@@ -28,16 +27,13 @@ namespace gena
 
     void OptionsValidator::validate_name(const std::string &name)
     {
-        // clang-format off
-        static const QRegularExpression regexp{QRegularExpression::anchoredPattern("[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*")};
-        constexpr auto cmakeKeywords = std::to_array<std::string_view>({"all", "clean", "help", "install", "test"});
-        // clang-format on
-
-        if (!regexp.match(QString::fromStdString(name)).hasMatch())
+        static const std::regex nameRegex{"[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*"};
+        if (!std::regex_match(name, nameRegex))
         {
             throw std::invalid_argument("Invalid project name! Use English letters, numbers and underscores only.");
         }
 
+        constexpr auto cmakeKeywords = std::to_array<std::string_view>({"all", "clean", "help", "install", "test"});
         if (std::ranges::contains(cmakeKeywords, name))
         {
             throw std::invalid_argument("Invalid project name! '" + name + "' is a reserved target name.");
@@ -80,16 +76,15 @@ namespace gena
 
     void OptionsValidator::validate_namespace(const std::string &cppNamespace)
     {
-        // clang-format off
-        static const QRegularExpression regex{ QRegularExpression::anchoredPattern("[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*") };
-        constexpr auto cppKeywords = std::to_array<std::string_view>({ "alignas", "alignof", "and", "and_eq", "asm", "atomic_cancel", "atomic_commit", "atomic_noexcept", "auto", "bitand", "bitor", "bool", "break", "case", "catch", "char", "char8_t", "char16_t", "char32_t", "class", "compl", "concept", "const", "consteval", "constexpr", "constinit", "const_cast", "continue", "contract_assert", "co_await", "co_return", "co_yield", "decltype", "default", "delete", "do", "double", "dynamic_cast", "else", "enum", "explicit", "export", "extern", "false", "float", "for", "friend", "goto", "if", "inline", "int", "long", "mutable", "namespace", "new", "noexcept", "not", "not_eq", "nullptr", "operator", "or", "or_eq", "private", "protected", "public", "reflexpr", "register", "reinterpret_cast", "requires", "return", "short", "signed", "sizeof", "static", "static_assert", "static_cast", "struct", "switch", "synchronized", "template", "this", "thread_local", "throw", "true", "try", "typedef", "typeid", "typename", "union", "unsigned", "using", "virtual", "void", "volatile", "wchar_t", "while", "xor", "xor_eq" });
-        // clang-format on
-
-        if (!regex.match(QString::fromStdString(cppNamespace)).hasMatch())
+        static const std::regex namespaceRegex{"[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*"};
+        if (!std::regex_match(cppNamespace, namespaceRegex))
         {
             throw std::invalid_argument("Invalid C++ namespace! Use English letters, numbers and underscores only.");
         }
 
+        // clang-format off
+        constexpr auto cppKeywords = std::to_array<std::string_view>({ "alignas", "alignof", "and", "and_eq", "asm", "atomic_cancel", "atomic_commit", "atomic_noexcept", "auto", "bitand", "bitor", "bool", "break", "case", "catch", "char", "char8_t", "char16_t", "char32_t", "class", "compl", "concept", "const", "consteval", "constexpr", "constinit", "const_cast", "continue", "contract_assert", "co_await", "co_return", "co_yield", "decltype", "default", "delete", "do", "double", "dynamic_cast", "else", "enum", "explicit", "export", "extern", "false", "float", "for", "friend", "goto", "if", "inline", "int", "long", "mutable", "namespace", "new", "noexcept", "not", "not_eq", "nullptr", "operator", "or", "or_eq", "private", "protected", "public", "reflexpr", "register", "reinterpret_cast", "requires", "return", "short", "signed", "sizeof", "static", "static_assert", "static_cast", "struct", "switch", "synchronized", "template", "this", "thread_local", "throw", "true", "try", "typedef", "typeid", "typename", "union", "unsigned", "using", "virtual", "void", "volatile", "wchar_t", "while", "xor", "xor_eq" });
+        // clang-format on
         if (std::ranges::contains(cppKeywords, cppNamespace))
         {
             throw std::invalid_argument("Invalid C++ namespace! '" + cppNamespace + "' is a reserved keyword.");
@@ -98,15 +93,12 @@ namespace gena
 
     void OptionsValidator::validate_submodule_urls(const std::vector<std::string> &urls, TestFramework testFramework)
     {
-        static const QRegularExpression scpRegex(
-            QRegularExpression::anchoredPattern(R"([^@\s]+@[^@:\s]+:[^\s]+)"));
-        static const QRegularExpression urlRegex(
-            QRegularExpression::anchoredPattern(R"((https?|ssh|git)://[^:/\s]+(?::\d+)?(?:/[^/\s]*)*)"));
+        static const std::regex scpRegex(R"([^@\s]+@[^@:\s]+:[^\s]+)");
+        static const std::regex urlRegex(R"((https?|ssh|git)://[^:/\s]+(?::\d+)?(?:/[^/\s]*)*)");
 
         for (const auto &url : urls)
         {
-            if (!urlRegex.match(QString::fromStdString(url)).hasMatch() &&
-                !scpRegex.match(QString::fromStdString(url)).hasMatch())
+            if (!std::regex_match(url, urlRegex) && !std::regex_match(url, scpRegex))
             {
                 throw std::invalid_argument("Invalid submodule url: " + url + "!\n" +
                                             "It should be a valid git repository url to clone.");
