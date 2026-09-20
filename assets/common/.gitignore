@@ -5,7 +5,7 @@ out/coverage/*
 cmake-build-*/
 conan-cache/
 
-# User spesific settings
+# User specific settings
 CMakeUserPresets.json
 *.user
 
