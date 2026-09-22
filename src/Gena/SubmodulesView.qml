@@ -51,18 +51,23 @@ ColumnLayout {
 
     function update_test_framework_submodule(testFramework) {
 
-        function removeUrlsContaining(text) {
-            const searchText = text.toLowerCase()
+        /* Same as GitClient::repository_name, lowercased */
+        function repositoryName(url) {
+            const trimmed = url.replace(/\/+$/, "")
+            return trimmed.slice(Math.max(trimmed.lastIndexOf("/"), trimmed.lastIndexOf(":")) + 1)
+                          .replace(/\.git$/, "")
+                          .toLowerCase()
+        }
+
+        function removeRepositories(names) {
             for (let i = model.count - 1; i >= 0; --i) {
-                const submodule = model.get(i)
-                if (submodule.url.toLowerCase().includes(searchText)) {
+                if (names.includes(repositoryName(model.get(i).url))) {
                     model.remove(i)
                 }
             }
         }
 
-        removeUrlsContaining("/catch2")
-        removeUrlsContaining("/googletest")
+        removeRepositories(["catch2", "googletest"])
 
         if (testFramework === Options.TestFramework.Catch2) {
             model.insert(0, {url: "https://github.com/catchorg/Catch2.git", deletable: false })

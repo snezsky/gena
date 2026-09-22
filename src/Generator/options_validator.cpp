@@ -6,6 +6,16 @@
 #include <regex>
 #include <unordered_map>
 
+namespace
+{
+    bool urls_contain_repo(const std::vector<std::string> &urls, const std::string &repoName)
+    {
+        return std::ranges::any_of(urls, [name = gena::to_lowercase(repoName)](const std::string &url) {
+            return gena::to_lowercase(gena::GitClient::repository_name(url)) == name;
+        });
+    }
+} // namespace
+
 namespace gena
 {
     void OptionsValidator::validate(const GenerationOptions &options)
@@ -105,12 +115,12 @@ namespace gena
             }
         }
 
-        if (testFramework == TestFramework::Catch2 && !any_contains_case_insensitive(urls, "/catch2"))
+        if (testFramework == TestFramework::Catch2 && !urls_contain_repo(urls, "catch2"))
         {
             throw std::invalid_argument("You must include Catch2 as submodule to use it as test framework.");
         }
 
-        if (testFramework == TestFramework::GoogleTest && !any_contains_case_insensitive(urls, "/googletest"))
+        if (testFramework == TestFramework::GoogleTest && !urls_contain_repo(urls, "googletest"))
         {
             throw std::invalid_argument("You must include googletest as submodule to use it as test framework.");
         }

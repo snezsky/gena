@@ -197,11 +197,11 @@ TEST(GenerationOptionsValidatorTest, MissingTestFrameworkSubmodule)
     gena::GenerationOptions options = gena::valid_options();
 
     options.test_framework = gena::TestFramework::GoogleTest;
-    options.submodule_urls = {"https://anything/at-all/not_googletest"};
+    options.submodule_urls = {"https://anything/googletest/googletest_fake"};
     EXPECT_ANY_THROW(OptionsValidator::validate(options));
 
     options.test_framework = gena::TestFramework::Catch2;
-    options.submodule_urls = {"https://anything/at-all/not_catch2"};
+    options.submodule_urls = {"https://anything/catch2/Catch2_fake"};
     EXPECT_ANY_THROW(OptionsValidator::validate(options));
 
     options.test_framework = gena::TestFramework::GoogleTest;
