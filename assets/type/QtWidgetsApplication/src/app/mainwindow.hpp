@@ -1,11 +1,12 @@
 #pragma once
 
+#include <memory>
 #include <QMainWindow>
 
 namespace Ui
 {
     class MainWindow;
-};
+}
 
 namespace <@ namespace @>
 {
@@ -15,9 +16,9 @@ namespace <@ namespace @>
 
       public:
         explicit MainWindow(QWidget *parent = nullptr);
-        ~MainWindow();
+        ~MainWindow() override;
 
       private:
-        Ui::MainWindow *ui;
+        std::unique_ptr<Ui::MainWindow> ui;
     };
 } // namespace <@ namespace @>
