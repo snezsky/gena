@@ -5,7 +5,7 @@ function(__<@ lower(namespace) @>_target_enable_test_coverage TARGET_NAME)
     endif()
 
     if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        target_link_libraries(${TARGET_NAME} PRIVATE --coverage)
+        target_link_options(${TARGET_NAME} PRIVATE --coverage)
         target_compile_options(${TARGET_NAME} PRIVATE --coverage -g)
     endif()
     if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
