@@ -1,4 +1,4 @@
-function(<@ project_name @>_prevent_in_source)
+function(<@ lower(namespace) @>_prevent_in_source)
 
   file(REAL_PATH "${CMAKE_SOURCE_DIR}" SRC_DIR)
   file(REAL_PATH "${CMAKE_BINARY_DIR}" BIN_DIR)
@@ -12,4 +12,4 @@ function(<@ project_name @>_prevent_in_source)
   
 endfunction()
 
-<@ project_name @>_prevent_in_source()
+<@ lower(namespace) @>_prevent_in_source()
