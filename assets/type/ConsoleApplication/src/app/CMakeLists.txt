@@ -1,5 +1,6 @@
 add_executable(<@ project_name @>-app "main.cpp")
 target_link_libraries(<@ project_name @>-app PRIVATE <@ project_name @>)
+set_target_properties(<@ project_name @>-app PROPERTIES OUTPUT_NAME <@ project_name @>)
 <@ lower(namespace) @>_setup_target(<@ project_name @>-app)
 
 include(GNUInstallDirs)

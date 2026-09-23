@@ -8,8 +8,8 @@ add_executable(<@ project_name @>-app WIN32
     "mainwindow.ui"
     "ico/app.rc") # windows icon
 target_link_libraries(<@ project_name @>-app PRIVATE Qt6::Widgets <@ project_name @>)
+set_target_properties(<@ project_name @>-app PROPERTIES OUTPUT_NAME <@ project_name @>)
 <@ lower(namespace) @>_setup_target(<@ project_name @>-app)
-
 
 install(TARGETS <@ project_name @>-app RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 qt_generate_deploy_app_script(
