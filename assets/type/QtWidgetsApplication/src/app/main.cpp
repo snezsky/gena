@@ -1,7 +1,7 @@
 #include <QApplication>
 #include "mainwindow.hpp"
 
-int main(int argc, char *argv[]) noexcept
+int main(int argc, char *argv[])
 {
     const QApplication app(argc, argv);
     <@ namespace @>::MainWindow window;
