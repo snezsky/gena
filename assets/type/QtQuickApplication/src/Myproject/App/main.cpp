@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
-    engine.load(":/<@ capitalized_name @>/App/Main.qml");
+    engine.loadFromModule("<@ capitalized_name @>.App", "Main");
 
     return QGuiApplication::exec();
 }
