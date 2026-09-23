@@ -41,6 +41,7 @@ function(__<@ lower(namespace) @>_target_enable_warnings TARGET_NAME)
             -Wnon-virtual-dtor     # warn the user if a class with virtual functions has a non-virtual destructor
             -Wold-style-cast       # warn for c-style casts
             -Wcast-align           # warn for potential performance problem casts
+            -Wcast-qual            # warn about casting away cv-qualifiers
             -Wunused               # warn on anything being unused
             -Woverloaded-virtual   # warn if you overload (not override) a virtual function
             -Wpedantic             # warn if non-standard C++ is used
