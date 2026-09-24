@@ -1,5 +1,5 @@
 find_package(Qt6 6.8 REQUIRED COMPONENTS Quick)
-qt_standard_project_setup()
+qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(<@ project_name @> WIN32
     "main.cpp"
@@ -9,7 +9,6 @@ qt_add_executable(<@ project_name @> WIN32
 qt_add_qml_module(<@ project_name @>
     URI <@ capitalized_name @>.App
     VERSION 0.1
-    RESOURCE_PREFIX "/"
     SOURCES
         "main.cpp"
     QML_FILES

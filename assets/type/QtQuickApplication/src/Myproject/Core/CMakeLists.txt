@@ -1,11 +1,10 @@
 find_package(Qt6 6.8 REQUIRED COMPONENTS Quick)
-qt_standard_project_setup()
+qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_qml_module(<@ project_name @>-core
     URI     <@ capitalized_name @>.Core
     VERSION 0.1
     STATIC
-    RESOURCE_PREFIX "/"
     SOURCES
         "include/<@ project_name @>/<@ project_name @>.hpp"
         "<@ project_name @>.cpp"
