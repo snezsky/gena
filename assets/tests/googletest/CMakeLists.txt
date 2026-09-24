@@ -1,4 +1,4 @@
-project(<@ project_name @>-tests LANGUAGES CXX)
+project(<@ project_name @>-tests)
 
 include("GoogleTest")
 

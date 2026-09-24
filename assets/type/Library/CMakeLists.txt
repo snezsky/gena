@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 
 include("cmake/Setup.cmake")
 
-project(<@ project_name @> LANGUAGES CXX)
+project(<@ project_name @>)
 
 option(<@ upper(namespace) @>_BUILD_TESTS     "build tests"     OFF)
 option(<@ upper(namespace) @>_BUILD_EXAMPLES  "build examples"  OFF)
