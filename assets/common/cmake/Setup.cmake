@@ -21,7 +21,6 @@ function(<@ lower(namespace) @>_setup_target TARGET_NAME)
         CXX_STANDARD            <@ cpp_standard @>
         CXX_STANDARD_REQUIRED   ON
         EXPORT_COMPILE_COMMANDS ON)
-    
 
     __<@ lower(namespace) @>_target_enable_cache(${TARGET_NAME})
     __<@ lower(namespace) @>_target_enable_warnings(${TARGET_NAME})

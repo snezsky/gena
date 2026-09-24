@@ -3,7 +3,7 @@ function(__gena_target_enable_static_analysis TARGET_NAME)
     if (NOT GENA_ENABLE_STATIC_ANALYSIS)
         return()
     endif()
-    
+
     __gena_target_enable_cppcheck(${TARGET_NAME})
     __gena_target_enable_clang_tidy(${TARGET_NAME})
 

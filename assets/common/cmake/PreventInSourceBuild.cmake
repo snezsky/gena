@@ -9,7 +9,7 @@ function(<@ lower(namespace) @>_prevent_in_source)
      Please, run CMake from a separate build directory.
     ]])
   endif()
-  
+
 endfunction()
 
 <@ lower(namespace) @>_prevent_in_source()

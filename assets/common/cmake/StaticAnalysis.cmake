@@ -3,7 +3,7 @@ function(__<@ lower(namespace) @>_target_enable_static_analysis TARGET_NAME)
     if (NOT <@ upper(namespace) @>_ENABLE_STATIC_ANALYSIS)
         return()
     endif()
-    
+
     __<@ lower(namespace) @>_target_enable_cppcheck(${TARGET_NAME})
     __<@ lower(namespace) @>_target_enable_clang_tidy(${TARGET_NAME})
 

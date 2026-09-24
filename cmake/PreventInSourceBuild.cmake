@@ -9,7 +9,7 @@ function(gena_prevent_in_source)
      Please, run CMake from a separate build directory.
     ]])
   endif()
-  
+
 endfunction()
 
 gena_prevent_in_source()

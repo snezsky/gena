@@ -3,14 +3,14 @@ function(__gena_target_enable_warnings TARGET_NAME)
     if (NOT GENA_ENABLE_WARNINGS)
         return()
     endif()
-    
+
     set_target_properties(
         ${TARGET_NAME} PROPERTIES
         COMPILE_WARNING_AS_ERROR ON)
-    
+
     target_compile_options(
         ${TARGET_NAME} PRIVATE
-    
+
         $<$<CXX_COMPILER_ID:MSVC>:
             /W4          # Baseline reasonable warnings
             /w14242      # conversion from 'type1' to 'type2', possible loss of data
@@ -58,5 +58,5 @@ function(__gena_target_enable_warnings TARGET_NAME)
             -Wuseless-cast           # warn if you perform a cast to the same type
             -Wsign-conversion        # warn on sign conversions
             -Wsuggest-override>)     # warn if an overridden member function is not marked 'override' or 'final'
-        
+
 endfunction()
