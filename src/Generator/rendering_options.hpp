@@ -11,6 +11,7 @@ namespace gena
         CppStandard standard;
         TestFramework test_framework;
         std::string cpp_namespace;
+        std::vector<std::string> submodule_urls;
 
         // cppcheck-suppress noExplicitConstructor
         RenderingOptions(const GenerationOptions &options)
@@ -18,7 +19,8 @@ namespace gena
               type{options.type},
               standard{options.standard},
               test_framework{options.test_framework},
-              cpp_namespace{options.cpp_namespace}
+              cpp_namespace{options.cpp_namespace},
+              submodule_urls{options.submodule_urls}
         {
         }
     };

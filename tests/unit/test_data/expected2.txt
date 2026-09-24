@@ -6,4 +6,5 @@ You are reading this file to test SecondNamespace::SecondName::FileEditor.
 FileEditor is supposed to replace templates like ConsoleApplication, Catch2 or
 cpp20 with actual values, depending on the project options.
 Capitalized name keeps the case of the rest: SecondName.
+Has submodules: false.
 

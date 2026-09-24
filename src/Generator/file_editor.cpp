@@ -91,6 +91,7 @@ namespace gena
             options_["namespace"] = options.cpp_namespace;
             options_["project_type"] = to_string(options.type);
             options_["test_framework"] = to_string(options.test_framework);
+            options_["has_submodules"] = !options.submodule_urls.empty();
         }
 
       private:
