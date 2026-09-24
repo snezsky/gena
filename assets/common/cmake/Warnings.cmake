@@ -32,7 +32,6 @@ function(__<@ lower(namespace) @>_target_enable_warnings TARGET_NAME)
             /w14905      # wide string literal cast to 'LPSTR'
             /w14906      # string literal cast to 'LPWSTR'
             /w14928      # illegal copy-initialization; more than one user-defined conversion has been implicitly applied
-            /permissive- # standards conformance mode for MSVC compiler.
         >
         $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
             -Wall
