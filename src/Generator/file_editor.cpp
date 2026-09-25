@@ -22,8 +22,8 @@ namespace gena
 
         void render_templates(const std::filesystem::path &file)
         {
-            static const std::unordered_set<std::string> allowed{".cmake", ".hpp", ".cpp", ".qml",
-                                                                 ".json",  ".txt", ".md",  ".rc"};
+            static const std::unordered_set<std::string> allowed{".cmake", ".hpp", ".cpp", ".qml", ".json",
+                                                                 ".txt",   ".md",  ".rc",  ".yml"};
             if (!allowed.contains(file.extension().string())) { return; }
 
             try
