@@ -3,7 +3,7 @@ namespace
     // NOLINTNEXTLINE
     struct Bar
     {
-        ~Bar() = default;
+        ~Bar() {}
         virtual void foo() {};
     };
 } // namespace

@@ -2,7 +2,6 @@ project(<@ project_name @>-tests)
 
 include("${<@ project_name @>_SOURCE_DIR}/deps/Catch2/extras/Catch.cmake")
 
-# name should be prefixed with `test_` for coverage
 function(<@ lower(namespace) @>_add_test)
 
     cmake_parse_arguments(TEST "" "NAME" "SOURCES" ${ARGN})
@@ -14,9 +13,6 @@ function(<@ lower(namespace) @>_add_test)
     catch_discover_tests(${TEST_NAME})
 
     set_target_properties(${TEST_NAME} PROPERTIES FOLDER "tests")
-    
-    # clang-tidy hates Catch's macros
-    set_source_files_properties(${TEST_SOURCES} PROPERTIES SKIP_LINTING ON)
 
 endfunction()
 
