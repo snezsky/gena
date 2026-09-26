@@ -16,26 +16,6 @@ function(test_build_output NAME SOURCE REGEX)
         NAME ${NAME}
         COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target ${NAME}_exe)
 
-    if (<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE)
-        set_tests_properties(${NAME} PROPERTIES PASS_REGULAR_EXPRESSION ${REGEX})
-    else()
-        set_tests_properties(${NAME} PROPERTIES FAIL_REGULAR_EXPRESSION ${REGEX})
-    endif()
-
-endfunction()
-
-
-function(test_program_output NAME SOURCE REGEX)
-
-    add_executable(${NAME}_exe ${SOURCE})
-    <@ lower(namespace) @>_setup_target(${NAME}_exe)
-
-    add_test(NAME ${NAME} COMMAND ${NAME}_exe)
-
-    if (<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE)
-        set_tests_properties(${NAME} PROPERTIES PASS_REGULAR_EXPRESSION ${REGEX})
-    else()
-        set_tests_properties(${NAME} PROPERTIES FAIL_REGULAR_EXPRESSION ${REGEX})
-    endif()
+    set_tests_properties(${NAME} PROPERTIES PASS_REGULAR_EXPRESSION ${REGEX})
 
 endfunction()

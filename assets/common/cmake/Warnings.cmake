@@ -1,13 +1,5 @@
 function(__<@ lower(namespace) @>_target_enable_warnings TARGET_NAME)
 
-    if (NOT <@ upper(namespace) @>_ENABLE_WARNINGS)
-        return()
-    endif()
-
-    set_target_properties(
-        ${TARGET_NAME} PROPERTIES
-        COMPILE_WARNING_AS_ERROR ON)
-
     target_compile_options(
         ${TARGET_NAME} PRIVATE
 

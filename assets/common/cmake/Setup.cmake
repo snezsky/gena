@@ -1,4 +1,3 @@
-option(<@ upper(namespace) @>_ENABLE_WARNINGS          "more warnings and werror"  ${<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE})
 option(<@ upper(namespace) @>_ENABLE_TEST_COVERAGE     "test coverage"             ${<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE})
 
 include("cmake/Cache.cmake")
