@@ -20,15 +20,13 @@ endfunction()
 
 # Can't check msvc conventional way in the script mode
 if(DEFINED ENV{VisualStudioVersion})
-    set(PRESETS msvc-debug-dev msvc-release-user)
+    set(PRESETS msvc-debug msvc-release)
 else()
-    set(PRESETS clang-debug-dev clang-release-user gcc-debug-dev gcc-release-user)
+    set(PRESETS clang-debug clang-release gcc-debug gcc-release)
 endif()
 
-string(TOUPPER ${PROJECT_TYPE} PROJECT_TYPE_UPPER)
-
 foreach (PRESET ${PRESETS})
-    assert_process_succeeds(${CMAKE_COMMAND} --preset ${PRESET} -D${PROJECT_TYPE_UPPER}_BUILD_TESTS=ON)
+    assert_process_succeeds(${CMAKE_COMMAND} --preset ${PRESET})
     assert_process_succeeds(${CMAKE_COMMAND} --build   out/build/${PRESET})
     assert_process_succeeds(${CMAKE_COMMAND} --install out/build/${PRESET})
     assert_process_succeeds(${CMAKE_CTEST_COMMAND} --preset test-${PRESET})

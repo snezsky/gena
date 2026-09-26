@@ -12,7 +12,13 @@
             "hidden": true,
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/build/${presetName}",
-            "installDir": "${sourceDir}/out/install/${presetName}"
+            "installDir": "${sourceDir}/out/install/${presetName}",
+            "cacheVariables": {
+                "<@ upper(namespace) @>_BUILD_TESTS": "ON",
+<% if project_type == "Library" %>
+                "<@ upper(namespace) @>_BUILD_EXAMPLES": "ON"
+<% endif %>
+            }
         },
         {
             "name": "conf-windows-common",
@@ -55,28 +61,6 @@
             }
         },
         {
-            "name": "conf-dev-common",
-            "hidden": true,
-            "cacheVariables": {
-                "<@ upper(namespace) @>_BUILD_TESTS": "ON",
-<% if project_type == "Library" %>
-                "<@ upper(namespace) @>_BUILD_EXAMPLES": "ON",
-<% endif %>
-                "<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE": "ON"
-            }
-        },
-        {
-            "name": "conf-user-common",
-            "hidden": true,
-            "cacheVariables": {
-                "<@ upper(namespace) @>_BUILD_TESTS": "OFF",
-<% if project_type == "Library" %>
-                "<@ upper(namespace) @>_BUILD_EXAMPLES": "OFF",
-<% endif %>
-                "<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE": "OFF"
-            }
-        },
-        {
             "name": "conf-debug-common",
             "hidden": true,
             "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
@@ -85,6 +69,11 @@
             "name": "conf-release-common",
             "hidden": true,
             "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+        },
+        {
+            "name": "conf-relwithdebinfo-common",
+            "hidden": true,
+            "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
         },
         {
             "name": "conf-gcc-common",
@@ -103,76 +92,58 @@
             }
         },
         {
-            "name": "msvc-debug-dev",
-            "displayName": "MSVC Debug (Developer Mode)",
+            "name": "msvc-debug",
+            "displayName": "Debug",
             "description": "Target Windows with the msvc compiler, debug build type",
-            "inherits": [ "conf-windows-common", "conf-debug-common", "conf-dev-common" ]
+            "inherits": [ "conf-windows-common", "conf-debug-common" ]
         },
         {
-            "name": "msvc-release-dev",
-            "displayName": "MSVC Release (Developer Mode)",
+            "name": "msvc-release",
+            "displayName": "Release",
             "description": "Target Windows with the msvc compiler, release build type",
-            "inherits": [ "conf-windows-common", "conf-release-common", "conf-dev-common" ]
+            "inherits": [ "conf-windows-common", "conf-release-common" ]
         },
         {
-            "name": "msvc-debug-user",
-            "displayName": "MSVC Debug (User Mode)",
-            "description": "Target Windows with the msvc compiler, debug build type",
-            "inherits": [ "conf-windows-common", "conf-debug-common", "conf-user-common" ]
+            "name": "msvc-relwithdebinfo",
+            "displayName": "RelWithDebInfo",
+            "description": "Target Windows with the msvc compiler, release build type with debug information",
+            "inherits": [ "conf-windows-common", "conf-relwithdebinfo-common" ]
         },
         {
-            "name": "msvc-release-user",
-            "displayName": "MSVC Release (User Mode)",
-            "description": "Target Windows with the msvc compiler, release build type",
-            "inherits": [ "conf-windows-common", "conf-release-common", "conf-user-common" ]
-        },
-        {
-            "name": "gcc-debug-dev",
-            "displayName": "GCC Debug (Developer Mode)",
+            "name": "gcc-debug",
+            "displayName": "GCC Debug",
             "description": "Target Unix-like OS with the gcc compiler, debug build type",
-            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-debug-common", "conf-dev-common" ]
+            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-debug-common" ]
         },
         {
-            "name": "gcc-release-dev",
-            "displayName": "GCC Release (Developer Mode)",
+            "name": "gcc-release",
+            "displayName": "GCC Release",
             "description": "Target Unix-like OS with the gcc compiler, release build type",
-            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-release-common", "conf-dev-common" ]
+            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-release-common" ]
         },
         {
-            "name": "gcc-debug-user",
-            "displayName": "GCC Debug (User Mode)",
-            "description": "Target Unix-like OS with the gcc compiler, debug build type",
-            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-debug-common", "conf-user-common" ]
+            "name": "gcc-relwithdebinfo",
+            "displayName": "GCC RelWithDebInfo",
+            "description": "Target Unix-like OS with the gcc compiler, release build type with debug information",
+            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-relwithdebinfo-common" ]
         },
         {
-            "name": "gcc-release-user",
-            "displayName": "GCC Release (User Mode)",
-            "description": "Target Unix-like OS with the gcc compiler, release build type",
-            "inherits": [ "conf-unixlike-common", "conf-gcc-common", "conf-release-common", "conf-user-common" ]
-        },
-        {
-            "name": "clang-debug-dev",
-            "displayName": "Clang Debug (Developer Mode)",
+            "name": "clang-debug",
+            "displayName": "Clang Debug",
             "description": "Target Unix-like OS with the clang compiler, debug build type",
-            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-debug-common", "conf-dev-common" ]
+            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-debug-common" ]
         },
         {
-            "name": "clang-release-dev",
-            "displayName": "Clang Release (Developer Mode)",
+            "name": "clang-release",
+            "displayName": "Clang Release",
             "description": "Target Unix-like OS with the clang compiler, release build type",
-            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-release-common", "conf-dev-common" ]
+            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-release-common" ]
         },
         {
-            "name": "clang-debug-user",
-            "displayName": "Clang Debug (User Mode)",
-            "description": "Target Unix-like OS with the clang compiler, debug build type",
-            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-debug-common", "conf-user-common" ]
-        },
-        {
-            "name": "clang-release-user",
-            "displayName": "Clang Release (User Mode)",
-            "description": "Target Unix-like OS with the clang compiler, release build type",
-            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-release-common", "conf-user-common" ]
+            "name": "clang-relwithdebinfo",
+            "displayName": "Clang RelWithDebInfo",
+            "description": "Target Unix-like OS with the clang compiler, release build type with debug information",
+            "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-relwithdebinfo-common" ]
         }
     ],
     "testPresets": [
@@ -189,63 +160,48 @@
         },
         {
             "inherits": "test-common",
-            "name": "test-msvc-debug-dev",
-            "configurePreset": "msvc-debug-dev"
+            "name": "test-msvc-debug",
+            "configurePreset": "msvc-debug"
         },
         {
             "inherits": "test-common",
-            "name": "test-msvc-release-dev",
-            "configurePreset": "msvc-release-dev"
+            "name": "test-msvc-release",
+            "configurePreset": "msvc-release"
         },
         {
             "inherits": "test-common",
-            "name": "test-msvc-debug-user",
-            "configurePreset": "msvc-debug-user"
+            "name": "test-msvc-relwithdebinfo",
+            "configurePreset": "msvc-relwithdebinfo"
         },
         {
             "inherits": "test-common",
-            "name": "test-msvc-release-user",
-            "configurePreset": "msvc-release-user"
+            "name": "test-gcc-debug",
+            "configurePreset": "gcc-debug"
         },
         {
             "inherits": "test-common",
-            "name": "test-gcc-debug-dev",
-            "configurePreset": "gcc-debug-dev"
+            "name": "test-gcc-release",
+            "configurePreset": "gcc-release"
         },
         {
             "inherits": "test-common",
-            "name": "test-gcc-release-dev",
-            "configurePreset": "gcc-release-dev"
+            "name": "test-gcc-relwithdebinfo",
+            "configurePreset": "gcc-relwithdebinfo"
         },
         {
             "inherits": "test-common",
-            "name": "test-gcc-debug-user",
-            "configurePreset": "gcc-debug-user"
+            "name": "test-clang-debug",
+            "configurePreset": "clang-debug"
         },
         {
             "inherits": "test-common",
-            "name": "test-gcc-release-user",
-            "configurePreset": "gcc-release-user"
+            "name": "test-clang-release",
+            "configurePreset": "clang-release"
         },
         {
             "inherits": "test-common",
-            "name": "test-clang-debug-dev",
-            "configurePreset": "clang-debug-dev"
-        },
-        {
-            "inherits": "test-common",
-            "name": "test-clang-release-dev",
-            "configurePreset": "clang-release-dev"
-        },
-        {
-            "inherits": "test-common",
-            "name": "test-clang-debug-user",
-            "configurePreset": "clang-debug-user"
-        },
-        {
-            "inherits": "test-common",
-            "name": "test-clang-release-user",
-            "configurePreset": "clang-release-user"
+            "name": "test-clang-relwithdebinfo",
+            "configurePreset": "clang-relwithdebinfo"
         }
     ]
 }
