@@ -1,11 +1,8 @@
-option(<@ upper(namespace) @>_ENABLE_TEST_COVERAGE     "test coverage"             ${<@ upper(namespace) @>_ENABLE_DEVELOPER_MODE})
-
 include("cmake/Cache.cmake")
 include("cmake/Warnings.cmake")
 include("cmake/Hardening.cmake")
 include("cmake/NiceOutput.cmake")
 include("cmake/Conformance.cmake")
-include("cmake/TestCoverage.cmake")
 include("cmake/PreventInSourceBuild.cmake")
 
 function(<@ lower(namespace) @>_setup_target TARGET_NAME)
@@ -22,6 +19,5 @@ function(<@ lower(namespace) @>_setup_target TARGET_NAME)
     __<@ lower(namespace) @>_target_enable_hardening(${TARGET_NAME})
     __<@ lower(namespace) @>_target_enable_nice_output(${TARGET_NAME})
     __<@ lower(namespace) @>_target_enable_conformance(${TARGET_NAME})
-    __<@ lower(namespace) @>_target_enable_test_coverage(${TARGET_NAME})
 
 endfunction()
