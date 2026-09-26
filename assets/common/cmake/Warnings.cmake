@@ -18,7 +18,7 @@ function(__<@ lower(namespace) @>_target_enable_warnings TARGET_NAME)
             /w14263      # member function does not override any base class virtual member function
             /w14265      # class has virtual functions, but destructor is not virtual
             /w14287      # unsigned/negative constant mismatch
-            /we4289      # loop control variable declared in the for-loop is used outside the for-loop scope
+            /w14289      # loop control variable declared in the for-loop is used outside the for-loop scope
             /w14296      # expression is always 'boolean_value'
             /w14311      # pointer truncation from 'type1' to 'type2'
             /w14545      # expression before comma evaluates to a function which is missing an argument list
