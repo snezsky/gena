@@ -1,39 +1,107 @@
+default:
+<% if project_type == "QtQuickApplication" %>
+  image: ghcr.io/snezsky/gena-ci-qt-quick:1
+<% else if project_type == "QtWidgetsApplication" or test_framework == "QTest" %>
+  image: ghcr.io/snezsky/gena-ci-qt:1
+<% else %>
+  image: ghcr.io/snezsky/gena-ci:1
+<% endif %>
+
 stages:
   - build
   - test
-  - coverage
-  
-variables:
-  PRESET: "clang-debug-dev"
-  BUILD_DIR: "out/build/clang-debug-dev"
-  TEST_DIR: "out/build/clang-debug-dev/tests"
-  
-build-job:
-  stage: build
-  script:
-    - cmake --preset $PRESET
-    - cmake --build $BUILD_DIR
-  artifacts:
-    paths:
-      - $BUILD_DIR
+  - lint
+  - deploy
 
-test-job:
-  stage: test
-  dependencies:
-    - build-job
-  script:
-    - LLVM_PROFILE_FILE="coverage-%p.profraw" ctest --preset test-$PRESET
-  artifacts:
+variables:
+  CCACHE_DIR: "$CI_PROJECT_DIR/.ccache"
+  CCACHE_BASEDIR: "$CI_PROJECT_DIR"
+  CCACHE_COMPILERCHECK: content
+  GIT_SUBMODULE_STRATEGY: recursive
+
+build-clang-debug:
+  stage: build
+  cache:
+    key: $CI_JOB_NAME
     paths:
-      - $TEST_DIR
-    
-coverage-job:
-  stage: coverage
-  dependencies:
-    - test-job
+      - .ccache
   script:
-    - scripts/coverage.sh $TEST_DIR src
+    - python3 scripts/build.py --preset clang-debug --sanitizers --coverage
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - out/build/clang-debug
+    exclude:
+      - out/build/clang-debug/**/*.o
+
+build-gcc-release:
+  stage: build
+  cache:
+    key: $CI_JOB_NAME
+    paths:
+      - .ccache
+  script:
+    - python3 scripts/build.py --preset gcc-release
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - out/build/gcc-release
+    exclude:
+      - out/build/gcc-release/**/*.o
+
+test-clang-debug:
+  stage: test
+  needs: [build-clang-debug]
+  script:
+    - python3 scripts/test.py --preset clang-debug --junit junit.xml
+  artifacts:
+    when: always
+    expire_in: 1 day
+    paths:
+      - out/build/clang-debug/**/*.gcda
+    reports:
+      junit: junit.xml
+
+coverage:
+  stage: test
+  needs: [build-clang-debug, test-clang-debug]
+  allow_failure: true
+  script:
+    - GCOV="llvm-cov gcov" bash scripts/coverage.sh out/build/clang-debug src
+  coverage: '/branches: (\d+(?:\.\d+)?)%/'
   artifacts:
     when: always
     paths:
-      - $TEST_DIR/coverage-html
+      - out/build/clang-debug/coverage-html
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: out/build/clang-debug/coverage.xml
+
+codechecker:
+  stage: lint
+  needs: [build-clang-debug]
+  allow_failure: true
+  script:
+    - CodeChecker analyze out/build/clang-debug/compile_commands.json --config .codechecker.yml --output out/codechecker
+    - CodeChecker parse out/codechecker --config .codechecker.yml --export html --output out/codechecker/html || true
+    - CodeChecker parse out/codechecker --config .codechecker.yml --export codeclimate --output codequality.json || true
+    - CodeChecker parse out/codechecker --config .codechecker.yml
+  artifacts:
+    when: always
+    paths:
+      - out/codechecker/html
+    reports:
+      codequality: codequality.json
+
+package:
+  stage: deploy
+  needs: [build-gcc-release]
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - cmake --install out/build/gcc-release
+  artifacts:
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_TAG"
+    paths:
+      - out/install/gcc-release
