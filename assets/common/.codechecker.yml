@@ -1,0 +1,34 @@
+# Static analysis settings for a build made with scripts/build.py, e.g. clang-debug:
+#   CodeChecker analyze out/build/clang-debug/compile_commands.json --config .codechecker.yml --output out/codechecker
+#   CodeChecker parse out/codechecker --config .codechecker.yml                                (findings in the terminal)
+#   CodeChecker parse out/codechecker --config .codechecker.yml --export html --output out/codechecker/html
+
+analyze:
+  # the Clang Static Analyzer runs inside clang-tidy (clang-analyzer-* checks), so it isn't a separate analyzer here
+  - --analyzers
+  - clang-tidy
+  - cppcheck
+  # only the project's own sources, not deps/ or the generated files in out/
+  - --file
+  - $PWD/src/*
+  - $PWD/tests/*
+<% if project_type == "Library" %>
+  - $PWD/include/*
+  - $PWD/examples/*
+<% endif %>
+  # clang-tidy takes its checks from .clang-tidy
+  - --analyzer-config
+  - clang-tidy:take-config-from-directory=true
+  - cppcheck:inconclusive=true
+  - --enable=cppcheck
+  - --disable=cppcheck-internalAstError
+  - --disable=cppcheck-knownConditionTrueFalse
+  - --disable=cppcheck-missingInclude
+  - --disable=cppcheck-missingIncludeSystem
+  - --disable=cppcheck-passedByValue
+  - --disable=cppcheck-preprocessorErrorDirective
+  - --disable=cppcheck-syntaxError
+  - --disable=cppcheck-unknownMacro
+
+parse:
+  - --trim-path-prefix=$PWD/
