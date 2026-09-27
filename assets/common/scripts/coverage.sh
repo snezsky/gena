@@ -2,40 +2,26 @@
 
 set -e
 if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "Usage: $0 <test_dir> <source_dir>"
+    echo "Usage: $0 <build_dir> <source_dir>"
     exit 1
 fi
 
 THRESHOLD=80
-TEST_DIR="$1"
+BUILD_DIR="$1"
 SOURCE_DIR="$2"
-BINARIES=$TEST_DIR/test_*
-HTML_OUTPUT="$TEST_DIR/coverage-html"
-PROFDATA="$TEST_DIR/coverage.profdata"
+HTML_OUTPUT="$BUILD_DIR/coverage-html"
+COBERTURA="$BUILD_DIR/coverage.xml"
 
-echo "Binaries is: " ${BINARIES[@]}
-
-# 1. Merge all .profraw files into a single .profdata
-echo "Merging profile data..."
-llvm-profdata merge -sparse "$TEST_DIR"/*.profraw -o "$PROFDATA"
-
-# 2. Generate HTML coverage report
-echo "Generating HTML report..."
-llvm-cov show ${BINARIES[@]} \
-    -instr-profile="$PROFDATA" \
-    -format=html \
-    -output-dir="$HTML_OUTPUT" \
-    $SOURCE_DIR
-echo "HTML report generated in $HTML_OUTPUT"
-
-# 3. Get total branch coverage
-COVERAGE=$(llvm-cov report ${BINARIES[@]} -instr-profile="$PROFDATA" $SOURCE_DIR | \
-           awk '/^TOTAL/ {gsub("%","",$13); print $13}')  # 13th column = branch coverage
-
-# 4. Fail if coverage is below threshold
-if (( $(echo "$COVERAGE < $THRESHOLD" | bc -l) )); then
-    echo "ERROR: Branch coverage $COVERAGE% is below threshold $THRESHOLD%"
-    exit 1
-fi
-
-echo "Branch coverage $COVERAGE% meets threshold ✅"
+# Needs a build compiled with --coverage and the tests already run, set GCOV="llvm-cov gcov" for clang builds.
+# Throw and unreachable branches are excluded, C++ branch coverage can't reach the threshold otherwise.
+mkdir -p "$HTML_OUTPUT"
+gcovr --root . "$BUILD_DIR" \
+    --gcov-executable "${GCOV:-gcov}" \
+    --exclude-directories "$BUILD_DIR/deps" \
+    --filter "$SOURCE_DIR/" \
+    --exclude-throw-branches \
+    --exclude-unreachable-branches \
+    --html-details "$HTML_OUTPUT/index.html" \
+    --cobertura "$COBERTURA" \
+    --print-summary \
+    --fail-under-branch $THRESHOLD
