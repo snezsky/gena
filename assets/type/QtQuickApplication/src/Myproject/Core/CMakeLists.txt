@@ -9,6 +9,7 @@ qt_add_qml_module(<@ project_name @>-core
         "include/<@ project_name @>/<@ project_name @>.hpp"
         "<@ project_name @>.cpp"
 )
+<@ lower(namespace) @>_setup_target(<@ project_name @>-core)
 
 target_link_libraries(<@ project_name @>-core PUBLIC Qt6::Qml)
 target_include_directories(<@ project_name @>-core
