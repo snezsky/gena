@@ -32,7 +32,8 @@ build-clang-debug:
     paths:
       - out/build/clang-debug
     exclude:
-      - out/build/clang-debug/**/*.o
+      - out/build/clang-debug/**/*.o    # large and not needed by later jobs
+      - out/build/clang-debug/**/*.gcda # from test discovery, could mess up coverage
 
 build-gcc-release:
   stage: build
