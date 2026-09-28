@@ -68,7 +68,11 @@ coverage:
   needs: [build-clang-debug, test-clang-debug]
   allow_failure: true
   script:
+<% if project_type == "Library" %>
+    - GCOV="llvm-cov gcov" bash scripts/coverage.sh out/build/clang-debug src include
+<% else %>
     - GCOV="llvm-cov gcov" bash scripts/coverage.sh out/build/clang-debug src
+<% endif %>
   coverage: '/branches: (\d+(?:\.\d+)?)%/'
   artifacts:
     when: always
