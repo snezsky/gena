@@ -7,7 +7,7 @@ You can build the project using your IDE of choice, or:
 cmake --list-presets
 cmake --preset <preset-name>
 cmake --build --preset <preset-name>
-ctest --preset test-<preset-name>
+ctest --preset <preset-name>
 ```
 
 or configure, build and test in one step:

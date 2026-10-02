@@ -244,48 +244,48 @@
             }
         },
         {
+            "name": "msvc-debug",
             "inherits": "test-windows-common",
-            "name": "test-msvc-debug",
             "configurePreset": "msvc-debug"
         },
         {
+            "name": "msvc-release",
             "inherits": "test-windows-common",
-            "name": "test-msvc-release",
             "configurePreset": "msvc-release"
         },
         {
+            "name": "msvc-relwithdebinfo",
             "inherits": "test-windows-common",
-            "name": "test-msvc-relwithdebinfo",
             "configurePreset": "msvc-relwithdebinfo"
         },
         {
+            "name": "gcc-debug",
             "inherits": "test-unixlike-common",
-            "name": "test-gcc-debug",
             "configurePreset": "gcc-debug"
         },
         {
+            "name": "gcc-release",
             "inherits": "test-unixlike-common",
-            "name": "test-gcc-release",
             "configurePreset": "gcc-release"
         },
         {
+            "name": "gcc-relwithdebinfo",
             "inherits": "test-unixlike-common",
-            "name": "test-gcc-relwithdebinfo",
             "configurePreset": "gcc-relwithdebinfo"
         },
         {
+            "name": "clang-debug",
             "inherits": "test-unixlike-common",
-            "name": "test-clang-debug",
             "configurePreset": "clang-debug"
         },
         {
+            "name": "clang-release",
             "inherits": "test-unixlike-common",
-            "name": "test-clang-release",
             "configurePreset": "clang-release"
         },
         {
+            "name": "clang-relwithdebinfo",
             "inherits": "test-unixlike-common",
-            "name": "test-clang-relwithdebinfo",
             "configurePreset": "clang-relwithdebinfo"
         }
     ],
@@ -295,7 +295,7 @@
             "steps": [
                 { "type": "configure", "name": "msvc-debug" },
                 { "type": "build", "name": "msvc-debug" },
-                { "type": "test", "name": "test-msvc-debug" }
+                { "type": "test", "name": "msvc-debug" }
             ]
         },
         {
@@ -303,7 +303,7 @@
             "steps": [
                 { "type": "configure", "name": "msvc-release" },
                 { "type": "build", "name": "msvc-release" },
-                { "type": "test", "name": "test-msvc-release" }
+                { "type": "test", "name": "msvc-release" }
             ]
         },
         {
@@ -311,7 +311,7 @@
             "steps": [
                 { "type": "configure", "name": "msvc-relwithdebinfo" },
                 { "type": "build", "name": "msvc-relwithdebinfo" },
-                { "type": "test", "name": "test-msvc-relwithdebinfo" }
+                { "type": "test", "name": "msvc-relwithdebinfo" }
             ]
         },
         {
@@ -319,7 +319,7 @@
             "steps": [
                 { "type": "configure", "name": "gcc-debug" },
                 { "type": "build", "name": "gcc-debug" },
-                { "type": "test", "name": "test-gcc-debug" }
+                { "type": "test", "name": "gcc-debug" }
             ]
         },
         {
@@ -327,7 +327,7 @@
             "steps": [
                 { "type": "configure", "name": "gcc-release" },
                 { "type": "build", "name": "gcc-release" },
-                { "type": "test", "name": "test-gcc-release" }
+                { "type": "test", "name": "gcc-release" }
             ]
         },
         {
@@ -335,7 +335,7 @@
             "steps": [
                 { "type": "configure", "name": "gcc-relwithdebinfo" },
                 { "type": "build", "name": "gcc-relwithdebinfo" },
-                { "type": "test", "name": "test-gcc-relwithdebinfo" }
+                { "type": "test", "name": "gcc-relwithdebinfo" }
             ]
         },
         {
@@ -343,7 +343,7 @@
             "steps": [
                 { "type": "configure", "name": "clang-debug" },
                 { "type": "build", "name": "clang-debug" },
-                { "type": "test", "name": "test-clang-debug" }
+                { "type": "test", "name": "clang-debug" }
             ]
         },
         {
@@ -351,7 +351,7 @@
             "steps": [
                 { "type": "configure", "name": "clang-release" },
                 { "type": "build", "name": "clang-release" },
-                { "type": "test", "name": "test-clang-release" }
+                { "type": "test", "name": "clang-release" }
             ]
         },
         {
@@ -359,7 +359,7 @@
             "steps": [
                 { "type": "configure", "name": "clang-relwithdebinfo" },
                 { "type": "build", "name": "clang-relwithdebinfo" },
-                { "type": "test", "name": "test-clang-relwithdebinfo" }
+                { "type": "test", "name": "clang-relwithdebinfo" }
             ]
         }
     ]

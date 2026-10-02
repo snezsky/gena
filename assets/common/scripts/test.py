@@ -33,7 +33,7 @@ def main():
     env = os.environ.copy()
     env.setdefault("UBSAN_OPTIONS", UBSAN_OPTIONS)
 
-    command = ["ctest", "--preset", f"test-{args.preset}"]
+    command = ["ctest", "--preset", args.preset]
     if args.junit:
         # ctest resolves relative paths against the build folder, make it relative to where the script is called
         command += ["--output-junit", os.path.abspath(args.junit)]
