@@ -22,7 +22,7 @@
         },
         {
             "name": "conf-windows-common",
-            "description": "Windows settings for MSBuild toolchain",
+            "description": "Windows settings for the MSVC toolchain",
             "hidden": true,
             "inherits": "conf-common",
             "condition": {
@@ -93,19 +93,19 @@
         },
         {
             "name": "msvc-debug",
-            "displayName": "Debug",
+            "displayName": "MSVC Debug",
             "description": "Target Windows with the msvc compiler, debug build type",
             "inherits": [ "conf-windows-common", "conf-debug-common" ]
         },
         {
             "name": "msvc-release",
-            "displayName": "Release",
+            "displayName": "MSVC Release",
             "description": "Target Windows with the msvc compiler, release build type",
             "inherits": [ "conf-windows-common", "conf-release-common" ]
         },
         {
             "name": "msvc-relwithdebinfo",
-            "displayName": "RelWithDebInfo",
+            "displayName": "MSVC RelWithDebInfo",
             "description": "Target Windows with the msvc compiler, release build type with debug information",
             "inherits": [ "conf-windows-common", "conf-relwithdebinfo-common" ]
         },
@@ -167,46 +167,55 @@
         },
         {
             "name": "msvc-debug",
+            "displayName": "MSVC Debug",
             "inherits": "build-windows-common",
             "configurePreset": "msvc-debug"
         },
         {
             "name": "msvc-release",
+            "displayName": "MSVC Release",
             "inherits": "build-windows-common",
             "configurePreset": "msvc-release"
         },
         {
             "name": "msvc-relwithdebinfo",
+            "displayName": "MSVC RelWithDebInfo",
             "inherits": "build-windows-common",
             "configurePreset": "msvc-relwithdebinfo"
         },
         {
             "name": "gcc-debug",
+            "displayName": "GCC Debug",
             "inherits": "build-unixlike-common",
             "configurePreset": "gcc-debug"
         },
         {
             "name": "gcc-release",
+            "displayName": "GCC Release",
             "inherits": "build-unixlike-common",
             "configurePreset": "gcc-release"
         },
         {
             "name": "gcc-relwithdebinfo",
+            "displayName": "GCC RelWithDebInfo",
             "inherits": "build-unixlike-common",
             "configurePreset": "gcc-relwithdebinfo"
         },
         {
             "name": "clang-debug",
+            "displayName": "Clang Debug",
             "inherits": "build-unixlike-common",
             "configurePreset": "clang-debug"
         },
         {
             "name": "clang-release",
+            "displayName": "Clang Release",
             "inherits": "build-unixlike-common",
             "configurePreset": "clang-release"
         },
         {
             "name": "clang-relwithdebinfo",
+            "displayName": "Clang RelWithDebInfo",
             "inherits": "build-unixlike-common",
             "configurePreset": "clang-relwithdebinfo"
         }
@@ -245,46 +254,55 @@
         },
         {
             "name": "msvc-debug",
+            "displayName": "MSVC Debug",
             "inherits": "test-windows-common",
             "configurePreset": "msvc-debug"
         },
         {
             "name": "msvc-release",
+            "displayName": "MSVC Release",
             "inherits": "test-windows-common",
             "configurePreset": "msvc-release"
         },
         {
             "name": "msvc-relwithdebinfo",
+            "displayName": "MSVC RelWithDebInfo",
             "inherits": "test-windows-common",
             "configurePreset": "msvc-relwithdebinfo"
         },
         {
             "name": "gcc-debug",
+            "displayName": "GCC Debug",
             "inherits": "test-unixlike-common",
             "configurePreset": "gcc-debug"
         },
         {
             "name": "gcc-release",
+            "displayName": "GCC Release",
             "inherits": "test-unixlike-common",
             "configurePreset": "gcc-release"
         },
         {
             "name": "gcc-relwithdebinfo",
+            "displayName": "GCC RelWithDebInfo",
             "inherits": "test-unixlike-common",
             "configurePreset": "gcc-relwithdebinfo"
         },
         {
             "name": "clang-debug",
+            "displayName": "Clang Debug",
             "inherits": "test-unixlike-common",
             "configurePreset": "clang-debug"
         },
         {
             "name": "clang-release",
+            "displayName": "Clang Release",
             "inherits": "test-unixlike-common",
             "configurePreset": "clang-release"
         },
         {
             "name": "clang-relwithdebinfo",
+            "displayName": "Clang RelWithDebInfo",
             "inherits": "test-unixlike-common",
             "configurePreset": "clang-relwithdebinfo"
         }
@@ -292,6 +310,7 @@
     "workflowPresets": [
         {
             "name": "msvc-debug",
+            "displayName": "MSVC Debug",
             "steps": [
                 { "type": "configure", "name": "msvc-debug" },
                 { "type": "build", "name": "msvc-debug" },
@@ -300,6 +319,7 @@
         },
         {
             "name": "msvc-release",
+            "displayName": "MSVC Release",
             "steps": [
                 { "type": "configure", "name": "msvc-release" },
                 { "type": "build", "name": "msvc-release" },
@@ -308,6 +328,7 @@
         },
         {
             "name": "msvc-relwithdebinfo",
+            "displayName": "MSVC RelWithDebInfo",
             "steps": [
                 { "type": "configure", "name": "msvc-relwithdebinfo" },
                 { "type": "build", "name": "msvc-relwithdebinfo" },
@@ -316,6 +337,7 @@
         },
         {
             "name": "gcc-debug",
+            "displayName": "GCC Debug",
             "steps": [
                 { "type": "configure", "name": "gcc-debug" },
                 { "type": "build", "name": "gcc-debug" },
@@ -324,6 +346,7 @@
         },
         {
             "name": "gcc-release",
+            "displayName": "GCC Release",
             "steps": [
                 { "type": "configure", "name": "gcc-release" },
                 { "type": "build", "name": "gcc-release" },
@@ -332,6 +355,7 @@
         },
         {
             "name": "gcc-relwithdebinfo",
+            "displayName": "GCC RelWithDebInfo",
             "steps": [
                 { "type": "configure", "name": "gcc-relwithdebinfo" },
                 { "type": "build", "name": "gcc-relwithdebinfo" },
@@ -340,6 +364,7 @@
         },
         {
             "name": "clang-debug",
+            "displayName": "Clang Debug",
             "steps": [
                 { "type": "configure", "name": "clang-debug" },
                 { "type": "build", "name": "clang-debug" },
@@ -348,6 +373,7 @@
         },
         {
             "name": "clang-release",
+            "displayName": "Clang Release",
             "steps": [
                 { "type": "configure", "name": "clang-release" },
                 { "type": "build", "name": "clang-release" },
@@ -356,6 +382,7 @@
         },
         {
             "name": "clang-relwithdebinfo",
+            "displayName": "Clang RelWithDebInfo",
             "steps": [
                 { "type": "configure", "name": "clang-relwithdebinfo" },
                 { "type": "build", "name": "clang-relwithdebinfo" },
