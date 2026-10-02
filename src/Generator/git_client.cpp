@@ -1,4 +1,5 @@
 #include "git_client.hpp"
+#include "string_extensions.hpp"
 
 #include <QProcess>
 #include <QProcessEnvironment>
@@ -10,7 +11,7 @@ namespace
     {
         if (!std::filesystem::is_directory(repository))
         {
-            throw std::invalid_argument(std::format("Invalid git repository path: {}", repository.string()));
+            throw std::invalid_argument(std::format("Invalid git repository path: {}", gena::to_utf8(repository)));
         }
 
         /* Fail instead of waiting for credentials nobody can enter */
@@ -20,7 +21,7 @@ namespace
 
         QProcess process;
         process.setProcessEnvironment(environment);
-        process.setWorkingDirectory(QString::fromStdString(repository.string()));
+        process.setWorkingDirectory(QString::fromStdString(gena::to_utf8(repository)));
         process.start("git", QStringList(args.begin(), args.end()));
 
         if (!process.waitForFinished(-1) || process.exitStatus() != QProcess::NormalExit ||
@@ -73,7 +74,7 @@ namespace gena
     }
 
     void GitClient::set_execute_permission(const std::filesystem::path &file)
-    { git(repository_, {"update-index", "--chmod=+x", QString::fromStdString(file.string())}); }
+    { git(repository_, {"update-index", "--chmod=+x", QString::fromStdString(to_utf8(file))}); }
 
     std::string GitClient::repository_name(const std::string &repositoryUrl)
     {

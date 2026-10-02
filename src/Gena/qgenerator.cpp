@@ -17,7 +17,7 @@ namespace gena
             .standard = options["standard"].value<CppStandard>(),
             .test_framework = options["testFramework"].value<TestFramework>(),
             .cpp_namespace = options["namespace"].toString().toStdString(),
-            .output_directory = options["outputDirectory"].toUrl().toLocalFile().toStdString(),
+            .output_directory = options["outputDirectory"].toUrl().toLocalFile().toStdU16String(),
             .submodule_urls = std::move(submoduleUrls),
         };
 
@@ -29,7 +29,7 @@ namespace gena
         try
         {
             generator_.generate(options);
-            project_directory_ = QUrl::fromLocalFile(generator_.project_directory().string().c_str());
+            project_directory_ = QUrl::fromLocalFile(QString::fromStdU16String(generator_.project_directory().u16string()));
             emit generationFinished();
         }
         catch (const std::exception &e)

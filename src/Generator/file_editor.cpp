@@ -9,6 +9,16 @@
 #include <format>
 #include <unordered_set>
 
+namespace
+{
+    std::string read_file(const std::filesystem::path &file)
+    {
+        std::ifstream in(file, std::ios::in | std::ios::binary); // NOLINT(hicpp-signed-bitwise)
+        if (!in) { throw inja::FileError("failed accessing file at '" + gena::to_utf8(file) + "'"); }
+        return {std::istreambuf_iterator<char>(in), {}};
+    }
+} // namespace
+
 namespace gena
 {
     struct FileEditor::Impl
@@ -28,7 +38,7 @@ namespace gena
 
             try
             {
-                const std::string content = env_.render_file(file, options_);
+                const std::string content = env_.render(read_file(file), options_);
 
                 std::ofstream out;
                 out.exceptions(std::ios::failbit | std::ios::badbit);               // NOLINT(hicpp-signed-bitwise)
@@ -37,13 +47,13 @@ namespace gena
             }
             catch (const inja::InjaError &e)
             {
-                const std::string filename = std::filesystem::path{file}.make_preferred().string();
+                const std::string filename = to_utf8(std::filesystem::path{file}.make_preferred());
                 throw std::runtime_error(
                     std::format("Error rendering template!\n\nFile: {}\nError: {}", filename, e.what()));
             }
             catch (const std::system_error &e)
             {
-                const std::string filename = std::filesystem::path{file}.make_preferred().string();
+                const std::string filename = to_utf8(std::filesystem::path{file}.make_preferred());
                 throw std::runtime_error(
                     std::format("Error writing rendered template to file!\n\nFile: {}\nError: {}", filename, e.what()));
             }
@@ -79,7 +89,7 @@ namespace gena
             env_.set_include_callback([this]([[maybe_unused]] const std::filesystem::path &, const std::string &name) {
                 static const auto applicationPath = whereami::get_executable_directory();
                 static const auto includePath = applicationPath / "assets" / "include";
-                return env_.parse_file(includePath / name);
+                return env_.parse(read_file(includePath / name));
             });
         }
 

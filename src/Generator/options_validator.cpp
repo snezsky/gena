@@ -163,12 +163,12 @@ namespace gena
 
         if (std::filesystem::is_directory(projectDir) && !std::filesystem::is_empty(projectDir))
         {
-            throw std::invalid_argument("Directory '" + projectDir.string() + "' is not empty.");
+            throw std::invalid_argument("Directory '" + to_utf8(projectDir) + "' is not empty.");
         }
 
         if (std::filesystem::exists(projectDir) && !std::filesystem::is_directory(projectDir))
         {
-            throw std::invalid_argument("Path '" + projectDir.string() + "' is not a directory.");
+            throw std::invalid_argument("Path '" + to_utf8(projectDir) + "' is not a directory.");
         }
     }
 } // namespace gena

@@ -145,3 +145,13 @@ TEST(TestGenerator, DoesNotModifyExistingDirectoryIfOptionsInvalid)
     EXPECT_TRUE(std::filesystem::exists(projectDir));
     EXPECT_TRUE(std::filesystem::exists(projectDir / file));
 }
+
+TEST(TestGenerator, OutputPathWithNonAsciiSymbols)
+{
+    gena::GenerationOptions options = gena::valid_options();
+    options.output_directory = gena::temp_directory() / u8"тестовая_директория";
+    ASSERT_TRUE(std::filesystem::create_directory(options.output_directory));
+
+    gena::Generator generator;
+    EXPECT_NO_THROW(generator.generate(options, std::make_unique<NiceMockGitClient>()));
+}
