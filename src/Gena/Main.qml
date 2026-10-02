@@ -9,7 +9,7 @@ ApplicationWindow
 {
     id: root
     visible: true
-    width: 560
+    width: 440
     height: 585
 
     ColumnLayout
