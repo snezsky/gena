@@ -1,17 +1,18 @@
-function(__gena_target_enable_cache TARGET_NAME)
+function(gena_enable_cache)
 
-  find_program(CACHE_BINARY NAMES "ccache")
+  if (DEFINED CMAKE_CXX_COMPILER_LAUNCHER)
+    return()
+  endif()
+
+  find_program(CACHE_BINARY NAMES "ccache" "sccache")
   if (NOT CACHE_BINARY)
-      find_program(CACHE_BINARY NAMES "sccache")
-  endif()
-  if(NOT CACHE_BINARY)
-      message(AUTHOR_WARNING "cache enabled, but cache binary was not found")
-      return()
+    message(STATUS "Neither ccache nor sccache found, building without a compiler cache")
+    return()
   endif()
 
-  set_target_properties(
-      ${TARGET_NAME} PROPERTIES
-      C_COMPILER_LAUNCHER   ${CACHE_BINARY}
-      CXX_COMPILER_LAUNCHER ${CACHE_BINARY})
+  set(CMAKE_C_COMPILER_LAUNCHER   ${CACHE_BINARY} PARENT_SCOPE)
+  set(CMAKE_CXX_COMPILER_LAUNCHER ${CACHE_BINARY} PARENT_SCOPE)
 
 endfunction()
+
+gena_enable_cache()

@@ -22,7 +22,6 @@ function(gena_setup_target TARGET_NAME)
         CXX_STANDARD_REQUIRED   ON
         EXPORT_COMPILE_COMMANDS ON)
 
-    __gena_target_enable_cache(${TARGET_NAME})
     __gena_target_enable_warnings(${TARGET_NAME})
     __gena_target_enable_hardening(${TARGET_NAME})
     __gena_target_enable_nice_output(${TARGET_NAME})
