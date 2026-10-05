@@ -15,6 +15,7 @@ Checks: "*,
         -clang-analyzer-optin.core.EnumCastOutOfRange,
         -misc-no-recursion,
         -misc-include-cleaner,
+        -readability-trailing-comma,
 "
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
