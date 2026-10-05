@@ -76,8 +76,8 @@ namespace gena
         fs::create_directories(destination);
 
         std::ofstream out;
-        out.exceptions(std::ios::failbit | std::ios::badbit);                       // NOLINT(hicpp-signed-bitwise)
-        out.open(destination / "CMakeLists.txt", std::ios::out | std::ios::binary); // NOLINT(hicpp-signed-bitwise)
+        out.exceptions(std::ios::failbit | std::ios::badbit);
+        out.open(destination / "CMakeLists.txt", std::ios::out | std::ios::binary);
 
         out << "# To avoid cluttering the target list\n";
         out << "set(CMAKE_FOLDER \"deps\")\n\n";

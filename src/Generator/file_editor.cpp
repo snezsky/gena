@@ -13,7 +13,7 @@ namespace
 {
     std::string read_file(const std::filesystem::path &file)
     {
-        std::ifstream in(file, std::ios::in | std::ios::binary); // NOLINT(hicpp-signed-bitwise)
+        std::ifstream in(file, std::ios::in | std::ios::binary);
         if (!in) { throw inja::FileError("failed accessing file at '" + gena::to_utf8(file) + "'"); }
         return {std::istreambuf_iterator<char>(in), {}};
     }
@@ -41,8 +41,8 @@ namespace gena
                 const std::string content = env_.render(read_file(file), options_);
 
                 std::ofstream out;
-                out.exceptions(std::ios::failbit | std::ios::badbit);               // NOLINT(hicpp-signed-bitwise)
-                out.open(file, std::ios::out | std::ios::trunc | std::ios::binary); // NOLINT(hicpp-signed-bitwise)
+                out.exceptions(std::ios::failbit | std::ios::badbit);
+                out.open(file, std::ios::out | std::ios::trunc | std::ios::binary);
                 out << content;
             }
             catch (const inja::InjaError &e)

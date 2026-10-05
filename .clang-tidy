@@ -19,6 +19,8 @@ Checks: "*,
         -misc-no-recursion,
         -misc-include-cleaner,
         -readability-trailing-comma,
+        -bugprone-signed-bitwise,
+        -hicpp-signed-bitwise,
 "
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
