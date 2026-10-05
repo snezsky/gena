@@ -12,7 +12,7 @@ endfunction()
 
 function(__gena_target_enable_cppcheck TARGET_NAME)
 
-    find_program(CPPCHECK cppcheck)
+    find_program(CPPCHECK cppcheck PATHS "$ENV{ProgramFiles}/Cppcheck")
     if (NOT CPPCHECK)
         message(FATAL_ERROR "static analysis enabled, but cppcheck was not found")
     endif()
