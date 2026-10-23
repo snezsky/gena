@@ -50,14 +50,29 @@ TEST_P(FileEditorTest, RenderTemplates)
     EXPECT_EQ(actual, expected);
 }
 
-using enum CppStandard;
-using enum ProjectType;
-using enum TestFramework;
-using namespace std::filesystem;
-
-// clang-format off
-INSTANTIATE_TEST_SUITE_P(, FileEditorTest, ::testing::Values(
-    std::pair(GenerationOptions{"first_name", Library, Cpp17, GoogleTest, "first_namespace", current_path(), {"https://github.com/google/googletest"}}, "expected1.txt"),
-    std::pair(GenerationOptions{"SecondName", ConsoleApplication, Cpp20, Catch2, "SecondNamespace", current_path(), {}}, "expected2.txt"),
-    std::pair(GenerationOptions{"Third_Name", QtWidgetsApplication,Cpp23, QTest, "Third_Namespace", current_path(), {"https://github.com/fmtlib/fmt"}}, "expected3.txt")));
-// clang-format on
+INSTANTIATE_TEST_SUITE_P(
+    , FileEditorTest,
+    ::testing::Values(std::pair(GenerationOptions{.name = "first_name",
+                                                  .type = ProjectType::Library,
+                                                  .standard = CppStandard::Cpp17,
+                                                  .test_framework = TestFramework::GoogleTest,
+                                                  .cpp_namespace = "first_namespace",
+                                                  .output_directory = std::filesystem::current_path(),
+                                                  .submodule_urls = {{"https://github.com/google/googletest"}}},
+                                "expected1.txt"),
+                      std::pair(GenerationOptions{.name = "SecondName",
+                                                  .type = ProjectType::ConsoleApplication,
+                                                  .standard = CppStandard::Cpp20,
+                                                  .test_framework = TestFramework::Catch2,
+                                                  .cpp_namespace = "SecondNamespace",
+                                                  .output_directory = std::filesystem::current_path(),
+                                                  .submodule_urls = {}},
+                                "expected2.txt"),
+                      std::pair(GenerationOptions{.name = "Third_Name",
+                                                  .type = ProjectType::QtWidgetsApplication,
+                                                  .standard = CppStandard::Cpp23,
+                                                  .test_framework = TestFramework::QTest,
+                                                  .cpp_namespace = "Third_Namespace",
+                                                  .output_directory = std::filesystem::current_path(),
+                                                  .submodule_urls = {{"https://github.com/fmtlib/fmt"}}},
+                                "expected3.txt")));
