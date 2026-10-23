@@ -6,6 +6,7 @@ function(__<@ lower(namespace) @>_target_enable_conformance TARGET_NAME)
         target_compile_options(${TARGET_NAME} PRIVATE
 <% if cpp_standard == 17 %>
             /permissive-      # standards conformance mode
+            /Zc:lambda        # standard conforming lambda processor
 <% endif %>
             /Zc:__cplusplus   # report the real standard version in __cplusplus
             /Zc:preprocessor  # standard conforming preprocessor
