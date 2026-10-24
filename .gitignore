@@ -12,7 +12,7 @@ CMakeUserPresets.json
 # IDE files
 .vs/
 .idea/
-.vscode/
+.vscode/*
 .qtcreator/
 !.vscode/settings.json
 !.vscode/tasks.json
