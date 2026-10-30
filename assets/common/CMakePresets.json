@@ -61,6 +61,27 @@
             }
         },
         {
+            "name": "conf-android-common",
+            "description": "Android settings for 64-bit ARM devices",
+            "hidden": true,
+            "inherits": "conf-common",
+            "condition": {
+                "type": "notEquals",
+                "lhs": "$env{ANDROID_NDK_ROOT}",
+                "rhs": ""
+            },
+<% if project_type in ["QtQuickApplication", "QtWidgetsApplication"] %>
+            "toolchainFile": "$env{QT_ANDROID_DIR}/lib/cmake/Qt6/qt.toolchain.cmake",
+<% else %>
+            "toolchainFile": "$env{ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake",
+<% endif %>
+            "cacheVariables": {
+                "ANDROID_ABI": "arm64-v8a",
+                "ANDROID_PLATFORM": "android-28",
+                "<@ upper(namespace) @>_BUILD_TESTS": "OFF"
+            }
+        },
+        {
             "name": "conf-debug-common",
             "hidden": true,
             "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
@@ -144,6 +165,24 @@
             "displayName": "Clang RelWithDebInfo",
             "description": "Target Unix-like OS with the clang compiler, release build type with debug information",
             "inherits": [ "conf-unixlike-common", "conf-clang-common", "conf-relwithdebinfo-common" ]
+        },
+        {
+            "name": "android-debug",
+            "displayName": "Android Debug",
+            "description": "Target Android arm64-v8a with the NDK clang compiler, debug build type",
+            "inherits": [ "conf-android-common", "conf-debug-common" ]
+        },
+        {
+            "name": "android-release",
+            "displayName": "Android Release",
+            "description": "Target Android arm64-v8a with the NDK clang compiler, release build type",
+            "inherits": [ "conf-android-common", "conf-release-common" ]
+        },
+        {
+            "name": "android-relwithdebinfo",
+            "displayName": "Android RelWithDebInfo",
+            "description": "Target Android arm64-v8a with the NDK clang compiler, release build type with debug information",
+            "inherits": [ "conf-android-common", "conf-relwithdebinfo-common" ]
         }
     ],
     "buildPresets": [
@@ -218,6 +257,21 @@
             "displayName": "Clang RelWithDebInfo",
             "inherits": "build-unixlike-common",
             "configurePreset": "clang-relwithdebinfo"
+        },
+        {
+            "name": "android-debug",
+            "displayName": "Android Debug",
+            "configurePreset": "android-debug"
+        },
+        {
+            "name": "android-release",
+            "displayName": "Android Release",
+            "configurePreset": "android-release"
+        },
+        {
+            "name": "android-relwithdebinfo",
+            "displayName": "Android RelWithDebInfo",
+            "configurePreset": "android-relwithdebinfo"
         }
     ],
     "testPresets": [
@@ -387,6 +441,30 @@
                 { "type": "configure", "name": "clang-relwithdebinfo" },
                 { "type": "build", "name": "clang-relwithdebinfo" },
                 { "type": "test", "name": "clang-relwithdebinfo" }
+            ]
+        },
+        {
+            "name": "android-debug",
+            "displayName": "Android Debug",
+            "steps": [
+                { "type": "configure", "name": "android-debug" },
+                { "type": "build", "name": "android-debug" }
+            ]
+        },
+        {
+            "name": "android-release",
+            "displayName": "Android Release",
+            "steps": [
+                { "type": "configure", "name": "android-release" },
+                { "type": "build", "name": "android-release" }
+            ]
+        },
+        {
+            "name": "android-relwithdebinfo",
+            "displayName": "Android RelWithDebInfo",
+            "steps": [
+                { "type": "configure", "name": "android-relwithdebinfo" },
+                { "type": "build", "name": "android-relwithdebinfo" }
             ]
         }
     ]

@@ -49,6 +49,9 @@ def main():
     msvc = args.preset.startswith("msvc")
     compile_flags, link_flags = compiler_flags(args)
 
+    if args.preset.startswith("android") and (args.coverage or args.sanitizers):
+        sys.exit("error: --coverage and --sanitizers are not supported with Android presets")
+
     if msvc:
         if args.coverage:
             sys.exit("error: --coverage is not supported with MSVC presets")

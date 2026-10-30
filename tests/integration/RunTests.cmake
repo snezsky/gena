@@ -18,11 +18,12 @@ function(assert_process_succeeds)
 
 endfunction()
 
-# Can't check msvc conventional way in the script mode
+set(PRESETS android-release android-debug)
 if(DEFINED ENV{VisualStudioVersion})
-    set(PRESETS msvc-debug msvc-release)
+    # Can't check msvc conventional way in the script mode
+    list(APPEND PRESETS msvc-debug msvc-release)
 else()
-    set(PRESETS clang-debug clang-release gcc-debug gcc-release)
+    list(APPEND PRESETS clang-debug clang-release gcc-debug gcc-release)
 endif()
 
 foreach (PRESET ${PRESETS})

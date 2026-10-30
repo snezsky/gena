@@ -27,6 +27,8 @@ def run(command, env):
 
 def main():
     args = parse_arguments()
+    if args.preset.startswith("android"):
+        sys.exit("error: Android builds can't run on the host, there are no tests to run for Android presets")
     if args.preset.startswith("msvc") and "VisualStudioVersion" not in os.environ:
         sys.exit("error: run from the x64 Native Tools Command Prompt for VS (or call vcvars64.bat first)")
 
